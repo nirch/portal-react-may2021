@@ -10,6 +10,7 @@
 .c-buttonSet > button {
     border: none;
     background-color: white;
+    font-size: 15px;
 }
 
 .active {
