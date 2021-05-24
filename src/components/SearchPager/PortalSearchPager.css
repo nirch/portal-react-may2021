@@ -3,10 +3,8 @@
     font-family: Assistant-Light;
     font-size: 20px; 
     color:#707070;
-
-    
 }
-.c-search-page>.search-input{
+.c-search-form>.search-input{
     background-color: rgba(188, 188, 188,0.15);
     border: none;
     width: 100%;
@@ -14,7 +12,3 @@
     padding-right:26.5px;
     border-radius: 25px;
 }
-/* ::placeholder { 
-    color:#707070;
-    opacity: 1; 
-} */
