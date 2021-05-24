@@ -1,0 +1,21 @@
+
+.c-buttonSet {
+    width: 360px;
+    height: 76px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.c-buttonSet > button {
+    border: none;
+    background-color: white;
+}
+
+.active {
+    color: #5d5d5d;
+}
+
+.inactive {
+    color: rgb(0,0,0,0.1);
+}
