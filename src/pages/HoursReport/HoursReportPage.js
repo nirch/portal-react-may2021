@@ -2,42 +2,337 @@ import React, { useContext } from 'react';
 import './HoursReportPage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
+import HoursReportRow from '../../components/HoursReportRow/HoursReportRow'
 import { Redirect } from 'react-router-dom'
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 const HoursReportPage = (props) => {
     const { handleLogout } = props;
     const activeUser = useContext(ActiveUserContext);
-    const GetReports =
-    {
-        "userid": "950",
-        "reportid": "81762",
-        "date": "23/05/2021",
-        "courseid": null,
-        "projectid": "7",
-        "actionid": "49",
-        "starthour": "15:00",
-        "finishhour": "16:15",
-        "carkm": null,
-        "cost": null,
-        "comment": "",
-        "reportcopyid": "80994",
-        "automatic": "0",
-        "approval": "0",
-        "checkdate": null,
-        "missingreportsubject": "0",
-        "copyreport": {
+
+   
+
+    const reports = [
+        {
+            "userid": "950",
+            "reportid": "81762",
             "date": "23/05/2021",
+            "courseid": null,
             "projectid": "7",
             "actionid": "49",
-            "courseid": null,
             "starthour": "15:00",
             "finishhour": "16:15",
-            "cost": null,
             "carkm": null,
-            "comment": ""
-        }
-    };
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81762",
+            "date": "23/05/2021",
+            "courseid": null,
+            "projectid": "7",
+            "actionid": "49",
+            "starthour": "15:00",
+            "finishhour": "16:15",
+            "carkm": null,
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80994",
+            "automatic": "0",
+            "approval": "0",
+            "checkdate": null,
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "23/05/2021",
+                "projectid": "7",
+                "actionid": "49",
+                "courseid": null,
+                "starthour": "15:00",
+                "finishhour": "16:15",
+                "cost": null,
+                "carkm": null,
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81761",
+            "date": "24/05/2021",
+            "courseid": "1079",
+            "projectid": "6",
+            "actionid": "1",
+            "starthour": "09:45",
+            "finishhour": "11:00",
+            "carkm": "15",
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80993",
+            "automatic": "0",
+            "approval": "1",
+            "checkdate": "2021-05-24 09:38:53",
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "24/05/2021",
+                "projectid": "6",
+                "actionid": "1",
+                "courseid": "1079",
+                "starthour": "09:45",
+                "finishhour": "11:00",
+                "cost": null,
+                "carkm": "15",
+                "comment": ""
+            }
+        },
+        {
+            "userid": "950",
+            "reportid": "81761",
+            "date": "24/05/2021",
+            "courseid": "1079",
+            "projectid": "6",
+            "actionid": "1",
+            "starthour": "09:45",
+            "finishhour": "11:00",
+            "carkm": "15",
+            "cost": null,
+            "comment": "",
+            "reportcopyid": "80993",
+            "automatic": "0",
+            "approval": "-1",
+            "checkdate": "2021-05-24 09:38:53",
+            "missingreportsubject": "0",
+            "copyreport": {
+                "date": "24/05/2021",
+                "projectid": "6",
+                "actionid": "1",
+                "courseid": "1079",
+                "starthour": "09:45",
+                "finishhour": "11:00",
+                "cost": null,
+                "carkm": "15",
+                "comment": ""
+            }
+        },
+    ]
 
     const GetMyReportingPerimeter =
     {
@@ -93,48 +388,27 @@ const HoursReportPage = (props) => {
     }
 
     return (
-        <div className="p-hours-report">
+        <div>
             <PortalNavbar handleLogout={handleLogout} />
-            <div>
+            <div className="p-hours-report">
                 <table>
-                    <tr className="table-header">
+                    <thead>
+                        <tr>
                         <th>תאריך</th>
                         <th>פרויקט</th>
                         <th>נושא פעילות</th>
                         <th>סה"כ שעות</th>
-                        <th></th>
-
                     </tr>
-                    <tr className="table-row">
-                        <td>Jill</td>
-                        <td>John</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                        <td className="icon-td"><BsThreeDotsVertical/></td>
-                    </tr>
-                    <tr className="table-row">
-                        <td>Eve</td>
-                        <td>John</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                        <td className="icon-td"><BsThreeDotsVertical/></td>
-                    </tr>
+                    </thead>
                     
-                        <tr className="table-row">
-                            <td>John</td>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>80</td>
-                            <td className="icon-td"><BsThreeDotsVertical/></td>
-                        </tr>
-                    
-                    <tr className="table-row">
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>80</td>
-                            <td>80</td>
-                            <td className="icon-td"><BsThreeDotsVertical/></td>
-                    </tr>
+                    <tbody>
+                    {reports.map(report =>
+                        <HoursReportRow
+                            {...report}
+                            {...GetMyReportingPerimeter[report.projectid]}
+                        />
+                    )}
+                    </tbody>
                 </table>
             </div>
         </div>

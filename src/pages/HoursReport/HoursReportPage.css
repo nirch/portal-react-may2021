@@ -16,27 +16,24 @@
 
 
     .p-hours-report table th{
-        padding-bottom: 23px !important;
+        padding-bottom: 18px !important;
+    }
+  
+  
+    .p-hours-report table th:last-child { 
+          text-align: end;
+    }
+    .p-hours-report table thead tr{
+      display: flex;
     }
 
-    .p-hours-report table td{
-    padding: 13px 0 14px 0 !important;
+    .p-hours-report table thead, tbody { display: block; }
+
+    .p-hours-report table  tbody {
+        height: 400px;       /* Just for the demo          */
+        overflow-y: auto;    /* Trigger vertical scroll    */
+        overflow-x: hidden;  /* Hide the horizontal scroll */
     }
 
-    .p-hours-report table .table-row {
-        padding: 10px;
-        box-shadow: 0 3px 3px  ;
-        border-bottom: 13px solid white;
-        background-color: #ffd300;
-      }
-
-      .p-hours-report table .icon-td {
-        font-size: 15px;
-      }
-
-      .p-hours-report table .icon-td  svg{
-        color: #5d5d5d;
-        margin-left: 4.7px;
-      }
 
     
