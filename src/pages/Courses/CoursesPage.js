@@ -14,7 +14,7 @@ const CoursesPage = (props) => {
 
     return (
         <div className="p-courses">
-            <PortalNavbar handleLogout={handleLogout}/>
+            <PortalNavbar handleLogout={handleLogout} title='קורסים' isSandwich debug/>
             <h1>קורסים</h1>
         </div>
     );
