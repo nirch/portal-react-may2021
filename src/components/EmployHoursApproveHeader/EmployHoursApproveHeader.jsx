@@ -1,26 +1,21 @@
-import { useAccordionToggle } from "react-bootstrap";
-import React, { useState } from 'react';
+import React  from 'react';
 import './EmployHoursApproveHeader.css';
 import arrowDown from './../../assets/images/arrow_down.svg';
 import arrowUp from './../../assets/images/arrow_up.svg'
 
-function EmployHoursApproveHeader({ employer, index }) {
-  const [arrowType, setArrowType] = useState(true);
+function EmployHoursApproveHeader({ employer, index, close ,setActiveKey}) {
   let totalHours = 0;
   let approvalHours = 0;
   let disapprovalHours = 0;
   let pendingHours = 0;
 
   for (const report of employer.reports) {
-    
     const hours = diff(report.starthour, report.finishhour);
     totalHours += hours;
     report.approval === "1" ? approvalHours += hours
       : report.approval === "-1" ? disapprovalHours += hours
         : pendingHours += hours;
   }
-
-
 
   return (
     <div className="header-content">
@@ -31,33 +26,24 @@ function EmployHoursApproveHeader({ employer, index }) {
         <div className="disapproval-hours">{disapprovalHours.toFixed(2)}</div>
         <div className="total-hours">{totalHours.toFixed(2)}</div>
       </div>
-      <CustomToggle className="arrow-container" eventKey={index} arrowType={arrowType} setArrowType={setArrowType}></CustomToggle>
+      <CustomToggle className="arrow-container" eventKey={index} arrowType={close} setActiveKey={setActiveKey}></CustomToggle>
 
     </div>
   );
 }
-
-
-
 export default EmployHoursApproveHeader;
-function CustomToggle({ children, eventKey, arrowType, setArrowType }) {
-  const decoratedOnClick = useAccordionToggle(eventKey, () =>
-    setArrowType(!arrowType)
-    // console.log('totally custom!'),
-  );
-
+function CustomToggle({ children, eventKey, arrowType, setActiveKey }) {
   return (
     <>
-      {arrowType ?
-        <img className="arrow-approval-row" src={arrowDown} type="button" onClick={decoratedOnClick} alt="">
+      {!arrowType ?
+        <img className="arrow-approval-row" src={arrowDown} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
         </img> :
-        <img className="arrow-approval-row" src={arrowUp} type="button" onClick={decoratedOnClick} alt="">
+        <img className="arrow-approval-row" src={arrowUp} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
         </img>}
     </>
 
   );
 }
-
 
 //this function copied from stackoverflow
 function diff(start, end) {

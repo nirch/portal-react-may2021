@@ -11,6 +11,7 @@ import EmployHoursApproveBody from '../../components/EmployHoursApproveBody/Empl
 const HoursApprovePage = (props) => {
     const { handleLogout } = props;
     const [employers, setEmployers] = useState();
+    const [activeKey, setActiveKey] = useState(0);
     const activeUser = useContext(ActiveUserContext);
 
     useEffect(() => {
@@ -31,9 +32,9 @@ const HoursApprovePage = (props) => {
         return (
             <Card className="employ-card">
                 <Card.Header>
-                    <EmployHoursApproveHeader employer={employer} index={index+1}/>
+                    <EmployHoursApproveHeader employer={employer} index={index+1} close={index+1 === activeKey} setActiveKey={setActiveKey}/>
                 </Card.Header>
-                <Accordion.Collapse eventKey={index+1}>
+                <Accordion.Collapse eventKey={index+1} >
                     <EmployHoursApproveBody employer={employer}/>
                 </Accordion.Collapse>
             </Card>
@@ -44,7 +45,7 @@ const HoursApprovePage = (props) => {
         <div className="p-hours-approve">
             <PortalNavbar handleLogout={handleLogout} />
             <h1>אישור שעות</h1>
-            <Accordion defaultActiveKey="0">
+            <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={e => setActiveKey(e)}>
                 {cards ? cards : null}
             </Accordion>
         </div>
