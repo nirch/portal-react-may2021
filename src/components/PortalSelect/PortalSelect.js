@@ -11,22 +11,31 @@
 
 import './PortalSelect.css';
 
-function PortalSelect(){
+function PortalSelect({title, optionsKey, options, handleSelection }){
 
-    let title = "בדיקה"; 
-
+    function localHandleSelection(){
+        let selectedVal = ""; 
+        selectedVal = document.getElementById("portalSelectId").value;
+        handleSelection(selectedVal ); 
+    }
 
     return (
         <div className="c-portalSelect">
            <span className="c-portalSelect-title">{title}</span>
-                <select>
-                <option value="volvo">aaaaaa</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <select id="portalSelectId"   
+                        onChange={localHandleSelection}>
+                    <option key="0" value="">{optionsKey}</option>{
+                          Array.isArray(options)  ? 
+                          options.map((option) => (
+                            <option key={option.value}  value={option.value}>{option.name}</option>
+                          ))
+                  :null
+                    }
                 </select>
         </div>
     )
 }
 
 export default PortalSelect; 
+
+ 
