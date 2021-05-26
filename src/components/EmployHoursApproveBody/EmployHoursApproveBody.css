@@ -60,6 +60,7 @@
 
 .report-row-buttons > .disapprove-container > .disapprove-button.selected{
     border:solid 1px #ffa1a1;
+    position: relative;
 }
 .report-row-buttons > .disapprove-container{
     color: #ffa1a1;
@@ -67,6 +68,7 @@
 }
 .report-row-buttons > .approve-container > .approve-button.selected{
     border:solid 1px #a1d47f;
+    position: relative;
 }
 .report-row-buttons > .approve-container{
     color: #a1d47f;
@@ -74,6 +76,7 @@
 }
 .report-row-buttons > .pending-container > .pending-button.selected{
     border:solid 1px #ffd300;
+    position: relative;
 }
 .report-row-buttons > .pending-container{
     color:#ffd300;
@@ -85,7 +88,10 @@
     height: 7.5px;
     border-radius: 50%;
     background-color: #ffa1a1;
-    margin:3px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
 
 .approve-button.selected > .approve-button.selected.inside{
@@ -93,7 +99,10 @@
     height: 7.5px;
     border-radius: 50%;
     background-color: #a1d47f;
-    margin:3px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
 
 .pending-button.selected > .pending-button.selected.inside{
@@ -101,5 +110,8 @@
     height: 7.5px;
     border-radius: 50%;
     background-color: #ffd300;
-    margin:3px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
