@@ -26,7 +26,15 @@ const LoginPage = (props) => {
                 alert("error in login");
             } else {
                 handleLogin(res.data);
+                server(activeUser, {}, 'GetMyProfile').then(result => {
+                    console.log(result);
+                    activeUser.firstName =  result.data.firstname;
+                    activeUser.lastName =  result.data.lastName;
+                    activeUser.image =  result.data.image;
+                });
             }
+            
+        
         }, err => {
             console.error(err);
         })

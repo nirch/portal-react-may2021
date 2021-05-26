@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './PortalNavbar.css'
-import './sidebar.css'
+// import './sidebar.css'
 
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect } from 'react-router';
@@ -13,16 +13,16 @@ import imgReport from '../../assets/images/navbar/noun_time_1610737.svg';
 import imgTime from '../../assets/images/navbar/noun_check_box_38652.svg';
 import imgOff from '../../assets/images/navbar/noun_off_1915997.svg';
 
-const Sandwich = ({ isSandwich }) => {
-    return isSandwich
-        ? <div className="sandwich">
+const Sandwich = ({ funcBack, onClick }) => {
+    return !funcBack
+        ? <div className="sandwich" onClick={onClick}>
             <div className="black" />
             <div />
             <div className="black" />
             <div />
             <div className="black" />
         </div>
-        : <div className="sandwich"><div className="black">→</div></div>
+        : <div className="sandwich" onClick={funcBack}><div className="arrow">→</div></div>
 }
 
 const MenuItem = ({ image, text, isWithSubmenu, page, func, children, isSubMenu }) => {
@@ -31,7 +31,7 @@ const MenuItem = ({ image, text, isWithSubmenu, page, func, children, isSubMenu 
         <>
             <div className={`menu-item ${isSubMenu ? 'sub' : ''} ${openSub ? 'open' : ''} `} onClick={isWithSubmenu ? () => setOpenSub(!openSub) : () => func(page)}>
                 <div>
-                    <img src={image} alt='icon' />
+                    {image ? <img src={image} alt='icon' /> : null }
                 </div>
                 <div className="text">{text}</div>
                 {isWithSubmenu ? <div><img alt='arrow' src={imgArrow} /></div> : null}
@@ -47,7 +47,7 @@ const MenuItem = ({ image, text, isWithSubmenu, page, func, children, isSubMenu 
 //debug - if true then black border 
 const PortalNavbar = (props) => {
 
-    const { isSandwich, title, debug } = props;
+    const { isSandwich, title, debug, funcBack } = props;
     const activeUser = useContext(ActiveUserContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const [userData, setUserData] = useState({ firstName: '', lastName: '', image: '' });
@@ -75,8 +75,8 @@ const PortalNavbar = (props) => {
 
     return (
         <div className="c-navbar">
-            <div className={`header-wrap ${debug ? 'debug' : ''}`} onClick={() => setMenuOpen(true)}>
-                <Sandwich isSandwich={isSandwich} />
+            <div className={`header-wrap ${debug ? 'debug' : ''}`}>
+                <Sandwich funcBack={funcBack} onClick={() => setMenuOpen(true)} />
                 <div className="header-title">
                     {title}
                 </div>
@@ -86,7 +86,8 @@ const PortalNavbar = (props) => {
                 <div className="sidebar-wrap" >
                     <div className="sidebar">
                         <div className="sidebar-header">
-                            <div className="cross" ><i onClick={() => setMenuOpen(false)} className="fas fa-times"></i></div>
+                            <div className="cross" ><span onClick={() => setMenuOpen(false)} >&times;</span></div>
+                            {/* <div className="cross" ><i onClick={() => setMenuOpen(false)} className="fas fa-times"></i></div> */}
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
                         <div className="profile-preview">
