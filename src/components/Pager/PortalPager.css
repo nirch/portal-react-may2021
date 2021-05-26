@@ -16,3 +16,7 @@
 .c-pager-left-op{
     opacity: 0.3;
 }
+.c-pager>span{
+    text-align: center;
+    width: 18.5px;
+}
