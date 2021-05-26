@@ -4,11 +4,11 @@ import './PortalButtonSet.css';
 //
 // labels - array, buttons' caption
 // activeButton - number, optional prop which button is active, the default is first one
-// onClick - function, handles the button click, sends the index of the clicked button
+// changeActiveBtn - function, handles the button click, sends the index of the clicked button
 // borderBox - string, optional prop that show component's border. Three options: top, bottom, none
 
 
-function PortalButtonSet({labels, activeButton = 0, onClick}) {
+function PortalButtonSet({labels, activeButton = 0, changeActiveBtn}) {
 
     return (
         <div className="c-button-set">
@@ -18,8 +18,8 @@ function PortalButtonSet({labels, activeButton = 0, onClick}) {
                         (label, index) => 
                             <button id={index}
                                     key={index}
-                                    className={(index === activeButton) ? "active" : "inactive"} 
-                                    onClick={(e) => {onClick(e.target.id)}}>
+                                    className={(index === activeButton) ? "active" : "inactive"}
+                                    onClick={(e) => {changeActiveBtn(e.target.id)}}>
                                 {label}
                             </button>
                     ) : ''
