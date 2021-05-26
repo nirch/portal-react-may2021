@@ -43,10 +43,6 @@
     box-shadow: none;
 }
 
-.p-login > form > .form-group > label {
-    display: inline;
-}
-
 .p-login > form .form-control::placeholder {
     color: #fff;
 }

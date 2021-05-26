@@ -50,18 +50,16 @@ const LoginPage = (props) => {
 
     return (
 
-        <Container className="p-login" fluid>
+        <div className="p-login">
             <div className="logo-wrapper">
                 <img src={logo_image} alt=""/>
             </div>
             <Form>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label></Form.Label>
                     <Form.Control value={email} type="email" placeholder="אימייל" onChange={e => setEmail(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label></Form.Label>
                     <Form.Control value={pwd} type="password" placeholder="סיסמה" onChange={e => setPwd(e.target.value)}/>
                 </Form.Group>
 
@@ -70,7 +68,7 @@ const LoginPage = (props) => {
             </Form>
             {showAlert && 
                 <AlertComponent text={alertMessage} type={alertType} onClose={() => setShowAlert(false)}/>}
-        </Container>
+        </div>
     );
 }
 
