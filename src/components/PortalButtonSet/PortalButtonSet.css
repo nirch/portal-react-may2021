@@ -1,8 +1,6 @@
 
 .c-button-set {
     width: 100%;
-    padding-top: 35px;
-    padding-bottom: 35px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -10,6 +8,8 @@
 
 .c-button-set button {
     width: 100%;
+    padding-top: 26px;
+    padding-bottom: 26px;
     border: none;
     background-color: white;
     font-size: 15px;
