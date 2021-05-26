@@ -15,9 +15,10 @@ const PortalSearchPager = (props) => {
         e.preventDefault();
         onSearch(input);
     }
+   
     const pageNumber = parseInt(currentPage, 10);
     const pagesNumber = parseInt(pages);
-
+    
     return (
 
         <Container className="c-search-page">
@@ -27,9 +28,9 @@ const PortalSearchPager = (props) => {
                         onChange={(e)=>setInput(e.target.value)}/>
                 <div className="c-search-pager">
                     <PortalPager className="c-search-pager" 
-                                curr={pages && parseInt(pages)>0 && pageNumber<pagesNumber? pageNumber + 1:""}  
-                                next={pages && parseInt(pages)>0 && pageNumber+1<pagesNumber ? pageNumber + 2: ""}
-                                prev={pages && parseInt(pages)>0 && pageNumber>0 ? pageNumber:"" } 
+                                curr={pagesNumber && pagesNumber>0 && pageNumber<pagesNumber? pageNumber + 1:""}  
+                                next={pagesNumber && pagesNumber>0 && pageNumber+1<pagesNumber ? pageNumber + 2: ""}
+                                prev={pagesNumber && pagesNumber>0 && pageNumber>0 ? pageNumber:"" } 
                                 onPageClick={onPageChange} />
                 </div>
             </form>
