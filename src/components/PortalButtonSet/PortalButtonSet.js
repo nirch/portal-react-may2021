@@ -24,10 +24,9 @@ function PortalButtonSet({labels, activeButton = 0, changeActiveBtn, border = ""
                 labels.length !== 0 ?
                     labels.map(
                         (label, index) => 
-                            <button id={index}
-                                    key={index}
+                            <button key={index}
                                     className={(index === activeButton) ? "active" : "inactive"}
-                                    onClick={(e) => {changeActiveBtn(e.target.id)}}>
+                                    onClick={() => {changeActiveBtn(index)}}>
                                 {label}
                             </button>
                     ) : ''
