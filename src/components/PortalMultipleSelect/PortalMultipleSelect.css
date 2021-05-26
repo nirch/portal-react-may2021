@@ -5,3 +5,37 @@
 .list-options.open{
     display: block;
 }
+
+.multiselect {
+    border: 1px solid black;
+    height: 58px;
+    padding: 10px 31px;
+}
+
+.multiselect .label {
+    font-size: 12px;
+    font-family: ;
+}
+
+.multiselect .input{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+
+}
+
+.multiselect .selected-options { 
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+}
+
+.multiselect .selected-element { 
+    display: flex;
+    flex-direction: row;
+    border: 1px solid blue;
+}
+
+.multiselect select {
+    overflow-y: auto;
+}
