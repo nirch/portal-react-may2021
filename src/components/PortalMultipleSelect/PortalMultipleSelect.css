@@ -1,0 +1,7 @@
+.list-options{
+    display: none;
+}
+
+.list-options.open{
+    display: block;
+}
