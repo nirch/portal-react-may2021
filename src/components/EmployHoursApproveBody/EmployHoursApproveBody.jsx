@@ -2,7 +2,38 @@ import React from 'react';
 import './EmployHoursApproveBody.css';
 
 function EmployHoursApproveBody({ employer }) {
+    const reportsRows = employer.reports.map((report,index) =>{
+        return(
+            <>
+             <div className="report-row-buttons">
+                 <div className="disapprove-container">
+                     <div>דחה</div>
+                     <div className={report.approval ==="-1" ? "disapprove-button selected" : "disapprove-button"}>
+                         {report.approval ==="-1"?
+                         <div className="disapprove-button selected inside"></div> :null}
+                     </div>
+                 </div>
+                 <div className="pending-container">
+                     <div>ממתין</div>
+                     <div className={report.approval === "0" ? "pending-button selected" : "pending-button"}>
+                     {report.approval ==="0"?
+                         <div className="pending-button selected inside"></div> :null}
+                     </div>
+                 </div>
+                 <div className="approve-container">
+                     <div>אשר</div>
+                     <div className={report.approval === "1" ? "approve-button selected" : "approve-button"}>
+                     {report.approval ==="1"?
+                         <div className="approve-button selected inside"></div> :null}
+                     </div>
+                 </div>
+             </div>
+             <div className="report-row-data">
 
+             </div>
+            </>
+        )
+    })
     const selectAll = () => {
 
     };
@@ -32,7 +63,7 @@ function EmployHoursApproveBody({ employer }) {
                 </div>
             </div>
             <div className="data-rows">
-
+                {reportsRows ? reportsRows : null}
             </div>
 
         </div>
