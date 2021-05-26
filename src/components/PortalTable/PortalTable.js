@@ -5,15 +5,11 @@ import server from '../../shared/server'
 import ActiveUserContext from '../../shared/activeUserContext'
 
 
-
-
-
 function PortalTableRow ({row, keys, onClickRow}) { 
-    
+   
     function RowClick(){
-        console.log("RowClick")
+        onClickRow(row);
     }
-
     let td = [];
      for (var prop in row) {       
        if(keys.includes(prop)){
@@ -27,59 +23,26 @@ function PortalTableRow ({row, keys, onClickRow}) {
       );
   }
   
+ 
+const PortalTable = ({headers, data, onClick}) => {
+    
+    function clickRow(row){
+        onClick(row);
+    }
+    const   heads = headers.map((header, index) => <th key={index} className="thead_th">{header.header }</th>);
+    const    keys = headers.map(header => header.key);
+    const rows = data.map(newrow =><PortalTableRow  row={newrow} keys={keys} onClickRow={clickRow}/> )
   
-  
-  function ProductTable ({data, headers, onClickRow}) {
-      const rows = [];  
-      const heads =[];
-      const keys =[];
-
-
-
-      //const heads = headers.map((header, index) => ...);
-      //const keys = headers.map(header => header.key);
-  
-
-      headers.forEach((header,index) => {  
-        heads.push(<th key={header.header } className="thead-th">{header.header }</th> ) 
-        keys.push(header.key ) 
-      });
-       console.log(heads);
-      // row = data.map(row =><PortalTableRow  row={row} keys={keys} onClickRow={onClickRow}/> )
-       data.map((row) => {  
-        rows.push(
-          <PortalTableRow  row={row} keys={keys} onClickRow={onClickRow}/>
-        );  
-      });
-  
-      return (
-        <table className="table">
+  return (
+      <div>      
+        <table className="portaltable">
           <thead>
-            <tr className="table-tr">         
+            <tr className="portaltable-tr">         
               {heads}
             </tr>
           </thead>
           <tbody>{rows}</tbody>
         </table>
-      );
-   
-  }
-   
- 
-const PortalTable = (props) => {
-    const activeUser = useContext(ActiveUserContext);
-
-    //const [headers, setHeaders] = useState("");
-   // const [data, setData] = useState("");
-function ClickRow(){
-
-}
-  const headers= [{key: "fname", header: "שם"}, {key: "lname", header: "שם משפחה"},{key: "email", header: "אימייל"}];
-  //const data = [{id: "12212", fname: "Nir", lname: "Channes"}, {id: "2212", fname: "John", lname: "Doe"}];
-  const data = [{id: "12212", fname: "שם גודמה", lname: "שם משפחה דוגמה", email: "aaaa123456@appleseeds.org"}, {id: "2212", fname: "שם דוגמה", lname: "שם משפחה דוגמה",email: "aaaa123456@appleseeds.org"}];
-    return (
-      <div>      
-        <ProductTable data={data} headers={headers} onClickRow={ClickRow}/>
       </div>
     );  
 }

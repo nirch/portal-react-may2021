@@ -9,18 +9,25 @@
   }
 
   
-.table{
+.portaltable{
     direction: rtl;
     font-family: AssistantRegular;
     font-size: 12px;
+    width: 100%;
 }
 
-.table-tr{
+.portaltable-tr{
     color: #5d5d5d;
     font-family: AssistantSemiBold;
     text-align: center;
-   
+    
 }
+.thead_th{
+    padding-bottom: 23px;
+    padding-top: 32px;
+    font-family: AssistantSemiBold;
+}
+
 .tbody-td {
     padding-top: 14px;
     padding-bottom: 14px;
