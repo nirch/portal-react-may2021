@@ -1,0 +1,9 @@
+.p-users > .user-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 18px 14px 13px;
+}
+
+.p-users > .user-header .actions-wrapper {
+    text-align: left;
+}
