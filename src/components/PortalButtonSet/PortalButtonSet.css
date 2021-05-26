@@ -17,20 +17,20 @@
     text-shadow: 0 -2px #1a000000;
 }
 
-button.active {
+.c-button-set button.active {
     color: #5d5d5d;
 }
 
-button.inactive {
+.c-button-set button.inactive {
     color: rgb(0,0,0,0.1);
 }
 
-.border-top {
+.c-button-set.border-top {
     border-top: 1px;
     box-shadow: 0 -2px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
-.border-bottom {
+.c-button-set.border-bottom {
     border-bottom: 1px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
 }
