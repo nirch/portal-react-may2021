@@ -3,7 +3,7 @@ import './PortalInput.css'
 
 export default function PortalInput({title, value, placeholder, onHandleChange}) {
     return (
-        <div className="c-portalInput">
+        <div className="c-portalinput">
             <label>{title}</label>
             <input  type="text" placeholder={placeholder}
                     value={value}  
