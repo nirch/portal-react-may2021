@@ -12,7 +12,7 @@ const LoginPage = (props) => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const activeUser = useContext(ActiveUserContext);
-    const [showAlert, setShowAlert] = useState(false);
+    const [alertVisibility, setAlertVisibility] = useState(null);
     const [alertMessage, setAlertMessage] = useState("");
     const [alertType, setAlertType] = useState("");
 
@@ -22,7 +22,7 @@ const LoginPage = (props) => {
 		{
             setAlertMessage("נא להזין פרטי משתמש");
             setAlertType("error");
-            setShowAlert(true);
+            setAlertVisibility("show")
 			// alert("נא להזין פרטי משתמש");
 			return;
         }
@@ -33,7 +33,7 @@ const LoginPage = (props) => {
             if (res.data.error) {
                 setAlertMessage(res.data.error);
                 setAlertType("error");
-                setShowAlert(true);
+                setAlertVisibility("show")
                 // alert("error in login");
             } else {
                 handleLogin(res.data);
@@ -67,7 +67,7 @@ const LoginPage = (props) => {
                 <span className="forget-password">שכחתי סיסמה</span>
             </Form>
             
-            <AlertComponent show={showAlert} text={alertMessage} type={alertType} onClose={() => setShowAlert(false)}/>
+            <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
         </div>
     );
 }
