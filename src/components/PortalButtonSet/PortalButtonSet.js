@@ -10,16 +10,17 @@ import './PortalButtonSet.css';
 
 function PortalButtonSet({labels, activeButton = 0, changeActiveBtn, border = ""}) {
 
-    const topBorder = {
-        "borderTop": "1px solid lightgray"
-    };
+    const classes = ["c-button-set"];
 
-    const bottomBorder = {
-        "borderBottom": "1px solid lightgray"
-    };
+    if (border === "top") {
+        classes.push("border-top");
+    } else if (border === "bottom") {
+        classes.push("border-bottom");
+    }
+
 
     return (
-        <div className="c-button-set" style={border === "top" ? topBorder : border === "bottom" ? bottomBorder : {}}>
+        <div className={classes.join(" ")}>
             {
                 labels.length !== 0 ?
                     labels.map(
