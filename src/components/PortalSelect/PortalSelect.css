@@ -1,0 +1,49 @@
+.c-portalSelect{
+   display: block; 
+ }
+
+.c-portalSelect-title {
+    color: #5d5d5d; 
+    font-family: Assistant-SemiBold;
+    font-size: 15px;
+    padding-top:10px;
+    padding-bottom:8px; 
+}
+ 
+.c-portalSelect > select {
+    position:relative; 
+    border: none;
+    display: inline-block;
+    font: inherit;
+    padding: 10px 10px;
+    width: 100%;
+    outline: none;
+    
+    /* dimiss browser arrow */
+    appearance:none; 
+   -webkit-appearance: none;
+   -moz-appearance: none;
+    
+   /* set box shadow */
+   box-shadow: 0px 1px 1px 0px rgba(209, 207, 209 ,0.75);
+   -webkit-box-shadow: 0px 1px 1px 0px rgba(209, 207, 209 ,0.75);
+   -moz-box-shadow: 0px 1px 1px 0px rgba(209, 207, 209 ,0.75);
+   
+   /* style the img as the arrow of the select box */
+
+   background-image: url("../../assets/images/arrow_down.png"); 
+   /* linear-gradient(45deg, transparent 50%, gray 50%),
+   linear-gradient(135deg, gray 50%, transparent 50%),
+   linear-gradient(to right, #ccc, #ccc); */
+   background-position:
+   calc(10% - 10px) calc(1em + 2px),
+   calc(10% - 15px) calc(1em + 2px),
+   calc(10% - 2.5em) 0.5em;
+   background-size:
+   12px 12px,
+   12px 12px,
+   1px 1.5em; 
+   background-repeat: no-repeat;
+}  
+ 
+  
