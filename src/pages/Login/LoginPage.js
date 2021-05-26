@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { Container, Form, Button } from 'react-bootstrap'
+import { Container, Form } from 'react-bootstrap'
 import './LoginPage.css'
 import server from '../../shared/server'
 import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../shared/activeUserContext'
 import logo_image from '../../assets/images/logo.svg';
+import AlertComponent from '../../components/alert/Alert';
 
 const LoginPage = (props) => {
     const { handleLogin } = props;
@@ -57,6 +58,7 @@ const LoginPage = (props) => {
                 <div className="submit-btn" onClick={login}>התחברות</div>
                 <span className="forget-password">שכחתי סיסמה</span>
             </Form>
+            <AlertComponent/>
         </Container>
     );
 }
