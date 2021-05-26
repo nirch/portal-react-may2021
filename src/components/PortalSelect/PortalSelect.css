@@ -6,19 +6,21 @@
     color: #5d5d5d; 
     font-family: Assistant-SemiBold;
     font-size: 15px;
-    padding-top:10px;
-    padding-bottom:8px; 
+    padding: 10px 10px 2px 0; 
+    display: flex;
+    align-items: flex-start;
 }
  
 .c-portalSelect > select {
     position:relative; 
-    border: none;
+    border: 0;
     display: inline-block;
     font: inherit;
-    padding: 10px 10px;
+    padding:10px; 
     width: 100%;
     outline: none;
-    
+    background-color: #ffffff;
+   
     /* dimiss browser arrow */
     appearance:none; 
    -webkit-appearance: none;
@@ -32,9 +34,7 @@
    /* style the img as the arrow of the select box */
 
    background-image: url("../../assets/images/arrow_down.png"); 
-   /* linear-gradient(45deg, transparent 50%, gray 50%),
-   linear-gradient(135deg, gray 50%, transparent 50%),
-   linear-gradient(to right, #ccc, #ccc); */
+   
    background-position:
    calc(10% - 10px) calc(1em + 2px),
    calc(10% - 15px) calc(1em + 2px),
@@ -46,4 +46,9 @@
    background-repeat: no-repeat;
 }  
  
-  
+/*in case there is a need to change the background color of the options list*/
+.c-portalSelect > select > option  {
+    background-color: #ffffff;
+    font-weight: inherit;
+    color: inherit;
+}  
