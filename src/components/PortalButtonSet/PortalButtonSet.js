@@ -19,7 +19,7 @@ function PortalButtonSet({labels, activeButton = 0, changeActiveBtn, border = ""
     };
 
     return (
-        <div className="c-button-set" style={border === "top" ? topBorder : border === "bottom" ? bottomBorder : ""}>
+        <div className="c-button-set" style={border === "top" ? topBorder : border === "bottom" ? bottomBorder : {}}>
             {
                 labels.length !== 0 ?
                     labels.map(
