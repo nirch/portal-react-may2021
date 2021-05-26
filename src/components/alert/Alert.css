@@ -7,18 +7,34 @@
     padding: 32px 25px;
 }
 
-.c-alert .error-message {
-    color: #ffa1a1;
+.c-alert .alert-msg {
     font-family: "Assistant-SemiBold";
     font-size: 20px;
-    
 }
 
-.c-alert .close-btn {
+.c-alert .alert-msg.type-error {
+    color: #ffa1a1;
+}
+
+.c-alert .alert-msg.type-info {
+    color: #8398e9;
+}
+
+.c-alert > .close-btn {
     color: #5d5d5d;
     position: absolute;
     top: 0;
     left: 24px;
     font-size: 45px;
     font-family: "Assistant-SemiBold";
+}
+
+.c-alert .alert-icon {
+    width: 39px;
+    margin-left: 33px;
+}
+
+.c-alert > .msg-wrapper {
+    display: flex;
+    align-items: flex-end;
 }
