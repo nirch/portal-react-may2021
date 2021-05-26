@@ -24,7 +24,7 @@ function PortalSelect({title, optionsKey, options, handleSelection }){
            <span className="c-portalSelect-title">{title}</span>
                 <select id="portalSelectId"   
                         onChange={localHandleSelection}>
-                    <option key="0" value="">{optionsKey}</option>{
+                    <option key="0" value="" disabled>{optionsKey}</option>{
                           Array.isArray(options)  ? 
                           options.map((option) => (
                             <option key={option.value}  value={option.value}>{option.name}</option>
