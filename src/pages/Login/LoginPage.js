@@ -4,6 +4,7 @@ import './LoginPage.css'
 import server from '../../shared/server'
 import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../shared/activeUserContext'
+import logo_image from '../../assets/images/logo.svg';
 
 const LoginPage = (props) => {
     const { handleLogin } = props;
@@ -38,8 +39,10 @@ const LoginPage = (props) => {
 
     return (
 
-        <Container className="p-login">
-            <h1>התחברות</h1>
+        <Container className="p-login" fluid>
+            <div className="logo-wrapper">
+                <img src={logo_image} alt=""/>
+            </div>
             <Form>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label></Form.Label>
@@ -51,9 +54,8 @@ const LoginPage = (props) => {
                     <Form.Control value={pwd} type="password" placeholder="סיסמה" onChange={e => setPwd(e.target.value)}/>
                 </Form.Group>
 
-                <Button variant="primary" type="button" onClick={login}>
-                    התחבר
-                </Button>
+                <div className="submit-btn" onClick={login}>התחברות</div>
+                <span className="forget-password">שכחתי סיסמה</span>
             </Form>
         </Container>
     );
