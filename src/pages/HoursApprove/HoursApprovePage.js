@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 import { Accordion, Card } from 'react-bootstrap';
 import EmployHoursApproveHeader from '../../components/EmployHoursApproveHeader/EmployHoursApproveHeader';
+import EmployHoursApproveBody from '../../components/EmployHoursApproveBody/EmployHoursApproveBody';
 
 const HoursApprovePage = (props) => {
     const { handleLogout } = props;
@@ -33,7 +34,7 @@ const HoursApprovePage = (props) => {
                     <EmployHoursApproveHeader employer={employer} index={index+1}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1}>
-                    <Card.Body>Hello! I'm the body</Card.Body>
+                    <EmployHoursApproveBody employer={employer}/>
                 </Accordion.Collapse>
             </Card>
         )
