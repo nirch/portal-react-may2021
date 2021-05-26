@@ -17,7 +17,7 @@ const PortalSearchPager = (props) => {
     }
    
     const pageNumber = parseInt(currentPage, 10);
-    const pagesNumber = parseInt(pages);
+    const pagesNumber = parseInt(pages, 10);
     
     return (
 
@@ -30,8 +30,8 @@ const PortalSearchPager = (props) => {
                     <PortalPager className="c-search-pager" 
                                 curr={pagesNumber && pagesNumber>0 && pageNumber<pagesNumber? pageNumber + 1:""}  
                                 next={pagesNumber && pagesNumber>0 && pageNumber+1<pagesNumber ? pageNumber + 2: ""}
-                                prev={pagesNumber && pagesNumber>0 && pageNumber>0 ? pageNumber:"" } 
-                                onPageClick={onPageChange} />
+                                prev={pagesNumber && pagesNumber>0 && pageNumber>=0 ? pageNumber:"" } 
+                                onPageClick={x=>onPageChange(x)} />
                 </div>
             </form>
         </Container>

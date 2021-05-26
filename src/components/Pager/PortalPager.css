@@ -8,7 +8,7 @@
 }
 .c-pager>img{
     height: 15px;
-    padding:0 5px;
+    margin:0 10px;
 }
 .c-pager-right-op{
     opacity: 0.3;

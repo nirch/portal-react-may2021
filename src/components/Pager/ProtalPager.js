@@ -11,12 +11,12 @@ const PortalPager = (props) => {
 
     function onPrevClick() {
         if(prev){
-            onPageClick(prev);
+            onPageClick(prev-1);
         }
     }
     function onNextClick(){
         if (next){
-            onPageClick(next);
+            onPageClick(next-1);
         }
     }
     return (
