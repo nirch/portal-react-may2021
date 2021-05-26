@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
 import './PortalButtonSet.css';
+
+// This is a generic component which gets 4 props, 2 of them are optionals
+//
+// labels - array, buttons' caption
+// activeButton - number, optional prop which button is active, the default is first one
+// onClick - function, handles the button click, sends the index of the clicked button
+// borderBox - string, optional prop that show component's border. Three options: top, bottom, none
+
 
 function PortalButtonSet({labels, activeButton = 0, onClick}) {
 
-    const [active, setActive] = useState(activeButton);
-
     return (
-        <div className="c-buttonSet">
+        <div className="c-button-set">
             {
-                labels !== [] ?
+                labels.length !== 0 ?
                     labels.map(
                         (label, index) => 
-                            <button key={index} 
-                                    className={(index === active) ? "active" : "inactive"} 
-                                    onClick={(e) => {setActive(index); onClick(e.target)}}>
+                            <button id={index}
+                                    key={index}
+                                    className={(index === activeButton) ? "active" : "inactive"} 
+                                    onClick={(e) => {onClick(e.target.id)}}>
                                 {label}
                             </button>
                     ) : ''
