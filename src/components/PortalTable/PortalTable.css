@@ -1,0 +1,51 @@
+@font-face {
+    font-family: AssistantRegular;
+    src: url(../../assets/fonts/Assistant/Assistant-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: AssistantSemiBold;
+    src: url(../../assets/fonts/Assistant/Assistant-SemiBold.ttf);
+  }
+
+  
+.portaltable{
+    direction: rtl;
+    font-family: AssistantRegular;
+    font-size: 12px;
+    width: 100%;
+}
+
+.portaltable-tr{
+    color: #5d5d5d;
+    font-family: AssistantSemiBold;
+    text-align: center;
+    
+}
+.thead_th{
+    padding-bottom: 23px;
+    padding-top: 32px;
+    font-family: AssistantSemiBold;
+}
+
+.tbody-td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: center;
+    color: #5d5d5d;
+}
+.tbody-tr{
+    box-shadow: 0px 3px 3px 0px rgba(0,0,0,10%);
+    
+}
+.tbody-tr :first-child{
+    padding-right: 14px;
+}
+
+.tbody-tr :last-child{
+    padding-left: 13px;
+}
+
+table thead .table-tr:first-child{
+    padding-right: 29px;
+}
