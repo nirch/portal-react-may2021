@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap';
-import PortalPager from '../navbar/Pager/ProtalPager';
+import PortalPager from '../Pager/ProtalPager';
 import './PortalSearchPager.css';
 
 const PortalSearchPager = (props) => {
