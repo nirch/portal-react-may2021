@@ -7,3 +7,23 @@
 .p-users > .user-header .actions-wrapper {
     text-align: left;
 }
+
+.p-users > .user-header .image-wrapper {
+    position: relative;
+}
+
+.p-users > .user-header .image-wrapper > .edit-wrapper {
+    position: absolute;
+    bottom: -7px;
+    right: 7px;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+}
+
+.p-users > .user-header .image-wrapper > .edit-wrapper > .edit-icon {
+    margin-bottom: 3px;
+}
