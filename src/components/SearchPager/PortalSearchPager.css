@@ -5,14 +5,17 @@
     color:#707070;   
 }
 .c-search-form>.search-input{
-    border: none;
     padding-right:26.5px;
     outline: none;
-    width: 100%;
-    background-color: rgba(188, 188, 188,0.15);
-    border-radius: 25px;
+    border: none;
+    width: 70%;
+    background-color: transparent;
+
 }
 .c-search-form{
+    border: none;
+    border-radius: 25px;
+    background-color: rgba(188, 188, 188,0.15);
     height: 45px;
     width: 100%;
     display: flex;
@@ -20,6 +23,6 @@
 }
 .c-search-pager{
     position: absolute;
-    left:16.5px;
+    left:21.5px;
     top:8px;
 }
