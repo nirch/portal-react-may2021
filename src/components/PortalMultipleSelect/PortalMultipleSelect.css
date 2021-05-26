@@ -1,39 +1,50 @@
-.list-options{
+.multiselect .list-options{
     display: none;
 }
 
-.list-options.open{
+.multiselect .list-options.open{
     display: block;
 }
 
+.multiselect .minus {
+    font-size: 14px;
+    font-family:Assistant-ExtraBold;
+}
 .multiselect {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 58px;
     padding: 10px 31px;
+    box-shadow: 0px 0px 1px 0px #0D0000;
 }
 
 .multiselect .label {
     font-size: 12px;
-    font-family: ;
+    font-family:Assistant-SemiBold;
+}
+
+.multiselect .plus {
+    font-size: 14px;
+    font-family:Assistant-ExtraBold;
 }
 
 .multiselect .input{
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
-
+    /* border: 1px solid red; */
 }
 
 .multiselect .selected-options { 
     display: flex;
     flex-direction: row;
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .multiselect .selected-element { 
     display: flex;
     flex-direction: row;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    font-size: 12px;
+    margin: 0 3px;
 }
 
 .multiselect select {
