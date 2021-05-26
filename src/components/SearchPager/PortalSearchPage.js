@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap';
-import PortalPager from '../navbar/Pager/ProtalPage';
+import PortalPager from '../navbar/Pager/ProtalPager';
 import './PortalSearchPager.css';
 
 const PortalSearchPager = (props) => {
     const { placeholder } = props;
     const { onSearchEnter } = props;
+    const { nextData } = props;
+    const { prevData } = props;
+    const { currData } = props;
+    const { onPageClick } = props;
     const [input, setInput] = useState("");
 
     const onSearchSubmit=(e)=>{
@@ -20,7 +24,7 @@ const PortalSearchPager = (props) => {
                         placeholder={placeholder} 
                         onChange={(e)=>setInput(e.target.value)}/>
                 <div className="c-search-pager">
-                    <PortalPager className="c-search-pager" curr="1"  next="3"/>
+                    <PortalPager className="c-search-pager" curr={currData}  next={nextData} prev={prevData} onPageClick={onPageClick} />
                 </div>
             </form>
         </Container>

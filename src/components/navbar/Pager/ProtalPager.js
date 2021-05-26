@@ -8,14 +8,25 @@ const PortalPager = (props) => {
     const { curr } = props;
     const { prev } = props;
     const { next } = props;
+    const { onPageClick } = props;
 
+    function onPrevClick() {
+        if(prev){
+            onPageClick(prev);
+        }
+    }
+    function onNextClick(){
+        if (next){
+            onPageClick(next);
+        }
+    }
     return (
         <div className="c-pager">
-            <img className={!prev ? "c-pager-right-op":""} src={arrow_right}></img>
+            <img className={!prev ? "c-pager-right-op":""} src={arrow_right} onClick={onPrevClick}></img>
             <span>
                 {curr}
             </span>
-            <img className={!next ? "c-pager-left-op":""} src={arrow_left}></img>
+            <img className={!next ? "c-pager-left-op":""} src={arrow_left} onClick={onNextClick}></img>
         </div>       
     );
 }
