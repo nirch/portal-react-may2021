@@ -9,10 +9,12 @@
 .p-login > .logo-wrapper {
     margin: 40px 0 100px 0;
     align-self: center;
+    width: 100%;
+    text-align: center;
 }
 
 .p-login .logo-wrapper > img {
-    width: 245px;
+    width: 78%;
 }
 
 .p-login > form {
@@ -41,10 +43,6 @@
     background-color: transparent;
     color: #fff;
     box-shadow: none;
-}
-
-.p-login > form > .form-group > label {
-    display: inline;
 }
 
 .p-login > form .form-control::placeholder {
