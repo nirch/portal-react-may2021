@@ -3,20 +3,22 @@ import './PortalPager.css';
 import arrow_left from '../../assets/images/arrow_left.png'
 import arrow_right from '../../assets/images/arrow_right.png';
 
-const PortalPager = (props) => {
-    const { curr } = props;
-    const { prev } = props;
-    const { next } = props;
-    const { onPageClick } = props;
-
+const PortalPager = ({curr,prev,next,type, onPageClick}) => {
     function onPrevClick() {
         if(prev){
-            onPageClick(prev-1);
+            if(type==="number"){
+                onPageClick(prev-1);
+            }
         }
     }
     function onNextClick(){
         if (next){
-            onPageClick(next-1);
+            if(type==="number"){
+                onPageClick(next-1);
+            }
+            if(type==="month"){
+
+            }
         }
     }
     return (

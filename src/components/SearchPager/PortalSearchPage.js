@@ -3,12 +3,7 @@ import { Container } from 'react-bootstrap';
 import PortalPager from '../Pager/ProtalPager';
 import './PortalSearchPager.css';
 
-const PortalSearchPager = (props) => {
-    const { placeholder } = props;
-    const { onSearch } = props;
-    const { pages } = props;
-    const { currentPage } = props;
-    const { onPageChange } = props;
+const PortalSearchPager = ({placeholder, onSearch, pages, currentPage, onPageChange}) => {
     const [input, setInput] = useState("");
 
     const onSearchSubmit=(e)=>{
@@ -31,6 +26,7 @@ const PortalSearchPager = (props) => {
                                 curr={pagesNumber && pagesNumber>0 && pageNumber<pagesNumber? pageNumber + 1:""}  
                                 next={pagesNumber && pagesNumber>0 && pageNumber+1<pagesNumber ? pageNumber + 2: ""}
                                 prev={pagesNumber && pagesNumber>0 && pageNumber>=0 ? pageNumber:"" } 
+                                type="number"
                                 onPageClick={x=>onPageChange(x)} />
                 </div>
             </form>
