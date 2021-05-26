@@ -66,8 +66,8 @@ const LoginPage = (props) => {
                 <div className="submit-btn" onClick={login}>התחברות</div>
                 <span className="forget-password">שכחתי סיסמה</span>
             </Form>
-            {showAlert && 
-                <AlertComponent text={alertMessage} type={alertType} onClose={() => setShowAlert(false)}/>}
+            
+            <AlertComponent show={showAlert} text={alertMessage} type={alertType} onClose={() => setShowAlert(false)}/>
         </div>
     );
 }

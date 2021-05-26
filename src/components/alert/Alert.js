@@ -3,9 +3,9 @@ import './Alert.css'
 import error_icon from '../../assets/images/error_icon.png';
 import info_icon from '../../assets/images/info_icon.png';
 
-const AlertComponent = ({text, type, onClose}) => {
+const AlertComponent = ({text, type, onClose ,show}) => {
     return (
-        <div className="c-alert" >
+        <div className={`c-alert ${show ? "show" : ""}`}>
             <span className="close-btn" onClick={onClose}>&times;</span>
             <div className="msg-wrapper">
                 <img className="alert-icon" src={type === "error" ? error_icon : info_icon} alt=""/>
