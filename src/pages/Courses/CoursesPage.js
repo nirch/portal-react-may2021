@@ -17,7 +17,7 @@ const CoursesPage = (props) => {
         <div className="p-courses">
             <PortalNavbar handleLogout={handleLogout}/>
             <h1>קורסים</h1>
-            <PortalMultipleSelect title="text title" options={['111 111 111', '22222 222 22', '333 333 333' ]} />
+            <PortalMultipleSelect title="text title" options={['111 111 111', '22222 222 22', '333 333 333', '4444444', '5345345345', '646656456', '567567567', '678678678' ]} />
         </div>
     );
 }

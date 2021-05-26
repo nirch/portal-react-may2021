@@ -41,6 +41,8 @@ const PortalMultipleSelect = ({title, options, optionKey, handleSelection}) => {
                 </div>)}</div>
             </div>
             {/* <div className={`list-options ${viewSelect ? 'open' : ''}`}>{optionsForSelect.map( (element) => <div onClick={() => addElement(element)} >{element}</div> )}</div> */}
+            <div className={`wrap${viewSelect ? '-open' : ''}`} onClick={() => setViewSelect(false)} >
+            </div>
             <select className={`list-options ${viewSelect ? 'open' : ''}`} multiple id={idSelect}>{optionsForSelect.map( (element) => <option onClick={() => addElement(element)} value={element}>{element}</option> ) }</select>
         </div>
     );
