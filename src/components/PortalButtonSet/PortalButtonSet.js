@@ -5,13 +5,21 @@ import './PortalButtonSet.css';
 // labels - array, buttons' caption
 // activeButton - number, optional prop which button is active, the default is first one
 // changeActiveBtn - function, handles the button click, sends the index of the clicked button
-// borderBox - string, optional prop that show component's border. Three options: top, bottom, none
+// border - string, optional prop that show component's border. Three options: top, bottom, none
 
 
-function PortalButtonSet({labels, activeButton = 0, changeActiveBtn}) {
+function PortalButtonSet({labels, activeButton = 0, changeActiveBtn, border = ""}) {
+
+    const topBorder = {
+        "borderTop": "1px solid lightgray"
+    };
+
+    const bottomBorder = {
+        "borderBottom": "1px solid lightgray"
+    };
 
     return (
-        <div className="c-button-set">
+        <div className="c-button-set" style={border === "top" ? topBorder : border === "bottom" ? bottomBorder : ""}>
             {
                 labels.length !== 0 ?
                     labels.map(
