@@ -5,33 +5,30 @@ import server from '../../shared/server'
 import ActiveUserContext from '../../shared/activeUserContext'
 
 
-function PortalTableRow ({row, keys, onClickRow}) { 
-   
-    function RowClick(){
+function PortalTableRow ({headers, row, keys, onClickRow}) {   
+    function rowClick(){
         onClickRow(row);
     }
     let td = [];
-     for (var prop in row) {       
-       if(keys.includes(prop)){
-         td.push(<td  className="tbody-td" key={prop}>{row[prop] }</td> )
-       }     
-    } 
+    let i=0;
+    
+    for(let i=0; i<=keys.length; i++){
+        td.push(<td  className="portaltable-td" key={i}>{row[keys[i]] }</td> )
+    }
+
       return (
-        <tr onClick={() => RowClick()} className="tbody-tr">    
+        <tr onClick={() => rowClick()} className="portaltable-tr">    
           {td}        
         </tr>
       );
   }
   
  
-const PortalTable = ({headers, data, onClick}) => {
+const PortalTable = ({headers, data, onClick}) => {   
     
-    function clickRow(row){
-        onClick(row);
-    }
-    const   heads = headers.map((header, index) => <th key={index} className="thead_th">{header.header }</th>);
-    const    keys = headers.map(header => header.key);
-    const rows = data.map(newrow =><PortalTableRow  row={newrow} keys={keys} onClickRow={clickRow}/> )
+    const heads = headers.map((header, index) => <th key={index} className="portaltable-head">{header.header }</th>);
+    const keys = headers.map(header => header.key);
+    const rows = data.map(newrow =><PortalTableRow  headers={headers} row={newrow} keys={keys} onClickRow={onClick}/> )
   
   return (
       <div>      
