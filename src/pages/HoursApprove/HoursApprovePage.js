@@ -1,21 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './HoursApprovePage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect } from 'react-router-dom'
+import axios from 'axios';
+import { Accordion, Card } from 'react-bootstrap';
+import EmployHoursApproveHeader from '../../components/EmployHoursApproveHeader/EmployHoursApproveHeader';
 
 const HoursApprovePage = (props) => {
     const { handleLogout } = props;
+    const [employers, setEmployers] = useState();
     const activeUser = useContext(ActiveUserContext);
-    
+
+    useEffect(() => {
+        const pathPre = process.env.PUBLIC_URL;
+        axios.get(pathPre.concat("/mokdata.json")).then( response => {
+            setEmployers(response.data);
+        }).catch(error => {
+            console.error(error);
+        });
+    }, []);
+
+
     if (!activeUser) {
         return <Redirect to='/' />
     }
 
+    const cards = employers ?  employers.map((employer, index) => {
+        return (
+            <Card className="employ-card">
+                <Card.Header>
+                    <EmployHoursApproveHeader employer={employer} index={index+1}/>
+                </Card.Header>
+                <Accordion.Collapse eventKey={index+1}>
+                    <Card.Body>Hello! I'm the body</Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        )
+    }) : null;
+
     return (
         <div className="p-hours-approve">
-            <PortalNavbar handleLogout={handleLogout}/>
+            <PortalNavbar handleLogout={handleLogout} />
             <h1>אישור שעות</h1>
+            <Accordion defaultActiveKey="0">
+                {cards ? cards : null}
+            </Accordion>
         </div>
     );
 }

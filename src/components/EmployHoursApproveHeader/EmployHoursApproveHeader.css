@@ -1,0 +1,52 @@
+.header-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-content > .employ-name{
+    font-family: "Assistant-SemiBold";
+    color: #5d5d5d;
+    font-size: 18px;
+    padding-top: 9px;
+    padding-bottom: 10px;
+    padding-right: 19px;
+    flex-grow: 5;
+}
+.header-content > .arrow-container{
+    flex-grow: 1;
+}
+img.arrow-approval-row{
+    padding-left: 13px;
+    padding-right: 34.9px;
+}
+
+.hours-tbl > .total-hours{
+    color:#5d5d5d;
+    padding: 0;
+    width: 25%;
+}
+.hours-tbl > .pending-hours{
+  color: #f5cc0c;
+  padding: 0;
+  width: 25%;
+}
+.hours-tbl > .approval-hours{
+   color: #338d12;
+   padding: 0;
+   width: 25%;
+}
+.hours-tbl > .disapproval-hours{
+    color:#ff0000;
+    padding: 0;
+    width: 25%;
+}
+
+.header-content > .hours-tbl{
+    display: flex;
+    font-family: "Assistant-Regular";
+    font-size: 10px;
+    padding-top: 19px;
+    padding-bottom: 10px;
+    flex-grow: 2;
+    text-align: right;
+}
