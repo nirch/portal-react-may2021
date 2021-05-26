@@ -1,8 +1,7 @@
 import React from 'react'
 import './PortalPager.css';
-import arrow_left from '../../../assets/images/arrow_left.png';
-import arrow_right from '../../../assets/images/arrow_right.png';
-import { Container } from 'react-bootstrap';
+import arrow_left from '../../assets/images/arrow_left.png'
+import arrow_right from '../../assets/images/arrow_right.png';
 
 const PortalPager = (props) => {
     const { curr } = props;
@@ -21,13 +20,17 @@ const PortalPager = (props) => {
         }
     }
     return (
-        <div className="c-pager">
-            <img className={!prev ? "c-pager-right-op":""} src={arrow_right} onClick={onPrevClick}></img>
-            <span>
-                {curr}
-            </span>
-            <img className={!next ? "c-pager-left-op":""} src={arrow_left} onClick={onNextClick}></img>
-        </div>       
+        <>
+            { curr ? 
+            <div className="c-pager">
+                <img className={!prev ? "c-pager-right-op":""} src={arrow_right} onClick={onPrevClick}></img>
+                <span>
+                    {curr}
+                </span>
+                <img className={!next ? "c-pager-left-op":""} src={arrow_left} onClick={onNextClick}></img>
+            </div>       
+            :null } 
+        </>
     );
 }
 
