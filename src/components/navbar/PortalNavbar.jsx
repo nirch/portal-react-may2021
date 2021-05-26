@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './PortalNavbar.css'
-// import './sidebar.css'
-
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect } from 'react-router';
-import server from '../../shared/server';
 import logo from '../../assets/images/logo.svg';
 import imgArrow from '../../assets/images/navbar/arrow_down.svg';
 import imgUsers from '../../assets/images/navbar/noun_user_user_1064877.svg';
@@ -42,32 +39,18 @@ const MenuItem = ({ image, text, isWithSubmenu, page, func, children, isSubMenu 
 }
 
 //props:
-// isSandwich - if false, than output >, if true - sandwich
+//handleLogout - function logout (for button logout)
+// funcBack - if is function, than output >, if no - sandwich
 // title - title of navbar
 //debug - if true then black border 
 const PortalNavbar = (props) => {
 
-    const { isSandwich, title, debug, funcBack } = props;
-    const activeUser = useContext(ActiveUserContext);
+    const { handleLogout, title, debug, funcBack } = props;
+    const {firstName, lastName, image} = useContext(ActiveUserContext);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [userData, setUserData] = useState({ firstName: '', lastName: '', image: '' });
     const [changePage, setChangePage] = useState('');
     //need to do make check current page - if yes, disable menu element
     const imgsDomain = 'https://pil1.appleseeds.org.il/dcnir/';
-
-    //get data from server about user. 
-    useEffect(() =>
-        server(activeUser, {}, 'GetMyProfile').then(result => {
-            console.log(result);
-            setUserData(
-                {
-                    firstName: result.data.firstname,
-                    lastName: result.data.lastname,
-                    image: result.data.image
-                }
-            );
-        }
-        ), [activeUser]);
 
     if (changePage) {
         return (<Redirect to={changePage} />);
@@ -91,10 +74,10 @@ const PortalNavbar = (props) => {
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
                         <div className="profile-preview">
-                            <img className="profile-image"  alt='profile' src={userData.image ? imgsDomain + userData.image : 'img/profile.svg'}></img>
+                            <img className="profile-image"  alt='profile' src={image ? imgsDomain + image : 'img/profile.svg'}></img>
                             <div className="name-wrap">
                                 <span className="user-name">
-                                    {`${userData.firstName} ${userData.lastName}`}
+                                    {`${firstName} ${lastName}`}
                                 </span>
                             </div>
                         </div>
@@ -107,7 +90,7 @@ const PortalNavbar = (props) => {
                             <MenuItem image={imgCourses} text="קורסים" page="courses" func={setChangePage} />
                             <MenuItem image={imgReport} text="דיווח שעות" page="report" func={setChangePage} />
                             <MenuItem image={imgTime} text="אישור שעות" page="approve" func={setChangePage} />
-                            <MenuItem image={imgOff} text="התנתקות" page="logout" func={setChangePage} />
+                            <MenuItem image={imgOff} text="התנתקות" page="logout" func={handleLogout} />
                         </div>
                     </div>
                 </div>

@@ -24,13 +24,12 @@ const LoginPage = (props) => {
             console.log(res);
             if (res.data.error) {
                 alert("error in login");
-            } else {
-                handleLogin(res.data);
-                server(activeUser, {}, 'GetMyProfile').then(result => {
-                    console.log(result);
-                    activeUser.firstName =  result.data.firstname;
-                    activeUser.lastName =  result.data.lastName;
-                    activeUser.image =  result.data.image;
+            } else {//writing user's data
+                server(res.data, {}, 'GetMyProfile').then(result => {
+                    res.data.firstName =  result.data.firstname;
+                    res.data.lastName =  result.data.lastname;
+                    res.data.image =  result.data.image;
+                    handleLogin(res.data);//saving in the localstorage
                 });
             }
             
