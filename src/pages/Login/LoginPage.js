@@ -12,12 +12,18 @@ const LoginPage = (props) => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const activeUser = useContext(ActiveUserContext);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertType, setAlertType] = useState("");
 
     const login = () => {
 
         if(!email || !pwd)
 		{
-			alert("נא להזין פרטי משתמש");
+            setAlertMessage("נא להזין פרטי משתמש");
+            setAlertType("error");
+            setShowAlert(true);
+			// alert("נא להזין פרטי משתמש");
 			return;
         }
         
@@ -25,11 +31,15 @@ const LoginPage = (props) => {
         server(null, data, "login").then(res => {
             console.log(res);
             if (res.data.error) {
-                alert("error in login");
+                setAlertMessage(res.data.error);
+                setAlertType("error");
+                setShowAlert(true);
+                // alert("error in login");
             } else {
                 handleLogin(res.data);
             }
         }, err => {
+            // show alert?
             console.error(err);
         })
     }
@@ -58,7 +68,8 @@ const LoginPage = (props) => {
                 <div className="submit-btn" onClick={login}>התחברות</div>
                 <span className="forget-password">שכחתי סיסמה</span>
             </Form>
-            <AlertComponent/>
+            {showAlert && 
+                <AlertComponent text={alertMessage} type={alertType} onClose={() => setShowAlert(false)}/>}
         </Container>
     );
 }
