@@ -2,34 +2,39 @@ import React from 'react';
 import './EmployHoursApproveBody.css';
 
 function EmployHoursApproveBody({ employer }) {
+    const disapproveReport = reportId => {};
+    const pendingReport = reportId => {};
+    const approveReport = reportId => {};
+
     const reportsRows = employer.reports.map((report,index) =>{
         return(
             <>
              <div className="report-row-buttons">
                  <div className="disapprove-container">
                      <div>דחה</div>
-                     <div className={report.approval ==="-1" ? "disapprove-button selected" : "disapprove-button"}>
+                     <div onClick={()=>disapproveReport(report.reportid)} className={report.approval ==="-1" ? "disapprove-button selected" : "disapprove-button"}>
                          {report.approval ==="-1"?
                          <div className="disapprove-button selected inside"></div> :null}
                      </div>
                  </div>
                  <div className="pending-container">
                      <div>ממתין</div>
-                     <div className={report.approval === "0" ? "pending-button selected" : "pending-button"}>
+                     <div onClick={()=>pendingReport(report.reportid)}className={report.approval === "0" ? "pending-button selected" : "pending-button"}>
                      {report.approval ==="0"?
                          <div className="pending-button selected inside"></div> :null}
                      </div>
                  </div>
                  <div className="approve-container">
                      <div>אשר</div>
-                     <div className={report.approval === "1" ? "approve-button selected" : "approve-button"}>
+                     <div onClick={()=>approveReport(report.reportid)} className={report.approval === "1" ? "approve-button selected" : "approve-button"}>
                      {report.approval ==="1"?
                          <div className="approve-button selected inside"></div> :null}
                      </div>
                  </div>
              </div>
-             <div className="report-row-data">
-
+             <div className={report.approval ==="-1" ? "report-row-data red" : report.approval ==="0"? "report-row-data yellow" : "report-row-data green"}>
+                <div></div>
+                <div></div>
              </div>
             </>
         )

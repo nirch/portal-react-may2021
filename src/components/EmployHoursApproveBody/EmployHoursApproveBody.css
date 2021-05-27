@@ -115,3 +115,13 @@
     transform: translate(-50%, -50%);
     position: absolute;
 }
+
+.report-row-data.red{
+    background-color: #ffa1a1;
+}
+.report-row-data.yellow{
+    background-color: #ffd300;
+}
+.report-row-data.green{
+    background-color: #a1d47f;
+}
