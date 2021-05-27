@@ -1,9 +1,9 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import './EmployHoursApproveHeader.css';
 import arrowDown from './../../assets/images/arrow_down.svg';
 import arrowUp from './../../assets/images/arrow_up.svg'
 
-function EmployHoursApproveHeader({ employer, index, close ,setActiveKey}) {
+function EmployHoursApproveHeader({ employer, index, openRow ,setActiveKey}) {
   let totalHours = 0;
   let approvalHours = 0;
   let disapprovalHours = 0;
@@ -26,19 +26,24 @@ function EmployHoursApproveHeader({ employer, index, close ,setActiveKey}) {
         <div className="disapproval-hours">{disapprovalHours.toFixed(2)}</div>
         <div className="total-hours">{totalHours.toFixed(2)}</div>
       </div>
-      <CustomToggle className="arrow-container" eventKey={index} arrowType={close} setActiveKey={setActiveKey}></CustomToggle>
+      <CustomToggle className="arrow-container" eventKey={index} openRow={openRow}  setActiveKey={setActiveKey}></CustomToggle>
 
     </div>
   );
 }
 export default EmployHoursApproveHeader;
-function CustomToggle({ children, eventKey, arrowType, setActiveKey }) {
+function CustomToggle({ children, eventKey, openRow, setActiveKey }) {
+  const handleArrowClick = eventKey => {
+    setActiveKey(eventKey);
+  }
   return (
     <>
-      {!arrowType ?
-        <img className="arrow-approval-row" src={arrowDown} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
+      {!openRow ?
+        <img className="arrow-approval-row" src={arrowDown} type="button" onClick={()=>handleArrowClick(eventKey)} alt="">
+        {children}
         </img> :
-        <img className="arrow-approval-row" src={arrowUp} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
+        <img className="arrow-approval-row" src={arrowUp} type="button" onClick={()=>handleArrowClick("0")} alt="">
+        {children}
         </img>}
     </>
 

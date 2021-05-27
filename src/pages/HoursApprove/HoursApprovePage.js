@@ -32,7 +32,7 @@ const HoursApprovePage = (props) => {
         return (
             <Card className="employ-card">
                 <Card.Header>
-                    <EmployHoursApproveHeader employer={employer} index={index+1} close={index+1 === activeKey} setActiveKey={setActiveKey}/>
+                    <EmployHoursApproveHeader employer={employer} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
                     <EmployHoursApproveBody employer={employer}/>
