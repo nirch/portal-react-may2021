@@ -3,6 +3,7 @@ import './HoursReportPage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
 import HoursReportRow from '../../components/HoursReportRow/HoursReportRow'
+import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter'
 import { Redirect } from 'react-router-dom'
 import server from '../../shared/server'
 
@@ -66,9 +67,6 @@ const HoursReportPage = (props) => {
                             <th>סה"כ שעות</th>
                         </tr>
                     </thead>
-
-                    
-        
                         {reports.length != 0 && reportingPerimeter 
                             ? <tbody>{reports.map((report) =>
                                 <HoursReportRow
@@ -79,13 +77,10 @@ const HoursReportPage = (props) => {
                               </tbody>
                             : null
                         }
-                        
-
-                    
                 </table>
             </div>
+            <HoursReportFooter/>
         </div>
     );
 }
-
 export default HoursReportPage;
