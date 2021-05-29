@@ -37,6 +37,10 @@
     bottom: 25.1px;
  }
 
+ .c-hours-report-footer img,svg {
+     cursor: pointer;
+ }
+
  .c-hours-report-footer #delete-img{
     position: absolute; 
     top: 26px;
