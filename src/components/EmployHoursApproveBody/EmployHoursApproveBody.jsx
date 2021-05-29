@@ -1,5 +1,5 @@
 import React from 'react';
-import './EmployHoursApproveBody.css';
+import './EmployHoursApproveBody.scss';
 
 function EmployHoursApproveBody({ employer }) {
     const disapproveReport = reportId => {};
@@ -8,7 +8,7 @@ function EmployHoursApproveBody({ employer }) {
 
     const reportsRows = employer.reports.map((report,index) =>{
         return(
-            <>
+            <div key={index}>
              <div className="report-row-buttons">
                  <div className="disapprove-container">
                      <div>דחה</div>
@@ -36,7 +36,7 @@ function EmployHoursApproveBody({ employer }) {
                 <div></div>
                 <div></div>
              </div>
-            </>
+            </div>
         )
     })
     const selectAll = () => {

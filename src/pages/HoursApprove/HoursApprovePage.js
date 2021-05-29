@@ -30,12 +30,12 @@ const HoursApprovePage = (props) => {
 
     const cards = employers ?  employers.map((employer, index) => {
         return (
-            <Card className="employ-card">
+            <Card className="employ-card" key={index}>
                 <Card.Header>
                     <EmployHoursApproveHeader employer={employer} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
-                    <EmployHoursApproveBody employer={employer}/>
+                    <EmployHoursApproveBody employer={employer} />
                 </Accordion.Collapse>
             </Card>
         )

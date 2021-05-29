@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React from 'react';
 import './EmployHoursApproveHeader.css';
 import arrowDown from './../../assets/images/arrow_down.svg';
 import arrowUp from './../../assets/images/arrow_up.svg'
@@ -67,6 +67,5 @@ function diff(start, end) {
 
   // return (hours <= 9 ? "0" : "") + hours + ":" + (minutes <= 9 ? "0" : "") + minutes;
   let temp = hours + (minutes / 60);
-  console.log(temp);
   return temp;
 }
