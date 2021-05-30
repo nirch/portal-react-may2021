@@ -24,6 +24,10 @@
     padding-bottom: 21px;
 }
 
+.top > .icons {
+    padding: 0 5px;
+}
+
 .top > .icons > img {
     padding: 0 15px;
 }
