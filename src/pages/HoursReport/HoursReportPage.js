@@ -70,9 +70,11 @@ const HoursReportPage = (props) => {
                         {reports.length != 0 && reportingPerimeter 
                             ? <tbody>{reports.map((report) =>
                                 <HoursReportRow
-                                    key={report.projectid}
-                                    {...report}
-                                    {...reportingPerimeter[report.projectid]}
+                                    key={report.reportid}
+                                    report={report}
+                                    reportingPerimeter={reportingPerimeter[report.projectid]}
+                                    // {...report}
+                                    // {...reportingPerimeter[report.projectid]}
                                 />)}
                               </tbody>
                             : null
