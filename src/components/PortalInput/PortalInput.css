@@ -1,0 +1,17 @@
+.c-portalinput label{
+    font-family: 'Assistant-SemiBold';
+}
+
+.c-portalinput input {
+    font-family: 'Assistant-Light';
+    border: 0;
+    width: 100%;
+    outline: none;
+}
+
+.c-portalinput{
+    font-size: 12px;
+    line-height: 6px;
+    box-shadow: 0 1px 1px -0px rgb(0 0 0 / 5%);
+    padding: 10px 30px;
+}

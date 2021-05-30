@@ -1,0 +1,72 @@
+.p-login {
+    background-color: #1b166e;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+}
+
+.p-login > .logo-wrapper {
+    margin: 40px 0 100px 0;
+    align-self: center;
+    width: 100%;
+    text-align: center;
+}
+
+.p-login .logo-wrapper > img {
+    width: 78%;
+}
+
+.p-login > form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.p-login > form > .form-group {
+    margin-bottom: 32px;
+}
+
+.p-login > form > .form-group > input {
+    background-color: transparent;
+    color: #fff;
+    font-size: 25px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    font-family: "Assistant-Regular";
+    text-align: center;
+    padding: 8px 0;
+}
+
+.p-login > form > .form-group > input:focus {
+    border: 2px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    box-shadow: none;
+}
+
+.p-login > form .form-control::placeholder {
+    color: #fff;
+}
+
+.p-login .submit-btn {
+    margin-top: auto;
+    margin-bottom: 22px;
+    background-color: #fff;
+    color: #1b166e;
+    font-size: 30px;
+    border: none;
+    border-radius: 30px;
+    font-family: "Assistant-SemiBold";
+    text-align: center;
+    line-height: 40px;
+    padding: 5px 0;
+}
+
+.p-login > form > .forget-password {
+    color: #fff;
+    font-size: 20px;
+    font-family: "Assistant-SemiBold";
+    align-self: center;
+    margin: 36px;
+}
