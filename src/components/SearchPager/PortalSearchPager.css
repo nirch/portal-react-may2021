@@ -26,3 +26,6 @@
     left:21.5px;
     top:8px;
 }
+.c-search-pager>.c-pager>span{
+    width: 21.5px;
+}
