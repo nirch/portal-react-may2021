@@ -44,12 +44,11 @@ const PortalDatePicker = (props) => {
         if(month===1){
             prevMonth=12;
         }
-        const diffTime = Math.abs(currentDate - today);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        if(currentDate>today && diffDays>180){
+        const diffMonth = monthDiff(currentDate , today); 
+        if(currentDate>today && diffMonth>=6){
             nextMonth="";
         }
-        if(currentDate<today && diffDays>180){
+        if(currentDate<today && diffMonth>=6){
             prevMonth="";
         }
         monthName = monthMap[month] +" "+year;
@@ -57,6 +56,15 @@ const PortalDatePicker = (props) => {
     }else if(type==='Day'){
         year = year%100;
         dayName= date+"/"+month+"/"+year;
+    }
+
+    function monthDiff(d1, d2) {
+        let months;
+        months = (d2.getFullYear() - d1.getFullYear()) * 12;
+        months -= d1.getMonth();
+        months += d2.getMonth();
+        months = Math.abs(months);
+        return months=== 0 ? 0 : months;
     }
 
     function onPageChange(action){
