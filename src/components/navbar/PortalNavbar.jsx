@@ -84,9 +84,9 @@ const PortalNavbar = (props) => {
                         </div>
                         <div className="sidebar-options">
                             <MenuItem image={imgUsers} text="משתמשים" isWithSubmenu>
-                                <MenuItem text="עובדים" page="abcd" func={setChangePage} isSubMenu />
-                                <MenuItem text="חניכים" page="qwerty" func={setChangePage} isSubMenu />
-                                <MenuItem text="משתמשים חדשים" page="asdf" func={setChangePage} isSubMenu />
+                                <MenuItem text="עובדים" page="/users&type=employee" func={setChangePage} isSubMenu />
+                                <MenuItem text="חניכים" page="/users&type=student" func={setChangePage} isSubMenu />
+                                <MenuItem text="משתמשים חדשים" page="/users&type=new" func={setChangePage} isSubMenu />
                             </MenuItem>
                             <MenuItem image={imgCourses} text="קורסים" page="courses" func={setChangePage} />
                             <MenuItem image={imgReport} text="דיווח שעות" page="report" func={setChangePage} />
