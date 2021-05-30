@@ -5,13 +5,13 @@ function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees
     const [selectAllReports, setSelectAllReports] =  useState(false);
     const [checkedReports, setCheckedReports] = useState();
     const disapproveReport = (index) => {
-        changeEmployees(employeeIndex, index, "-1")
+        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "-1"})
     };
     const pendingReport = (index) => {
-        changeEmployees(employeeIndex, index, "0")
+        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "0"})
     };
     const approveReport = (index) => {
-        changeEmployees(employeeIndex, index, "1")
+        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "1"})
     };
 
     const handleChange = (e) =>  {
@@ -93,19 +93,24 @@ function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees
     };
 
     const approveSelected = () => {
+        const indexs = []
         for(let i=0; i < employee.reports.length; i++){
             if(checkedReports[i] === true){
-                changeEmployees(employeeIndex, i, "1")
+                indexs.push(i);
             }
         }
+        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : indexs, "approval" : "1"})
+
     };
 
     const disapproveSelectd = () => {
+        const indexs = []
         for(let i=0; i < employee.reports.length; i++){
             if(checkedReports[i] === true){
-                changeEmployees(employeeIndex, i, "-1")
+                indexs.push(i);
             }
         }
+        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : indexs, "approval" : "-1"})
     };
 
     return (

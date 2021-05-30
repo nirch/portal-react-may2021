@@ -23,10 +23,12 @@ const HoursApprovePage = (props) => {
             console.error(error);
         });
     }, []);
-    
-    const ChangeEmployees = (employeeIndex, reportIndex, approval) =>{
+
+    const ChangeEmployees = (params) =>{
         const cloneEmployees = [...employees];
-        cloneEmployees[employeeIndex].reports[reportIndex].approval = approval;
+            for(const reportIndex of params.reportIndexs){
+                cloneEmployees[params.employeeIndex].reports[reportIndex].approval = params.approval;
+            }
         setEmployees(cloneEmployees);
     }
 
