@@ -1,0 +1,18 @@
+.c-tabs {
+    padding: 24px 0px;
+    border-bottom: 1px solid #1b166e;
+}
+
+.c-tabs > a  {
+    font-size: 14px;
+    font-family: 'Assistant-Light'; 
+    line-height: 18px;
+    color: #1b166e !important;
+    padding: 28px;
+}
+
+.c-tabs > a.active {
+    text-decoration: none;
+    font-family: 'Assistant-SemiBold';
+    border-bottom: 3px solid #1b166e;
+}
