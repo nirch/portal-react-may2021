@@ -14,6 +14,15 @@ const PortalSearchPager = ({placeholder, onSearch, pages, currentPage, onPageCha
     const pageNumber = parseInt(currentPage, 10);
     const pagesNumber = parseInt(pages, 10);
     
+    function onPageClick(data){
+        if (data==='prev'){
+            onPageChange(pageNumber-1);
+        }
+        else if(data==='next'){
+            onPageChange(pageNumber+1);
+        }
+    }
+
     return (
 
         <Container className="c-search-page">
@@ -26,8 +35,7 @@ const PortalSearchPager = ({placeholder, onSearch, pages, currentPage, onPageCha
                                 curr={pagesNumber && pagesNumber>0 && pageNumber<pagesNumber? pageNumber + 1:""}  
                                 next={pagesNumber && pagesNumber>0 && pageNumber+1<pagesNumber ? pageNumber + 2: ""}
                                 prev={pagesNumber && pagesNumber>0 && pageNumber>=0 ? pageNumber:"" } 
-                                type="number"
-                                onPageClick={x=>onPageChange(x)} />
+                                onPageClick={onPageClick} />
                 </div>
             </form>
         </Container>

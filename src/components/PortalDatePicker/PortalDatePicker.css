@@ -1,0 +1,13 @@
+.c-date-picker{
+    width: 100%;
+    height: 70px;
+}
+.c-date-picker>.c-pager{
+    font-family: Assistant-SemiBold;
+    padding:20px 95px 10px 95px;
+    font-size:28px;
+    color:#5d5d5d;   
+}
+.c-date-picker>.c-pager>span{
+    width: 155px;
+}
