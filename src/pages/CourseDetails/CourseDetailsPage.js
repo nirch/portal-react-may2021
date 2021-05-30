@@ -18,15 +18,8 @@ const CourseDetailsPage = ({handleLogout}) => {
 
 
     useEffect(() => {
+        
         let payload = {
-            "courseid": id,
-            "token": activeUser.token,
-            "v": "2.3"
-        };
-
-        server(activeUser, payload, "GetCourseById").then(res => setCourseDetails(res.data));
-
-        payload = {
             "courseid": id,
             "page": 0,
             "roleid": 1,
@@ -34,19 +27,14 @@ const CourseDetailsPage = ({handleLogout}) => {
             "token": activeUser.token,
             "v": "2.3"
         }
+        server(activeUser, payload, "GetCourseById").then(res => setCourseDetails(res.data));
 
-        server(activeUser, payload, "GetCourseEnrollmentProfiles").then(res => setStudents(res.data));
+        server(activeUser, payload, "GetCourseEnrollmentProfiles").then(res => setStudents(res.data.enrolled));
 
-        payload = {
-            "courseid": id,
-            "page": 0,
-            "roleid": 2,
-            "search": "",
-            "token": activeUser.token,
-            "v": "2.3"
-        }
+        payload["roleid"] = 2;
 
-        server(activeUser, payload, "GetCourseEnrollmentProfiles").then(res => setTeachers(res.data));
+        server(activeUser, payload, "GetCourseEnrollmentProfiles").then(res => setTeachers(res.data.enrolled));
+
     }, []);
     
 
@@ -57,7 +45,7 @@ const CourseDetailsPage = ({handleLogout}) => {
 
     return (
         <div className="p-course-details">
-            <PortalNavbar handleLogout={handleLogout}/>{console.log(students)}
+            <PortalNavbar handleLogout={handleLogout}/>
             <CourseHeader name={courseDetails.name} subName={courseDetails.subname}/>
         </div>
     );
