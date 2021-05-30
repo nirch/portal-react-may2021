@@ -80,8 +80,9 @@ const HoursReportPage = (props) => {
                 </table>
             </div>
             <HoursReportFooter 
-                save={true}
+                save={false}
                 copy={true}
+                add={true}
                 del={true}
                 back={true}
             />
