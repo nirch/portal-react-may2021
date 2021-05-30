@@ -9,6 +9,7 @@
     line-height: 18px;
     color: #1b166e !important;
     padding: 14px;
+    text-align: center;
 }
 
 .c-tabs > a.active {
