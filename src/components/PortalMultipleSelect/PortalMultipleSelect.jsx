@@ -10,17 +10,17 @@ const PortalMultipleSelect = ({title, options, optionKey, handleSelection}) => {
     const idSelect = 'select';
 
     const addElement =(value) => {
-
-        handleSelection([...selectedOptions],value, true);
-        setSelectedOptions(selectedOptions.concat(value));
+        const ret = selectedOptions.concat(value);
+        handleSelection(ret,value, true);
+        setSelectedOptions(ret);
         setViewSelect(false);
     }
     const delElement =(value) => {
 
-        handleSelection([...selectedOptions],value, false);
-
+        
         let temp = [...selectedOptions];
         temp.splice(selectedOptions.indexOf(value),1)
+        handleSelection(temp,value, false);
         setSelectedOptions(temp);
     }
 
