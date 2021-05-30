@@ -1,21 +1,29 @@
 import React, { useState, useContext } from 'react';
-import { Container, Form, Button } from 'react-bootstrap'
+import { Container, Form } from 'react-bootstrap'
 import './LoginPage.css'
 import server from '../../shared/server'
 import { Redirect } from 'react-router-dom'
 import ActiveUserContext from '../../shared/activeUserContext'
+import logo_image from '../../assets/images/logo.svg';
+import AlertComponent from '../../components/alert/Alert';
 
 const LoginPage = (props) => {
     const { handleLogin } = props;
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const activeUser = useContext(ActiveUserContext);
+    const [alertVisibility, setAlertVisibility] = useState(null);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertType, setAlertType] = useState("");
 
     const login = () => {
 
         if(!email || !pwd)
 		{
-			alert("נא להזין פרטי משתמש");
+            setAlertMessage("נא להזין פרטי משתמש");
+            setAlertType("error");
+            setAlertVisibility("show")
+			// alert("נא להזין פרטי משתמש");
 			return;
         }
         
@@ -23,11 +31,19 @@ const LoginPage = (props) => {
         server(null, data, "login").then(res => {
             console.log(res);
             if (res.data.error) {
-                alert("error in login");
-            } else {
-                handleLogin(res.data);
+                setAlertMessage(res.data.error);
+                setAlertType("error");
+                setAlertVisibility("show")
+            } else {//writing user's data
+                server(res.data, {}, 'GetMyProfile').then(result => {
+                    res.data.firstName =  result.data.firstname;
+                    res.data.lastName =  result.data.lastname;
+                    res.data.image =  result.data.image;
+                    handleLogin(res.data);//saving in the localstorage
+                });
             }
         }, err => {
+            // show alert?
             console.error(err);
         })
     }
@@ -38,24 +54,25 @@ const LoginPage = (props) => {
 
     return (
 
-        <Container className="p-login">
-            <h1>התחברות</h1>
+        <div className="p-login">
+            <div className="logo-wrapper">
+                <img src={logo_image} alt=""/>
+            </div>
             <Form>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label></Form.Label>
                     <Form.Control value={email} type="email" placeholder="אימייל" onChange={e => setEmail(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label></Form.Label>
                     <Form.Control value={pwd} type="password" placeholder="סיסמה" onChange={e => setPwd(e.target.value)}/>
                 </Form.Group>
 
-                <Button variant="primary" type="button" onClick={login}>
-                    התחבר
-                </Button>
+                <div className="submit-btn" onClick={login}>התחברות</div>
+                <span className="forget-password">שכחתי סיסמה</span>
             </Form>
-        </Container>
+            
+            <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
+        </div>
     );
 }
 
