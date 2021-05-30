@@ -1,0 +1,76 @@
+.multiselect {
+    // height: 58px;
+    padding: 10px 31px 10px 31px;
+    // box-shadow: 0px 0px 1px 0px #0d0000;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: .05);
+
+    .list-options {
+        display: none;
+    }
+
+    .list-options.open {
+        display: block;
+    }
+
+    .minus {
+        font-size: 14px;
+        font-family: Assistant-ExtraBold;
+        margin: 0 5px;
+    }
+
+    .label {
+        font-size: 12px;
+        font-family: Assistant-SemiBold;
+    }
+
+    .plus {
+        font-size: 14px;
+        font-family: Assistant-ExtraBold;
+        margin: 0 5px;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .selected-options {
+        display: flex;
+        flex-direction: row;
+        width: calc(100% - 21px);
+        // height: 22px;
+        // text-overflow: ellipsis;
+        //overflow: hidden;
+        flex-wrap: wrap;
+    }
+
+     .selected-element {
+        display: flex;
+        flex-direction: row;
+        font-size: 12px;
+        margin: 0 3px;
+    }
+
+    select {
+        overflow-y: auto;
+        position: fixed;
+    }
+
+    .wrap {
+        display: none;
+    }
+
+    .wrap-open {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .name{
+        white-space: nowrap;
+        
+    }
+}
