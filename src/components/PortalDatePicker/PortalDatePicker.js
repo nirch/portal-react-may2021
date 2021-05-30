@@ -14,20 +14,7 @@ const PortalDatePicker = (props) => {
             onDateSelection(currentDate);
         }
     }, [currentDate])
-
-    const monthMap={1:"ינואר",
-                    2:"פברואר",
-                    3:"מרץ",
-                    4:"אפריל",
-                    5:"מאי",
-                    6:"יוני",
-                    7:"יולי",
-                    8:"אוגוסט",
-                    9:"ספטמבר",
-                    10:"אוקטובר",
-                    11:"נובמבר",
-                    12:"דצמבר"}
-    
+        
     const date = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     let year = currentDate.getFullYear();
@@ -51,7 +38,7 @@ const PortalDatePicker = (props) => {
         if(currentDate<today && diffMonth>=6){
             prevMonth="";
         }
-        monthName = monthMap[month] +" "+year;
+        monthName = currentDate.toLocaleString('he-IL', { month: 'long'})+" "+year;
         
     }else if(type==='Day'){
         year = year%100;
