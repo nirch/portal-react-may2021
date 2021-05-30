@@ -14,6 +14,7 @@ const HoursApprovePage = (props) => {
     const [activeKey, setActiveKey] = useState(0);
     const activeUser = useContext(ActiveUserContext);
 
+
     useEffect(() => {
         const pathPre = process.env.PUBLIC_URL;
         axios.get(pathPre.concat("/mokdata.json")).then( response => {
@@ -22,6 +23,12 @@ const HoursApprovePage = (props) => {
             console.error(error);
         });
     }, []);
+    
+    const ChangeEmployees = (employeeIndex, reportIndex, approval) =>{
+        const cloneEmployees = [...employees];
+        cloneEmployees[employeeIndex].reports[reportIndex].approval = approval;
+        setEmployees(cloneEmployees);
+    }
 
 
     if (!activeUser) {
@@ -35,7 +42,7 @@ const HoursApprovePage = (props) => {
                     <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey} diff={diff}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
-                    <EmployHoursApproveBody employee={employee} diff={diff}/>
+                    <EmployHoursApproveBody employee={employee} diff={diff} changeEmployees={ChangeEmployees} employeeIndex={index}/>
                 </Accordion.Collapse>
             </Card>
         )

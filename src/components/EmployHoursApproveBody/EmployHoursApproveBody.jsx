@@ -1,14 +1,29 @@
-import React from 'react';
-import EmployHoursApproveHeader from '../EmployHoursApproveHeader/EmployHoursApproveHeader';
+import React, { useState } from 'react';
 import './EmployHoursApproveBody.scss';
 
-function EmployHoursApproveBody({ employee, diff }) {
-    const disapproveReport = reportId => {};
-    const pendingReport = reportId => {};
-    const approveReport = reportId => {};
+function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees }) {
+    const [selectAllReports, setSelectAllReports] =  useState(false);
+    const [checkedReports, setCheckedReports] = useState();
+    const disapproveReport = (index) => {
+        changeEmployees(employeeIndex, index, "-1")
+    };
+    const pendingReport = (index) => {
+        changeEmployees(employeeIndex, index, "0")
+    };
+    const approveReport = (index) => {
+        changeEmployees(employeeIndex, index, "1")
+    };
 
-    const HandleCheckedButton = e =>{
-        
+    const handleChange = (e) =>  {
+        if(e.target.checked === true){
+            const checkedReportsClone = [...checkedReports];
+            checkedReportsClone[e.target.value] = true;
+            setCheckedReports(checkedReportsClone)
+        }else{
+            const checkedReportsClone = [...checkedReports];
+            checkedReportsClone[e.target.value] = false;
+            setCheckedReports(checkedReportsClone)
+       }
     }
     const reportsRows = employee.reports.map((report, index) =>{
         let curseName="-";
@@ -25,21 +40,21 @@ function EmployHoursApproveBody({ employee, diff }) {
              <div className="report-row-buttons">
                  <div className="disapprove-container">
                      <div>דחה</div>
-                     <div onClick={()=>disapproveReport(report.reportid)} className={report.approval ==="-1" ? "disapprove-button selected" : "disapprove-button"}>
+                     <div onClick={()=>disapproveReport(index)} className={report.approval ==="-1" ? "disapprove-button selected" : "disapprove-button"}>
                          {report.approval ==="-1"?
                          <div className="disapprove-button selected inside"></div> :null}
                      </div>
                  </div>
                  <div className="pending-container">
                      <div>ממתין</div>
-                     <div onClick={()=>pendingReport(report.reportid)}className={report.approval === "0" ? "pending-button selected" : "pending-button"}>
+                     <div onClick={()=>pendingReport(index)}className={report.approval === "0" ? "pending-button selected" : "pending-button"}>
                      {report.approval ==="0"?
                          <div className="pending-button selected inside"></div> :null}
                      </div>
                  </div>
                  <div className="approve-container">
                      <div>אשר</div>
-                     <div onClick={()=>approveReport(report.reportid)} className={report.approval === "1" ? "approve-button selected" : "approve-button"}>
+                     <div onClick={()=>approveReport(index)} className={report.approval === "1" ? "approve-button selected" : "approve-button"}>
                      {report.approval ==="1"?
                          <div className="approve-button selected inside"></div> :null}
                      </div>
@@ -48,7 +63,7 @@ function EmployHoursApproveBody({ employee, diff }) {
              <div className={report.approval ==="-1" ? "report-row-data red" : report.approval ==="0"? "report-row-data yellow" : "report-row-data green"}>
                 <div className="up-row-report-data">
                     <div className="checkbox-report-container">
-                        <input type="checkbox" value={index} className="checkbox-report"></input>
+                        <input type="checkbox" onChange={handleChange} value={index} className="checkbox-report" checked={selectAllReports ? selectAllReports : null}></input>
                     </div>
                     <div className="date-of-report">תאריך: {report.date}</div>
                     <div className="sum-hours-report">סה"כ שעות: {diff(report.starthour,report.finishhour)}</div>
@@ -70,39 +85,49 @@ function EmployHoursApproveBody({ employee, diff }) {
              </div>
             </div>
         )
-    })
+    }) ;
     const selectAll = () => {
-
+        const checkedReportsClone = employee.reports.map(report => !selectAllReports);
+        setCheckedReports(checkedReportsClone);
+        setSelectAllReports(!selectAllReports);
     };
 
     const approveSelected = () => {
-
+        for(let i=0; i < employee.reports.length; i++){
+            if(checkedReports[i] === true){
+                changeEmployees(employeeIndex, i, "1")
+            }
+        }
     };
 
     const disapproveSelectd = () => {
-
+        for(let i=0; i < employee.reports.length; i++){
+            if(checkedReports[i] === true){
+                changeEmployees(employeeIndex, i, "-1")
+            }
+        }
     };
 
     return (
         <div className="employ-hours-approve-body">
+            {employee.reports.length > 0 ? 
             <div className="actions-buttons">
                 <div className="select-all-container">
-                    <div className="select-all-button" onClick={() => selectAll()} />
+                    <div className={selectAllReports ? "select-all-button checked":"select-all-button"} onClick={() => selectAll()} />
                     <div className="title-button">בחר הכל</div>
                 </div>
                 <div className="approve-selected-container">
-                    <div className="approve-selected-button" onClick={() => approveSelected()}/>
+                    <div className="approve-selected-button" onClick={approveSelected}/>
                     <div className="title-button">אישור מסומנים</div>
                 </div>
                 <div className="disapprove-selected-container">
-                    <div className="disapprove-selected-button" onClick={() => disapproveSelectd()}/>
+                    <div className="disapprove-selected-button" onClick={disapproveSelectd}/>
                     <div className="title-button">דחיית מסומנים</div>
                 </div>
-            </div>
+            </div>: null}
             <div className="data-rows">
                 {reportsRows ? reportsRows : null}
-            </div>
-
+            </div> 
         </div>
     );
 }

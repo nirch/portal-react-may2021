@@ -18,6 +18,14 @@
                 border: solid 1px #707070;
                 margin-left: 7px;
             }
+            .select-all-button.checked{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: solid 1px #707070;
+                margin-left: 7px;
+                background-color:#007bff;
+            }
         }
         .approve-selected-container{
             display: flex;
