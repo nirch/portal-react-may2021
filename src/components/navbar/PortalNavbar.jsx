@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import './PortalNavbar.css'
+import './PortalNavbar.scss'
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect } from 'react-router';
 import logo from '../../assets/images/logo.svg';
@@ -10,28 +10,27 @@ import imgReport from '../../assets/images/navbar/noun_time_1610737.svg';
 import imgTime from '../../assets/images/navbar/noun_check_box_38652.svg';
 import imgOff from '../../assets/images/navbar/noun_off_1915997.svg';
 
-const Sandwich = ({ funcBack, onClick }) => {
-    return !funcBack
-        ? <div className="sandwich" onClick={onClick}>
+const Sandwich = ({ onClick }) => {
+    return <div className="sandwich" onClick={onClick}>
             <div className="black" />
             <div />
             <div className="black" />
             <div />
             <div className="black" />
         </div>
-        : <div className="sandwich" onClick={funcBack}><div className="arrow">→</div></div>
+        
 }
 
-const MenuItem = ({ image, text, isWithSubmenu, page, func, children, isSubMenu }) => {
+const MenuItem = ({ image, text, page, func, children }) => {
     const [openSub, setOpenSub] = useState(false);
     return (
         <>
-            <div className={`menu-item ${isSubMenu ? 'sub' : ''} ${openSub ? 'open' : ''} `} onClick={isWithSubmenu ? () => setOpenSub(!openSub) : () => func(page)}>
-                <div>
+            <div className={`menu-item ${children ? 'sub' : ''} ${openSub ? 'open' : ''} `} onClick={children ? () => setOpenSub(!openSub) : () => func(page)}>
+                <div className="image">
                     {image ? <img src={image} alt='icon' /> : null }
                 </div>
                 <div className="text">{text}</div>
-                {isWithSubmenu ? <div><img alt='arrow' src={imgArrow} /></div> : null}
+                {children ? <div className="arrow"><img alt='arrow' src={imgArrow} /></div> : null}
             </div>
             <div className={`children ${openSub ? 'open' : ''}`}>{children}</div>
         </>
@@ -59,7 +58,10 @@ const PortalNavbar = (props) => {
     return (
         <div className="c-navbar">
             <div className={`header-wrap ${debug ? 'debug' : ''}`}>
-                <Sandwich funcBack={funcBack} onClick={() => setMenuOpen(true)} />
+                { funcBack
+                    ? <div className="sandwich" onClick={funcBack}><div className="arrow">→</div></div> 
+                    : <Sandwich onClick={() => setMenuOpen(true)} />
+                }
                 <div className="header-title">
                     {title}
                 </div>
@@ -70,7 +72,6 @@ const PortalNavbar = (props) => {
                     <div className="sidebar">
                         <div className="sidebar-header">
                             <div className="cross" ><span onClick={() => setMenuOpen(false)} >&times;</span></div>
-                            {/* <div className="cross" ><i onClick={() => setMenuOpen(false)} className="fas fa-times"></i></div> */}
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
                         <div className="profile-preview">
