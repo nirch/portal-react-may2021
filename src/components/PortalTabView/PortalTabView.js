@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './PortalTabView.css'
 
 export default function PortalTabView({tabs}) {
 
     const [tabIndex, setTabIndex] = useState(0);
+
+    //return current tab to parent
+    useEffect(()=> {
+        if( tabs[tabIndex].onChange ) {
+            tabs[tabIndex].onChange(tabIndex);
+        } 
+    },[tabIndex])
 
     const style = {width:100/tabs.length + "%" }
         

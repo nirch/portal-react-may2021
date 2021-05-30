@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './UsersPage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
@@ -6,15 +6,22 @@ import { Redirect, useLocation } from 'react-router-dom'
 import PortalInput from '../../components/PortalInput/PortalInput';
 import PortalTable from '../../components/PortalTable/PortalTable';
 import PortalTabView from '../../components/PortalTabView/PortalTabView';
+import PortalSearchPager from '../../components/SearchPager/PortalSearchPage';
 
 const UsersPage = (props) => {
     const { handleLogout } = props;
+    const [currentTab, setCurrentTab] = useState(0);//employee working now (0), don't working (!)
+    const [searchText, setSearchText] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const activeUser = useContext(ActiveUserContext);
     let location = useLocation();
     useEffect(() => {
         console.log(location);
       }, [location]);
       
+    useEffect(()=>{
+        console.log(`currentTab - ${currentTab}, searchText - ${searchText}, currentPage - ${currentPage}`)
+    },[currentTab, searchText, currentPage])
     if (!activeUser) {
         return <Redirect to='/' />
     }
@@ -37,9 +44,17 @@ const UsersPage = (props) => {
         <div className="p-users">
             <PortalNavbar handleLogout={handleLogout}/>
             <h1>משתמשים</h1>
-            <PortalInput />
+
+            <PortalSearchPager 
+                placeholder='חיפוש עובד' 
+                onSearch={setSearchText}
+                pages={5} 
+                currentPage={2} 
+                onPageChange={setCurrentPage} />
             <PortalTable headers={header} data={data} onClick={()=>{}} />
-            <PortalTabView tabs={[{header: 'עובדים פעילים'}, {header: 'לא פעילים'}]} />
+            <PortalTabView tabs={[
+                {header: 'עובדים פעילים', onChange: setCurrentTab}, 
+                {header: 'לא פעילים', onChange:setCurrentTab}]} />
 
         </div>
     );
