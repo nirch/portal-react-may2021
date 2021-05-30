@@ -21,7 +21,7 @@ const UserDetailsPage = (props) => {
         <div className="p-user-details">
             <PortalNavbar handleLogout={handleLogout}/>
             <div className="user-header">
-                <div>
+                <div className="right-col">
                     <h1>שם העובד</h1>
                     <h1>שם משפחה</h1>
                     <div className="checkbox-wrapper">
@@ -30,7 +30,8 @@ const UserDetailsPage = (props) => {
                     </div>
                     <p>נרשם ב: <span className="date-created">2018-05-08 15:36:22</span></p>
                 </div>
-                <div>
+
+                <div className="left-col">
                     <div className="actions-wrapper">
                         <img src={back_arrow} alt=""/>
                         <img src={copy_icon} alt=""/>

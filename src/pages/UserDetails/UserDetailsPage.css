@@ -2,10 +2,22 @@
     display: flex;
     justify-content: space-between;
     padding: 16px 18px 14px 13px;
+    box-shadow: 0 3px 6px 0 #29000022;
+}
+
+.p-user-details > .user-header > .left-col {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.p-user-details > .user-header > .right-col {
+    font-size: 10px;
 }
 
 .p-user-details > .user-header .actions-wrapper {
     text-align: left;
+    margin-bottom: 28px;
 }
 
 .p-user-details > .user-header .actions-wrapper > img:not(:first-child) {
