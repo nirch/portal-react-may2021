@@ -76,6 +76,7 @@ const PortalDatePicker = (props) => {
             }
             if(type==='Month'){
                 const prevMonth = new Date(currentDate);
+                prevMonth.setDate(1);
                 prevMonth.setMonth(prevMonth.getMonth()-1);
                 setCurrentDate(prevMonth);
             }  
@@ -88,6 +89,7 @@ const PortalDatePicker = (props) => {
             }
             if(type==='Month'){
                 const nextMonth = new Date(currentDate);
+                nextMonth.setDate(1);
                 nextMonth.setMonth(nextMonth.getMonth()+1);
                 setCurrentDate(nextMonth);
             }        
