@@ -1,0 +1,48 @@
+.p-user-details > .user-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 18px 14px 13px;
+}
+
+.p-user-details > .user-header .actions-wrapper {
+    text-align: left;
+}
+
+.p-user-details > .user-header .actions-wrapper > img:not(:first-child) {
+    margin-right: 33px;
+}
+
+.p-user-details > .user-header .image-wrapper {
+    position: relative;
+}
+
+.p-user-details > .user-header .image-wrapper > .edit-wrapper {
+    position: absolute;
+    bottom: -7px;
+    right: 7px;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+}
+
+.p-user-details > .user-header .image-wrapper > .edit-wrapper > .edit-icon {
+    margin-bottom: 3px;
+}
+
+.p-user-details > .user-header > div > h1 {
+    font-size: 28px;
+    font-family: 'Assistant-SemiBold';
+    margin: 0;
+}
+
+.p-user-details > .user-header > div > .checkbox-wrapper {
+    margin: 29px 0 21px 0;
+}
+
+.p-user-details > .user-header > div > .checkbox-wrapper > input {
+    margin-left: 16px;
+    border-radius: 0;
+}
