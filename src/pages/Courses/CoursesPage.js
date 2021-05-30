@@ -13,11 +13,22 @@ const CoursesPage = (props) => {
         return <Redirect to='/' />
     }
 
+    const options=[
+        {key: 'עובדים מלמדים עובדים', key1:12345},
+        {key: 'קורס להכשרה', key1:54321},
+        {key: 'קורס לצורך בדיקות נטע', key1:333333},
+        {key: 'קורס ניסיון נטלי', key1:333333},
+        {key: 'הכשרות תמי', key1:333333},
+        {key: 'קסר אלסר נשים קבוצה', key1:333333},
+        {key: 'תעסוקה בסיסי פברואר - ת.א', key1:333333}, 
+        {key: 'ש.ד.במשפחה + עוצמה דיגיטלית- א', key1:333333} 
+        ];
+
     return (
         <div className="p-courses">
             <PortalNavbar handleLogout={handleLogout}/>
             <h1>קורסים</h1>
-            <PortalMultipleSelect title="text title" options={['111 111 111', '22222 222 22', '333 333 333', '4444444', '5345345345', '646656456', '567567567', '678678678' ]}
+            <PortalMultipleSelect title="text title" options={options} optionKey="key"
             handleSelection ={(options, option, isAdded) => {
                 
                 console.log("options:");

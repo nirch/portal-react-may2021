@@ -4,30 +4,24 @@ import "./PortalMultipleSelect.css";
 const PortalMultipleSelect = ({title, options, optionKey, handleSelection}) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [viewSelect, setViewSelect] = useState(false);
-    let optionsForSelect =  options.filter( el => selectedOptions.includes(el) ? false : true);
-    // console.log(options);
-    // console.log(optionsForSelect);
+    let optionsForSelect =  options.filter( el => selectedOptions.find(elSelected => elSelected[optionKey] === el[optionKey]) ? false : true);
+
     const idSelect = 'select';
 
     const addElement =(value) => {
-        // console.log("addElement");
-        // console.log("value");
-        // console.log(value);
+
         handleSelection([...selectedOptions],value, true);
         setSelectedOptions(selectedOptions.concat(value));
         setViewSelect(false);
     }
     const delElement =(value) => {
-        // console.log("selectedOptions - delete");
-        // console.log(selectedOptions);
+
         handleSelection([...selectedOptions],value, false);
 
         let temp = [...selectedOptions];
         temp.splice(selectedOptions.indexOf(value),1)
         setSelectedOptions(temp);
     }
-    // console.log("selectedOptions - delete");
-    // console.log(selectedOptions);
 
     return(
         <div className='multiselect'>
@@ -38,15 +32,14 @@ const PortalMultipleSelect = ({title, options, optionKey, handleSelection}) => {
                 <div className='selected-options'>{selectedOptions.map((element) =>
                 <div className = 'selected-element'> 
                     <div className='name'>
-                        {element}
+                        {element[optionKey]}
                     </div>
                     <div className='minus' onClick={() => delElement(element) }>&times;</div> 
                 </div>)}</div>
             </div>
-            {/* <div className={`list-options ${viewSelect ? 'open' : ''}`}>{optionsForSelect.map( (element) => <div onClick={() => addElement(element)} >{element}</div> )}</div> */}
             <div className={`wrap${viewSelect ? '-open' : ''}`} onClick={() => setViewSelect(false)} >
             </div>
-            <select className={`list-options ${viewSelect ? 'open' : ''}`} multiple id={idSelect}>{optionsForSelect.map( (element) => <option key={element} onClick={() => addElement(element)} value={element}>{element}</option> ) }</select>
+            <select className={`list-options ${viewSelect ? 'open' : ''}`} multiple id={idSelect}>{optionsForSelect.map( (element) => <option key={element[optionKey]} onClick={() => addElement(element)} value={element[optionKey]}>{element[optionKey]}</option> ) }</select>
         </div>
     );
 }
