@@ -1,6 +1,6 @@
-.c-tabs {
-    padding: 24px 0px;
+.c-tabs {    
     border-bottom: 1px solid #1b166e;
+    display: flex;
 }
 
 .c-tabs > a  {
@@ -8,7 +8,7 @@
     font-family: 'Assistant-Light'; 
     line-height: 18px;
     color: #1b166e !important;
-    padding: 28px;
+    padding: 14px;
 }
 
 .c-tabs > a.active {
