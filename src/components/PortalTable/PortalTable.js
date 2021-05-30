@@ -1,11 +1,9 @@
 
 import React, { useState, useContext } from 'react';
 import './PortalTable.css'
-import server from '../../shared/server'
-import ActiveUserContext from '../../shared/activeUserContext'
 
 
-function PortalTableRow ({headers, row, keys, onClickRow}) {   
+function PortalTableRow ({ row, keys, onClickRow}) {   
     function rowClick(){
         onClickRow(row);
     }
@@ -28,7 +26,7 @@ const PortalTable = ({headers, data, onClick}) => {
     
     const heads = headers.map((header, index) => <th key={index} className="portaltable-head">{header.header }</th>);
     const keys = headers.map(header => header.key);
-    const rows = data.map(newrow =><PortalTableRow  headers={headers} row={newrow} keys={keys} onClickRow={onClick}/> )
+    const rows = data.map(newrow =><PortalTableRow  row={newrow} keys={keys} onClickRow={onClick}/> )
   
   return (
       <div>      
