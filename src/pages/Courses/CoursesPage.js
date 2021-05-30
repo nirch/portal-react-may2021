@@ -14,7 +14,8 @@ const CoursesPage = (props) => {
 
     return (
         <div className="p-courses">
-            <PortalNavbar handleLogout={handleLogout}/>
+            <PortalNavbar handleLogout={handleLogout} title='קורסים' funcBack={() => {alert("I'm clicked")}} debug/>
+            <PortalNavbar handleLogout={handleLogout} title='קורסים' debug/>
             <h1>קורסים</h1>
         </div>
     );

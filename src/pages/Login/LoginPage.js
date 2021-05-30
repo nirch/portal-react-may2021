@@ -34,9 +34,13 @@ const LoginPage = (props) => {
                 setAlertMessage(res.data.error);
                 setAlertType("error");
                 setAlertVisibility("show")
-                // alert("error in login");
-            } else {
-                handleLogin(res.data);
+            } else {//writing user's data
+                server(res.data, {}, 'GetMyProfile').then(result => {
+                    res.data.firstName =  result.data.firstname;
+                    res.data.lastName =  result.data.lastname;
+                    res.data.image =  result.data.image;
+                    handleLogin(res.data);//saving in the localstorage
+                });
             }
         }, err => {
             // show alert?
