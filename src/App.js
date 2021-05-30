@@ -6,6 +6,7 @@ import CourseDetailsPage from './pages/CourseDetails/CourseDetailsPage'
 import UsersPage from './pages/Users/UsersPage'
 import UserDetailsPage from './pages/UserDetails/UserDetailsPage'
 import HoursReportPage from './pages/HoursReport/HoursReportPage'
+import HoursCrud from './pages/HoursCrud/HoursCrud'
 import HoursApprovePage from './pages/HoursApprove/HoursApprovePage'
 import ActiveUserContext from './shared/activeUserContext'
 
@@ -45,6 +46,9 @@ const App = () => {
         </Route>
         <Route path="/hours-report">
           <HoursReportPage handleLogout={handleLogout}/>
+        </Route>
+        <Route path="/hours-crud">
+          <HoursCrud handleLogout={handleLogout}/>
         </Route>
         <Route path="/hours-approve">
           <HoursApprovePage handleLogout={handleLogout}/>

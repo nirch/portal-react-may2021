@@ -1,0 +1,61 @@
+.c-hours-report-footer{
+    height: 76px;
+    box-shadow: 0px -2px 10px #5d5d5d;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* width: 360px; */
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+/* .c-hours-report-footer img{
+    margin: 24px;
+} */
+
+
+.c-hours-report-footer svg {
+    width: 51px;
+    height: 51px;
+    margin-top: 10px; 
+  
+}
+
+.c-hours-report-footer #save-img{
+   /* position: absolute;  */
+   margin-top: 24px;
+   /* right: 24px;
+   bottom: 25.2px; */
+} 
+
+.c-hours-report-footer #copy-img{
+    /* position: absolute; */
+    margin-top: 22.8px;
+    /* right: 86.3px;
+    bottom: 25.1px; */
+ }
+
+ .c-hours-report-footer img,svg {
+     cursor: pointer;
+ } 
+
+ .c-hours-report-footer #delete-img{
+    /* position: absolute;  */
+    margin-top: 26px;
+    /* right: 249.2px;
+    bottom: 25.4px; */
+ }
+
+ .c-hours-report-footer #back-img{
+    /* position: absolute;  */
+    margin-top: 28px;
+    /* right: 308px;
+    bottom: 28.2px; */
+ } 
+ 
+ 
+

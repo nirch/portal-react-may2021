@@ -1,0 +1,35 @@
+.c-hours-report-row {
+    padding: 10px;
+    box-shadow: 0 3px 3px  ;
+    border-bottom: 13px solid white;
+  }
+
+
+  .c-hours-report-row  td{
+    padding: 7px 0 7px 0 !important;
+}
+
+
+.c-hours-report-row .icon-td {
+    font-size: 15px;
+  }
+
+  .c-hours-report-row .icon-td  svg{
+    color: #5d5d5d;
+    margin-left: 4.7px;
+  }
+
+  .c-hours-report-row  td > span{
+    margin-right: 33px;
+  }
+
+  .c-hours-report-row  td select{
+    word-wrap: normal;
+    background-color: inherit;
+    border: none;
+    color: #5d5d5d;
+}
+
+
+
+  
