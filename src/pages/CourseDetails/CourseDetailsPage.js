@@ -59,20 +59,6 @@ const CourseDetailsPage = ({handleLogout}) => {
         <div className="p-course-details">
             <PortalNavbar handleLogout={handleLogout}/>{console.log(students)}
             <CourseHeader name={courseDetails.name} subName={courseDetails.subname}/>
-            <h6>Students</h6>
-            <table>
-                <tr><th>First Name</th><th>Last Name</th></tr>
-                {students.enrolled.map((student, index) => <tr><td key={index}>{student.firstname}</td> <td key={index}>{student.lastname}</td></tr>)}
-            </table>
-            <h6>Sylabus</h6>
-            <ul>
-                {courseDetails.subjects.map((subject, index) => <li key={index}>{subject["subject"]}</li>)}
-            </ul>
-            <h6>Teachers</h6>
-            <ul>
-                {teachers.enrolled.map((teacher, index) => <li key={index}>{teacher.firstname} {teacher.lastname}</li>)}
-                {console.log(teachers)}
-            </ul>
         </div>
     );
 }
