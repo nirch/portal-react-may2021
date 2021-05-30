@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import "./PortalMultipleSelect.css";
+import "./PortalMultipleSelect.scss";
 
 const PortalMultipleSelect = ({title, options, optionKey, handleSelection}) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [viewSelect, setViewSelect] = useState(false);
-    let optionsForSelect =  options.filter( el => selectedOptions.find(elSelected => elSelected[optionKey] === el[optionKey]) ? false : true);
+    let optionsForSelect =  options.filter( el => !selectedOptions.includes(el));
+    // let optionsForSelect =  options.filter( el => selectedOptions.find(elSelected => elSelected[optionKey] === el[optionKey]) ? false : true);
 
     const idSelect = 'select';
 
