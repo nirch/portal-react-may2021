@@ -14,7 +14,7 @@ const PortalDatePicker = (props) => {
             onDateSelection(currentDate);
         }
     }, [currentDate])
-        
+
     const date = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     let year = currentDate.getFullYear();
@@ -54,42 +54,40 @@ const PortalDatePicker = (props) => {
         return months=== 0 ? 0 : months;
     }
 
-    function onPageChange(action){
-        if(action==="prev"){
-            if(type==='Day'){
-                const prevDay = new Date(currentDate);
-                prevDay.setDate(prevDay.getDate()-1);
-                setCurrentDate(prevDay)
-            }
-            if(type==='Month'){
-                const prevMonth = new Date(currentDate);
-                prevMonth.setDate(1);
-                prevMonth.setMonth(prevMonth.getMonth()-1);
-                setCurrentDate(prevMonth);
-            }  
+    function onPrevClick(){
+        if(type==='Day'){
+            const prevDay = new Date(currentDate);
+            prevDay.setDate(prevDay.getDate()-1);
+            setCurrentDate(prevDay)
         }
-        else if(action==="next"){
-            if(type==='Day'){
-                const nextDay = new Date(currentDate);
-                nextDay.setDate(nextDay.getDate()+1);
-                setCurrentDate(nextDay)
-            }
-            if(type==='Month'){
-                const nextMonth = new Date(currentDate);
-                nextMonth.setDate(1);
-                nextMonth.setMonth(nextMonth.getMonth()+1);
-                setCurrentDate(nextMonth);
-            }        
-        }
+        if(type==='Month'){
+            const prevMonth = new Date(currentDate);
+            prevMonth.setDate(1);
+            prevMonth.setMonth(prevMonth.getMonth()-1);
+            setCurrentDate(prevMonth);
+        }  
     }
+    
+    function onNextClick(){
+        if(type==='Day'){
+            const nextDay = new Date(currentDate);
+            nextDay.setDate(nextDay.getDate()+1);
+            setCurrentDate(nextDay)
+        }
+        if(type==='Month'){
+            const nextMonth = new Date(currentDate);
+            nextMonth.setDate(1);
+            nextMonth.setMonth(nextMonth.getMonth()+1);
+            setCurrentDate(nextMonth);
+        }        
+    }
+   
     return(
         <div className="c-date-picker">
             <PortalPager className="c-date-pager"
                          curr={monthName? monthName:dayName} 
-                         prev={monthName? prevMonth:dayName}
-                         next={monthName? nextMonth:dayName}
-                         type= {type}
-                         onPageClick={(action)=>onPageChange(action)}  />
+                         prev={(monthName && prevMonth) || dayName ? onPrevClick: null}
+                         next={(monthName && nextMonth) || dayName ? onNextClick: null} />
         </div>
     )
 
