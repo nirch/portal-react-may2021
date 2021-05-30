@@ -10,14 +10,14 @@ import EmployHoursApproveBody from '../../components/EmployHoursApproveBody/Empl
 
 const HoursApprovePage = (props) => {
     const { handleLogout } = props;
-    const [employers, setEmployers] = useState();
+    const [employees, setEmployees] = useState();
     const [activeKey, setActiveKey] = useState(0);
     const activeUser = useContext(ActiveUserContext);
 
     useEffect(() => {
         const pathPre = process.env.PUBLIC_URL;
         axios.get(pathPre.concat("/mokdata.json")).then( response => {
-            setEmployers(response.data);
+            setEmployees(response.data);
         }).catch(error => {
             console.error(error);
         });
@@ -28,14 +28,14 @@ const HoursApprovePage = (props) => {
         return <Redirect to='/' />
     }
 
-    const cards = employers ?  employers.map((employer, index) => {
+    const cards = employees ?  employees.map((employee, index) => {
         return (
-            <Card className="employ-card" key={index}>
+            <Card className="employee-card" key={employee.userid}>
                 <Card.Header>
-                    <EmployHoursApproveHeader employer={employer} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
+                    <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
-                    <EmployHoursApproveBody employer={employer} />
+                    <EmployHoursApproveBody employee={employee} />
                 </Accordion.Collapse>
             </Card>
         )

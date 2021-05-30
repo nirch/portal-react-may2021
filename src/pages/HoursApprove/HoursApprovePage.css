@@ -1,10 +1,10 @@
-.employ-card > .card-header{
+.employee-card > .card-header{
     padding: 0;
     background-color:white;
     border: none;
 }
 
-.employ-card{
+.employee-card{
     box-shadow: 0px 3px 3px 0px rgba(0,0,0,26%);
     margin-top: 13px;
     border:none;
