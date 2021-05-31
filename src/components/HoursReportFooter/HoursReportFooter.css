@@ -5,12 +5,8 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    /* width: 360px; */
     margin: 0 auto;
     text-align: center;
-    /* display: flex;
-    justify-content: space-evenly; */
-
 }
 
 .c-hours-report-footer .icons-warper{
@@ -18,17 +14,12 @@
     display: flex;
     justify-content: space-evenly;
     margin: 0 auto;
-
 }
-
-
-
 
 .c-hours-report-footer svg {
     width: 51px;
     height: 51px;
     margin-top: 10px; 
-  
 }
 
 .c-hours-report-footer #save-img{
@@ -50,6 +41,3 @@
  .c-hours-report-footer #back-img{
     margin-top: 28px; 
  } 
- 
- 
-

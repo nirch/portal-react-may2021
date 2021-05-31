@@ -16,7 +16,7 @@ function PortalSelect({title, optionsKey, options, handleSelection }){
     function localHandleSelection(){
         let selectedVal = ""; 
         selectedVal = document.getElementById("portalSelectId").value;
-        handleSelection(selectedVal ); 
+        handleSelection(selectedVal); 
     }
 
     return (

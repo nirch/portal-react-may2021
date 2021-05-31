@@ -1,0 +1,34 @@
+.p-hours-crud{
+    height: 360px;
+}
+
+.p-hours-crud .top-header{
+    height: 50px;
+    background-color: tomato;
+}
+
+.p-hours-crud .bottom-header{
+    height: 122px;
+    background-color: green;
+}
+
+.p-hours-crud .flex-box{
+    display: flex;
+    justify-content: space-around;
+}
+
+.layout-input{
+    padding: 20px;
+}
+
+.p-hours-crud ::placeholder{
+    color: #5d5d5d;
+    font-weight: 600;
+}
+
+
+.p-hours-crud select{
+
+    padding-right: 15px !important;
+} 
+

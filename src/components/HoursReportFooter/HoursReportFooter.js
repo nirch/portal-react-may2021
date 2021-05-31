@@ -12,8 +12,8 @@ const HoursReportFooter = ({ save, copy, add, del, back }) => {
         color: add ? '' : '#EEEEEE'
     }
 
-    // const history = useHistory();
-    // const handleOnClick = () => history.push('/hours-crud');
+    const history = useHistory();
+    const handleOnClick = () => history.push('/hours-crud');
 
     return (
         
@@ -27,7 +27,7 @@ const HoursReportFooter = ({ save, copy, add, del, back }) => {
                     ? <img id='copy-img' src={"/img/drawable-hdpi/noun_copy_573715.png"} width="22.8" height="24.9"></img>
                     : <img id='copy-img' src={"/img/drawable-hdpi/disabled-copy.png"} width="22.8" height="24.9"></img>
                 }
-                <BsPlusCircleFill style={myStyle} />
+                <BsPlusCircleFill style={myStyle} onClick={handleOnClick}/>
                 {del
                     ? <img id='delete-img' src={"/img/drawable-hdpi/noun_delete_1610851.png"} width="26.4" height="24.6"></img>
                     : <img id='delete-img' src={"/img/drawable-hdpi/disabled-delete.png"} width="26.4" height="24.6"></img>
