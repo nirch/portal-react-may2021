@@ -1,0 +1,15 @@
+
+.c-course-details-tab {
+    padding-top: 30px;
+}
+
+.c-course-details-tab > Button {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    color: #1b166e;
+    font-weight: 600;
+    border: none;
+}
