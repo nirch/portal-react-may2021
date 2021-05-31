@@ -24,6 +24,7 @@ const UserDetailsPage = (props) => {
     const [userProfile, setUserProfile] = useState(null);
     const [img, setImg] = useState(null);
     const hiddenFileInput = React.useRef(null);
+    const imgsDomain = 'https://pil1.appleseeds.org.il/dcnir/';
 
     useEffect(() => {
         if(id) {
@@ -52,13 +53,14 @@ const UserDetailsPage = (props) => {
 
     function handleFileChange(e) {
         if (e.target.files.length === 1) {
+
             console.log(e.target.files[0])
             const data = {imagefile: e.target.files[0], type: "post"};
             upload(activeUser, data, "uploadDoc").then(res => {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
-                    
+                    setImg(res.data.fileUrl)
                     console.log(res.data);
                 }
             }, err => {
@@ -92,7 +94,7 @@ const UserDetailsPage = (props) => {
                         <img src={save_icon} alt=""/>
                     </div>
                     <div className="image-wrapper">
-                        <img className={`user-image ${img ? 'img' : ''}`} src={img ? img : profile_icon} alt=""/>
+                        <img className={`user-image ${img ? 'img' : ''}`} src={img ? imgsDomain + img : profile_icon} alt=""/>
                         <div className="edit-wrapper">
                             <input type="file" accept="image/*" ref={hiddenFileInput} onChange={handleFileChange}/>
                             <img className="edit-icon" src={edit_icon} alt="" onClick={openFileUploader}/>
