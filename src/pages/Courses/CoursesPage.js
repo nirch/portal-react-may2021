@@ -23,7 +23,7 @@ const CoursesPage = (props) => {
     const [pages, setPages] = useState(0);
     const [activeButton, setActiveButton] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(null);
     const [id, setId] = useState(null);
     const [spinner, setSpinner] = useState(false);
     const [alertVisibility, setAlertVisibility] = useState(null);
@@ -80,8 +80,8 @@ const CoursesPage = (props) => {
         <div className="p-courses">
             <PortalNavbar handleLogout={handleLogout} title={"קורסים"} />
             {spinner ? <Spinner animation="border" role="status" />   : null}
-            <AlertComponent text={alertMessage} type="error" onClose={() => setAlertVisibility("hide") } visibility={alertVisibility}/> 
-            {!spinner ? <PortalSearchPager placeholder={"חיפוש קורס"} onSearch={(search) => { setActivePage(0); setSearch(search); }} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
+            <AlertComponent text={alertMessage} type="error" onClose={() => setAlertVisibility("hide") } visibility={alertVisibility}/>
+            <PortalSearchPager placeholder={"חיפוש קורס"} onSearch={(search) => { setActivePage(0); setSearch(search); }} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>    
             {courses ? <PortalTable data={courses} headers={headers}  onClick={click}/>   : null}
             <PortalButtonSet labels={[" קורסים פעילים", "קורסים לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ="top"/>   
         </div>
