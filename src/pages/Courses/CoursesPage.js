@@ -8,6 +8,10 @@ import PortalSearchPager from '../../components/SearchPager/PortalSearchPage'
 import PortalButtonSet from '../../components/PortalButtonSet/PortalButtonSet'
 import PortalTable from '../../components/PortalTable/PortalTable'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Spinner } from 'react-bootstrap';
+
+
 import server from '../../shared/server'
 
 
@@ -20,21 +24,24 @@ const CoursesPage = (props) => {
     const [activePage, setActivePage] = useState(0);
     const [search, setSearch] = useState(null);
     const [id, setId] = useState(null);
-    
-  
-    let data={search: search, sorting: "courseid", desc: false, coursestatus: activeButton ? 0 : 1, page:activePage}; 
+    const [spinner, setSpinner] = useState(false);
+
+    let data={search: search, sorting: "courseid", desc: false, coursestatus: activeButton ? 0 : 1, page :  activePage}; 
     
     useEffect(() => {
         async function getCourses() {
             try {
+                setSpinner(true);
                 const response = await server(activeUser, data, "SearchCourses");
                 if (response.data.error) { 
+                    setSpinner(false);
                     console.error(response.data.error);    
                      alert("error in get Courses");
                 } else {
                     console.log(response.data);  
-                    setPages(response.data.courses.length-1) ;
-                    setCourses( response.data.courses);              
+                    setPages(response.data.pages) ;
+                    setCourses( response.data.courses);   
+                    setSpinner(false);           
                 } 
             } catch (e) {
                 console.error(e);
@@ -65,8 +72,9 @@ const CoursesPage = (props) => {
 
     return (    
         <div className="p-courses">
-            <PortalNavbar handleLogout={handleLogout}/>
-            {courses ? <PortalSearchPager placeholder={"חיפוש קורס"}  onSearch={setSearch} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
+            <PortalNavbar handleLogout={handleLogout} title={"קורסים"} />
+            {spinner ? <Spinner animation="border" role="status" />   : null}
+            {courses && pages ? <PortalSearchPager placeholder={"חיפוש קורס"} onSearch={(text) => { setActivePage(0); setSearch(text); }} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
             {courses ? <PortalTable data={courses} headers={headers}  onClick={click}/>   : null}
             <PortalButtonSet labels={[" קורסים פעילים", "קורסים לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ={"bottom"}/>   
         </div>

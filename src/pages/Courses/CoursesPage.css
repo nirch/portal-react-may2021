@@ -1,0 +1,25 @@
+.p-courses .c-button-set{ 
+    position: fixed;
+    bottom: 0;
+}
+
+
+.p-courses{
+    position: relative;
+}
+
+ .p-courses .portaltable{
+    margin-bottom: 77px;
+} 
+
+.p-courses .spinner-border{
+    position: fixed;
+    right: 50%;
+    top: 50%;
+}
+
+
+.p-courses .c-navbar{
+    margin-bottom: 25px;
+}
+
