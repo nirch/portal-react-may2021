@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="77.909" height="77.909" viewBox="0 0 77.909 77.909">
+    <defs>
+        <style>
+            .cls-1{fill:#5d5d5d}.cls-2,.cls-4{fill:none}.cls-2{stroke:#5d5d5d;stroke-width:2px}.cls-3{stroke:none}
+        </style>
+    </defs>
+    <g id="Profile_Icon" data-name="Profile Icon" transform="translate(-314 -84)">
+        <path id="Union_1" d="M.52 48.694H0V42.2c0-7.143 11.686-12.987 25.97-12.987S51.94 35.059 51.94 42.2v6.492h-.52C49.014 56.1 38.533 61.677 25.97 61.677S2.926 56.1.52 48.694zm12.463-35.708A12.985 12.985 0 1 1 25.97 25.97a12.986 12.986 0 0 1-12.987-12.984z" class="cls-1" data-name="Union 1" transform="translate(326.985 100.23)"/>
+        <g id="Ellipse_289" class="cls-2" data-name="Ellipse 289" transform="translate(314 84)">
+            <circle cx="38.954" cy="38.954" r="38.954" class="cls-3"/>
+            <circle cx="38.954" cy="38.954" r="37.954" class="cls-4"/>
+        </g>
+    </g>
+</svg>

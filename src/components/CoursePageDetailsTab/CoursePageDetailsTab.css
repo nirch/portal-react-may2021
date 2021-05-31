@@ -1,0 +1,7 @@
+.c-page-details .c-line{
+    display: flex;
+}
+.c-page-details .c-line > div {
+    width: 50%;
+}
+

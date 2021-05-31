@@ -1,0 +1,33 @@
+
+.p-sylabus {
+    font-family: 'Assistant-SemiBold';
+    font-size: 12px;
+}
+
+.p-sylabus > .header > .title {
+    padding-right: 50px;
+    padding-top: 50px;
+}
+
+.p-sylabus > .header > .data {
+    padding-top: 25px;
+    padding-right: 40px;
+    padding-bottom: 54px;
+}
+
+.p-sylabus > .list {
+    line-height: 22px;
+}
+
+.p-sylabus > .list > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.p-sylabus > .list > ul > li {
+    border-top: 1px solid #0d000000;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.05);
+    line-height: 24px;
+    padding-right: 33px;
+}

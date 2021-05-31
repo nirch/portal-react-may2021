@@ -39,6 +39,7 @@ const LoginPage = (props) => {
                     res.data.firstName =  result.data.firstname;
                     res.data.lastName =  result.data.lastname;
                     res.data.image =  result.data.image;
+                    res.data.userid =  result.data.userid;
                     handleLogin(res.data);//saving in the localstorage
                 });
             }

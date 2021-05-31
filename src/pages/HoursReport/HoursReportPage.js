@@ -73,8 +73,6 @@ const HoursReportPage = (props) => {
                                     key={report.reportid}
                                     report={report}
                                     reportingPerimeter={reportingPerimeter[report.projectid]}
-                                    // {...report}
-                                    // {...reportingPerimeter[report.projectid]}
                                 />)}
                               </tbody>
                             : null

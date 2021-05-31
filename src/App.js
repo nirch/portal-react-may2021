@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/courses/:id">
           <CourseDetailsPage handleLogout={handleLogout}/>
         </Route>
-        <Route exact path="/users">
+        <Route path={["/users&type=employee","/users&type=student","/users&type=new"]} >
           <UsersPage handleLogout={handleLogout}/>
         </Route>
         <Route path="/users/:id">
@@ -47,9 +47,9 @@ const App = () => {
         <Route path="/hours-report">
           <HoursReportPage handleLogout={handleLogout}/>
         </Route>
-        <Route path="/hours-crud">
+        {/* <Route path="/hours-crud">
           <HoursCrud handleLogout={handleLogout}/>
-        </Route>
+        </Route> */}
         <Route path="/hours-approve">
           <HoursApprovePage handleLogout={handleLogout}/>
         </Route>
