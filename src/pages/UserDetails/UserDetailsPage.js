@@ -75,7 +75,7 @@ const UserDetailsPage = (props) => {
                     <h1>{userProfile.lastname}</h1>
                     <div className="checkbox-wrapper">
                         <input type="checkbox" id="change-pwd" name="change-pwd"/>
-                        <label for="change-pwd">שינוי סיסמה</label>
+                        <label>שינוי סיסמה</label>
                     </div>
                     <p className="date-created">נרשם ב: <span>{userProfile.registerdate}</span></p>
                 </div>
