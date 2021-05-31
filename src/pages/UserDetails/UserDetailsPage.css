@@ -15,6 +15,10 @@
     font-size: 10px;
 }
 
+.p-user-details > .user-header > .right-col > .date-created {
+    margin: 0;
+}
+
 .p-user-details > .user-header .actions-wrapper {
     text-align: left;
     margin-bottom: 28px;
@@ -28,6 +32,14 @@
     position: relative;
 }
 
+.p-user-details > .user-header .image-wrapper > .user-image.img {
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    border: 2px solid;
+    border-radius: 50%;
+}
+
 .p-user-details > .user-header .image-wrapper > .edit-wrapper {
     position: absolute;
     bottom: -7px;
@@ -38,6 +50,10 @@
     width: 23px;
     height: 23px;
     text-align: center;
+}
+
+.p-user-details > .user-header .image-wrapper > .edit-wrapper > input {
+    display: none;
 }
 
 .p-user-details > .user-header .image-wrapper > .edit-wrapper > .edit-icon {
