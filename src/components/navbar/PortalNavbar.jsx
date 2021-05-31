@@ -9,6 +9,7 @@ import imgCourses from '../../assets/images/navbar/noun_book_2349054.svg';
 import imgReport from '../../assets/images/navbar/noun_time_1610737.svg';
 import imgTime from '../../assets/images/navbar/noun_check_box_38652.svg';
 import imgOff from '../../assets/images/navbar/noun_off_1915997.svg';
+import imgProfile from '../../assets/images/navbar/profile_icon.svg';
 
 const Sandwich = ({ onClick }) => {
     return <div className="sandwich" onClick={onClick}>
@@ -45,7 +46,7 @@ const MenuItem = ({ image, text, page, func, children }) => {
 const PortalNavbar = (props) => {
 
     const { handleLogout, title, debug, funcBack } = props;
-    const {firstName, lastName, image} = useContext(ActiveUserContext);
+    const {firstName, lastName, image, userid} = useContext(ActiveUserContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const [changePage, setChangePage] = useState('');
     //need to do make check current page - if yes, disable menu element
@@ -74,8 +75,8 @@ const PortalNavbar = (props) => {
                             <div className="cross" ><span onClick={() => setMenuOpen(false)} >&times;</span></div>
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
-                        <div className="profile-preview">
-                            <img className="profile-image"  alt='profile' src={image ? imgsDomain + image : 'img/profile.svg'}></img>
+                        <div className="profile-preview" onClick={() => setChangePage(`/users/${userid}`)}>
+                            <img className="profile-image"  alt='profile' src={!image ? imgsDomain + image : imgProfile}></img>
                             <div className="name-wrap">
                                 <span className="user-name">
                                     {`${firstName} ${lastName}`}
@@ -89,8 +90,8 @@ const PortalNavbar = (props) => {
                                 <MenuItem text="משתמשים חדשים" page="/users&type=new" func={setChangePage} isSubMenu />
                             </MenuItem>
                             <MenuItem image={imgCourses} text="קורסים" page="courses" func={setChangePage} />
-                            <MenuItem image={imgReport} text="דיווח שעות" page="report" func={setChangePage} />
-                            <MenuItem image={imgTime} text="אישור שעות" page="approve" func={setChangePage} />
+                            <MenuItem image={imgReport} text="דיווח שעות" page="/hours-report" func={setChangePage} />
+                            <MenuItem image={imgTime} text="אישור שעות" page="/hours-approve" func={setChangePage} />
                             <MenuItem image={imgOff} text="התנתקות" page="logout" func={handleLogout} />
                         </div>
                     </div>
