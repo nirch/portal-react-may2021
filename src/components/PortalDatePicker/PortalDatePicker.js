@@ -58,7 +58,7 @@ const PortalDatePicker = (props) => {
         if(type==='Day'){
             const prevDay = new Date(currentDate);
             prevDay.setDate(prevDay.getDate()-1);
-            setCurrentDate(prevDay)
+            setCurrentDate(prevDay);
         }
         if(type==='Month'){
             const prevMonth = new Date(currentDate);
