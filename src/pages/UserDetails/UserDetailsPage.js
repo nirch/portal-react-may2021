@@ -11,6 +11,11 @@ import edit_icon from '../../assets/images/edit_icon.svg';
 import { useParams } from "react-router-dom";
 import server from '../../shared/server'
 import upload from '../../shared/upload'
+import UserDetailsTab from '../../components/UserDetailsTab/UserDetailsTab';
+import UserCourseTab from '../../components/UserCourseTab/UserCourseTab';
+import UserEmployeesTab from '../../components/UserEmployeesTab/UserEmployeesTab';
+import UserReportTab from '../../components/UserReportTab/UserReportTab';
+import PortalTabView from '../../components/PortalTabView/PortalTabView';
 
 const UserDetailsPage = (props) => {
     const { handleLogout } = props;
@@ -95,7 +100,10 @@ const UserDetailsPage = (props) => {
                     </div>
                 </div>
             </div>}
-
+            <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab/>},
+                                {header:"קורסים", view:<UserCourseTab/>},
+                                {header:"עובדים", view:<UserEmployeesTab/>},
+                                {header:"דיווח", view:<UserReportTab/>}]}/>
         </div>
     );
 }
