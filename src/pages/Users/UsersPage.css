@@ -12,3 +12,7 @@
     .p-users{
         position: relative;
     }
+
+    .p-users .portaltable{
+        margin-bottom: 75px;
+    }

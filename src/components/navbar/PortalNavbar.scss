@@ -35,7 +35,7 @@
 
 	.header-title {
 		color: #5d5d5d;
-		font-size: 24px;
+		font-size: 15px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -261,5 +261,9 @@
 			width: 100%;
 			height: 100%;
 		}
+	}
+
+	a{
+		color: rgb(93, 93, 93);
 	}
 }
