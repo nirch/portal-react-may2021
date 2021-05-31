@@ -33,7 +33,7 @@ const CoursesPage = (props) => {
                      alert("error in get Courses");
                 } else {
                     console.log(response.data);  
-                    setPages(response.data.courses.length) ;
+                    setPages(response.data.courses.length-1) ;
                     setCourses( response.data.courses);              
                 } 
             } catch (e) {
