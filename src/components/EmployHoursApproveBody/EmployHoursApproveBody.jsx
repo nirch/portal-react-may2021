@@ -3,7 +3,7 @@ import './EmployHoursApproveBody.scss';
 
 function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees }) {
     const [selectAllReports, setSelectAllReports] =  useState(false);
-    const [checkedReports, setCheckedReports] = useState();
+    const [checkedReports, setCheckedReports] = useState(employee.reports.map(report => false));
     const disapproveReport = (index) => {
         changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "-1"})
     };
@@ -20,6 +20,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees
             checkedReportsClone[e.target.value] = true;
             setCheckedReports(checkedReportsClone)
         }else{
+            if(selectAllReports) setSelectAllReports(!selectAllReports);
             const checkedReportsClone = [...checkedReports];
             checkedReportsClone[e.target.value] = false;
             setCheckedReports(checkedReportsClone)
@@ -63,7 +64,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees
              <div className={report.approval ==="-1" ? "report-row-data red" : report.approval ==="0"? "report-row-data yellow" : "report-row-data green"}>
                 <div className="up-row-report-data">
                     <div className="checkbox-report-container">
-                        <input type="checkbox" onChange={handleChange} value={index} className="checkbox-report" checked={selectAllReports ? selectAllReports : null}></input>
+                        <input type="checkbox" onChange={handleChange} value={index} className="checkbox-report" checked={checkedReports[index]}></input>
                     </div>
                     <div className="date-of-report">תאריך: {report.date}</div>
                     <div className="sum-hours-report">סה"כ שעות: {diff(report.starthour,report.finishhour)}</div>
