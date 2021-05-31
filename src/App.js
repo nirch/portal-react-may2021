@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/courses/:id">
           <CourseDetailsPage handleLogout={handleLogout}/>
         </Route>
-        <Route exact path="/users">
+        <Route path={["/users&type=employee","/users&type=student","/users&type=new"]} >
           <UsersPage handleLogout={handleLogout}/>
         </Route>
         <Route path="/users/:id">

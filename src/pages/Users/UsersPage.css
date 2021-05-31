@@ -1,0 +1,18 @@
+    .p-users .c-button-set{ 
+        position: fixed;
+        bottom: 0;
+    }
+
+    .p-users .spinner-border{
+        position: fixed;
+        right: 50%;
+        top: 50%;
+    }
+
+    .p-users{
+        position: relative;
+    }
+
+    .p-users .portaltable{
+        margin-bottom: 75px;
+    }
