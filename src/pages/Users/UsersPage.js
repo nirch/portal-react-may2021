@@ -9,6 +9,9 @@ import PortalTabView from '../../components/PortalTabView/PortalTabView';
 import PortalSearchPager from '../../components/SearchPager/PortalSearchPage';
 import PortalButtonSet from '../../components/PortalButtonSet/PortalButtonSet';
 import server from '../../shared/server';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Spinner } from 'react-bootstrap';
+
 
 const UsersPage = (props) => {
     const { handleLogout } = props;
@@ -19,58 +22,70 @@ const UsersPage = (props) => {
     const [data, setData] = useState([]);//no pages by  default
     const [currentUser, setCurrentUser] = useState(null);//no changed user
     const [currentApiAddress, setCurrentApiAddress] = useState('');
+    const [spinner, setSpinner] = useState(false);
 
     let history = useHistory();//for go back
     const activeUser = useContext(ActiveUserContext);
     let location = useLocation();
 
+    const variants = {
+        employee: { api: 'SearchStaffUnderMe', title: "עובדים" },
+        student: { api: 'SearchStudentsUnderMe', title: "חניכים" },
+        new: { api: 'SearchNewUsers', title: "משתמשים חדשים" }
+    }
     useEffect(() => {
-        if(location.pathname.includes("employee")){
-            setCurrentApiAddress('SearchStaffUnderMe');
-        }else if(location.pathname.includes("student")){
-            setCurrentApiAddress('SearchStudentsUnderMe');
-        }else if(location.pathname.includes("new")){
-            setCurrentApiAddress('SearchNewUsers');
+        if (location.pathname.includes("employee")) {
+            setCurrentApiAddress('employee');
+        } else if (location.pathname.includes("student")) {
+            setCurrentApiAddress('student');
+        } else if (location.pathname.includes("new")) {
+            setCurrentApiAddress('new');
         }
     }, [location]);
-    
-    useEffect(()=> {
-        if(currentApiAddress)
-        server(activeUser, {search, userstatus, page, desc: false, sorting: "userid"}, currentApiAddress).then(result => {
-            setCountPages(result.data.pages);
-            setData(result.data.users);
-        });
-    },[currentApiAddress,search,page,userstatus]);
-      
+
+    useEffect(() => {
+        if (currentApiAddress){
+            setSpinner(true);
+            server(activeUser, { search, userstatus, page, desc: false, sorting: "userid" }, variants[currentApiAddress].api).then(result => {
+                setCountPages(result.data.pages);
+                setData(result.data.users);
+                setSpinner(false);
+            });
+        }
+    }, [currentApiAddress, search, page, userstatus]);
+
     if (!activeUser) {
         return <Redirect to='/' />
     }
 
     //changed user - redirect to user's details
-    if(currentUser){
+    if (currentUser) {
         return <Redirect to={`/users/${currentUser.userid}`} />
     }
-    
-    const header =[
-        {key: "firstname", header: 'שם'},
-        {key: "lastname", header: 'שם משפחה'},
-        {key: "email", header: 'אימייל'}];
-    
-    
+
+    const header = [
+        { key: "firstname", header: 'שם' },
+        { key: "lastname", header: 'שם משפחה' },
+        { key: "email", header: 'אימייל' }];
+
+
     return (
         <div className="p-users">
-            <PortalNavbar handleLogout={handleLogout} funcBack ={()=> history.goBack()}/>
+            <PortalNavbar handleLogout={handleLogout} title={currentApiAddress ? variants[currentApiAddress].title : ''} />
 
-            <PortalSearchPager 
-                placeholder='חיפוש עובד' 
-                onSearch={setSearch}
-                pages={countPages} 
-                currentPage={page} 
+            <PortalSearchPager
+                placeholder='חיפוש עובד'
+                onSearch={(text) => { setPage(0); setSearch(text); }}
+                pages={countPages}
+                currentPage={page}
                 onPageChange={(page) => setPage(page)} />
             <PortalTable headers={header} data={data} onClick={setCurrentUser} />
-            <PortalButtonSet 
+            {spinner
+             ? <Spinner animation="border" role="status" />
+             : null}
+            <PortalButtonSet
                 labels={['עובדים פעילים', 'לא פעילים']}
-                changeActiveBtn={(param) =>setUserstatus((param+1)%2)} 
+                changeActiveBtn={(param) => setUserstatus((param + 1) % 2)}
                 border="top" />
 
         </div>
