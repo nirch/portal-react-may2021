@@ -76,7 +76,7 @@ const PortalNavbar = (props) => {
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
                         <div className="profile-preview" onClick={() => setChangePage(`/users/${userid}`)}>
-                            <img className="profile-image"  alt='profile' src={!image ? imgsDomain + image : imgProfile}></img>
+                            <img className="profile-image"  alt='profile' src={image ? imgsDomain + image : imgProfile}></img>
                             <div className="name-wrap">
                                 <span className="user-name">
                                     {`${firstName} ${lastName}`}
