@@ -1,6 +1,6 @@
 import React from 'react';
 import PortalSearchPage from '../../components/SearchPager/PortalSearchPage';
-import PortalTable from '../../components/PortalTabView/PortalTabView';
+import PortalTable from '../../components/PortalTable/PortalTable';
 import { Button } from 'react-bootstrap';
 import './StudentsCoursePage.css';
 
@@ -24,7 +24,7 @@ function StudentsCoursePage({students}) {
     return (
         <div className="c-course-details-tab">
             <PortalSearchPage placeholder={"חיפוש חניך"} onSearch={() => {}} pages={0} currentPage={0} onPageChange={() => {alert("Hi")}}/>
-            {/* <PortalTable headers={headers} data={students} onClickRow={() => {}}/> */}
+            <PortalTable headers={headers} data={students} onClickRow={() => {}}/>
             <Button className="footer-button">הוסף סטודנט</Button>
         </div>
     );
