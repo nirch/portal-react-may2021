@@ -10,6 +10,7 @@ import profile_icon from '../../assets/images/profile_icon.svg';
 import edit_icon from '../../assets/images/edit_icon.svg';
 import { useParams } from "react-router-dom";
 import server from '../../shared/server'
+import upload from '../../shared/upload'
 
 const UserDetailsPage = (props) => {
     const { handleLogout } = props;
@@ -22,7 +23,7 @@ const UserDetailsPage = (props) => {
     useEffect(() => {
         if(id) {
             const data = {userId: id};
-            server.server(activeUser, data, "GetUserProfileById").then(res => {
+            server(activeUser, data, "GetUserProfileById").then(res => {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
@@ -48,7 +49,7 @@ const UserDetailsPage = (props) => {
         if (e.target.files.length === 1) {
             console.log(e.target.files[0])
             const data = {imagefile: e.target.files[0], type: "post"};
-            server.upload(activeUser, data, "uploadDoc").then(res => {
+            upload(activeUser, data, "uploadDoc").then(res => {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
