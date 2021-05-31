@@ -10,6 +10,7 @@ import PortalTable from '../../components/PortalTable/PortalTable'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Spinner } from 'react-bootstrap';
+import AlertComponent from '../../components/alert/Alert';
 
 
 import server from '../../shared/server'
@@ -19,12 +20,14 @@ const CoursesPage = (props) => {
     const { handleLogout } = props;
     const activeUser = useContext(ActiveUserContext);
     const [courses, setCourses] = useState(null);
-    const [pages, setPages] = useState(null);
+    const [pages, setPages] = useState(0);
     const [activeButton, setActiveButton] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const [search, setSearch] = useState(null);
+    const [search, setSearch] = useState('');
     const [id, setId] = useState(null);
     const [spinner, setSpinner] = useState(false);
+    const [alertVisibility, setAlertVisibility] = useState(null);
+    const [alertMessage, setAlertMessage] = useState("");
 
     let data={search: search, sorting: "courseid", desc: false, coursestatus: activeButton ? 0 : 1, page :  activePage}; 
     
@@ -36,12 +39,15 @@ const CoursesPage = (props) => {
                 if (response.data.error) { 
                     setSpinner(false);
                     console.error(response.data.error);    
-                     alert("error in get Courses");
+                    // alert("error in get Courses");
+                    setAlertMessage(response.data.error);
+                    setAlertVisibility("show");
+                    return;
                 } else {
                     console.log(response.data);  
                     setPages(response.data.pages) ;
                     setCourses( response.data.courses);   
-                    setSpinner(false);           
+                     setSpinner(false);           
                 } 
             } catch (e) {
                 console.error(e);
@@ -74,12 +80,15 @@ const CoursesPage = (props) => {
         <div className="p-courses">
             <PortalNavbar handleLogout={handleLogout} title={"קורסים"} />
             {spinner ? <Spinner animation="border" role="status" />   : null}
-            {courses && pages ? <PortalSearchPager placeholder={"חיפוש קורס"} onSearch={(text) => { setActivePage(0); setSearch(text); }} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
+            <AlertComponent text={alertMessage} type="error" onClose={() => setAlertVisibility("hide") } visibility={alertVisibility}/> 
+            {!spinner ? <PortalSearchPager placeholder={"חיפוש קורס"} onSearch={(search) => { setActivePage(0); setSearch(search); }} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
             {courses ? <PortalTable data={courses} headers={headers}  onClick={click}/>   : null}
-            <PortalButtonSet labels={[" קורסים פעילים", "קורסים לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ={"bottom"}/>   
+            <PortalButtonSet labels={[" קורסים פעילים", "קורסים לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ="top"/>   
         </div>
        
     );
 }
 
 export default CoursesPage;
+
+//text, type, onClose ,visibility

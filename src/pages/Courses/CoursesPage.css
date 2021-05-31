@@ -22,4 +22,6 @@
 .p-courses .c-navbar{
     margin-bottom: 25px;
 }
-
+.p-courses .c-alert{
+    z-index: 10;
+}
