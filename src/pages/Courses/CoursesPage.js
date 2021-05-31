@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useEffect } from 'react';
 import './CoursesPage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
@@ -13,39 +14,63 @@ import server from '../../shared/server'
 const CoursesPage = (props) => {
     const { handleLogout } = props;
     const activeUser = useContext(ActiveUserContext);
+    const [courses, setCourses] = useState(null);
+    const [pages, setPages] = useState(null);
     const [activeButton, setActiveButton] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const [courses, setCourses] = useState('');
+    const [search, setSearch] = useState(null);
+    const [id, setId] = useState(null);
+    
   
+    let data={search: search, sorting: "courseid", desc: false, coursestatus: activeButton ? 0 : 1, page:activePage}; 
+    
+    useEffect(() => {
+        async function getCourses() {
+            try {
+                const response = await server(activeUser, data, "SearchCourses");
+                if (response.data.error) { 
+                    console.error(response.data.error);    
+                     alert("error in get Courses");
+                } else {
+                    console.log(response.data);  
+                    setPages(response.data.courses.length) ;
+                    setCourses( response.data.courses);              
+                } 
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        getCourses()     
+    }, [activePage, activeButton, search])
+
+
     if (!activeUser) {
         return <Redirect to='/' />
     }
-    // let labels=[{key :activeButton, label : "עובדים פעילים" }, {key: inactiveButton, label:"לא פעילים"}];
-   let pages=1;
+     
+    const headers= [
+        {key: "subname", header: "שם מקוצר"},
+        {key: "project", header: "פרויקט"}, 
+        {key: "teachers", header: "מדריך"} 
+    ];   
     
+    function click(row){
+        console.log(row.courseid);
+        setId(row.courseid) ;      
+    }
+    // redirect to course page
+    if(id){
+        return <Redirect to={`/courses/${id}`} />
+    }
 
-
-    let data={search: "", sorting: "courseid", desc: false, coursestatus: activeButton, page:activePage}
-    server(activeUser, data, "SearchCourses").then(res => {
-        if (res.data.error) {     
-            alert("error in get Courses");
-        } else {
-         // setCourses( res.data.courses);
-          pages=res.data.pages+1;
-        
-         
-        }
-    }, err => {        
-        console.error(err);
-    })
-
-    return (
+    return (    
         <div className="p-courses">
             <PortalNavbar handleLogout={handleLogout}/>
-            <PortalSearchPager placeholder={"חיפוש קורס"}  onSearch={() => {}} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>
-
-            <PortalButtonSet labels={["עובדים פעילים", "לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ={"bottom"}/>   
+            {courses ? <PortalSearchPager placeholder={"חיפוש קורס"}  onSearch={setSearch} pages={pages} currentPage={activePage} onPageChange={setActivePage}/>  : null}        
+            {courses ? <PortalTable data={courses} headers={headers}  onClick={click}/>   : null}
+            <PortalButtonSet labels={[" קורסים פעילים", "קורסים לא פעילים"]} activeButton={activeButton} changeActiveBtn={setActiveButton}  border ={"bottom"}/>   
         </div>
+       
     );
 }
 
