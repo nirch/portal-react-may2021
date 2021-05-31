@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './CourseDetailsPage.css';
 import PortalNavbar from '../../components/navbar/PortalNavbar';
-import ActiveUserContext from '../../shared/activeUserContext';
+
+import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect, useParams } from 'react-router-dom';
+import StudentsCoursePage from '../StudentsCoursePage/StudentsCoursePage';
 import CourseHeader from '../../components/CourseHeader/CourseHeader';
 import server from '../../shared/server';
+
 
 const CourseDetailsPage = ({handleLogout}) => {
 
@@ -15,7 +18,6 @@ const CourseDetailsPage = ({handleLogout}) => {
     const activeUser = useContext(ActiveUserContext);
 
     const { id } = useParams();
-
 
     useEffect(() => {
         
