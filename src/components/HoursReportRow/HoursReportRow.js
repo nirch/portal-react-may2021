@@ -10,22 +10,18 @@ useEffect(() => {
     reportingPerimeter.subjects.forEach(function (subject) {
         if(subject.reportsubjectid == report.actionid){
             setSubject(subject.subject);
-            console.log(subject.subject)
         }
     });
   },[]);
-  
+
     var mystyle = {
         backgroundColor: report.approval == 1 ? "#a1d47f" : report.approval == 0 ? "#ffd300" : "#ffa1a1"
     };
 
-
     return (
         <tr style={mystyle} className="c-hours-report-row">
-        {/* <tr className="c-hours-report-row"> */}
             <td>{report.date}</td>
                 <td>{reportingPerimeter.projectName}</td>
-                {/* <td><select>{subjects.map(subject => <option>{subject.subject}</option>)}</select></td> */}
                 {subject
                 ? <td>{subject}</td>
                 : null
