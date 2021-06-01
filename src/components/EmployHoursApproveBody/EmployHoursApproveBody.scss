@@ -1,3 +1,8 @@
+$border-grey: #707070;
+$approve-color: #a1d47f;
+$disapprove-color: #ffa1a1;
+$pending-color: #ffd300;
+
 .employ-hours-approve-body{
     .actions-buttons{
         display: flex;
@@ -15,14 +20,14 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                border: solid 1px #707070;
+                border: solid 1px $border-grey;
                 margin-left: 7px;
             }
             .select-all-button.checked{
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                border: solid 1px #707070;
+                border: solid 1px $border-grey;
                 margin-left: 7px;
                 background-color:#007bff;
             }
@@ -33,9 +38,9 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                border: solid 1px #707070;
+                border: solid 1px $border-grey;
                 margin-left: 7px;
-                background-color: #a1d47f;
+                background-color: $approve-color;
             }
         }
         .disapprove-selected-container{
@@ -44,9 +49,9 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                border: solid 1px #707070;
+                border: solid 1px $border-grey;
                 margin-left: 7px;
-                background-color: #ffa1a1;
+                background-color: $disapprove-color;
                 margin-right: 19px;
             }
         }
@@ -62,22 +67,22 @@
                 justify-content: flex-end;
                 margin-left: 15.3px;
                 .disapprove-container{
-                    color: #ffa1a1;
+                    color: $disapprove-color;
                     margin-right: 22px;
                     .disapprove-button{
                         border-radius: 50%;
                         width: 15.2px;
                         height: 15.2px;
-                        border: solid 1px #707070;
+                        border: solid 1px $border-grey;
                     }
                     .disapprove-button.selected{
-                        border:solid 1px #ffa1a1;
+                        border:solid 1px $disapprove-color;
                         position: relative;
                         .disapprove-button.selected.inside{
                             width: 7.5px;
                             height: 7.5px;
                             border-radius: 50%;
-                            background-color: #ffa1a1;
+                            background-color: $disapprove-color;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
@@ -86,22 +91,22 @@
                     }
                 }
                 .approve-container{
-                    color: #a1d47f;
+                    color: $approve-color;
                     margin-right: 22px;
                     .approve-button{
                         border-radius: 50%;
                         width: 15.2px;
                         height: 15.2px;
-                        border: solid 1px #707070;
+                        border: solid 1px $border-grey;
                     }
                     .approve-button.selected{
-                        border:solid 1px #a1d47f;
+                        border:solid 1px $approve-color;
                         position: relative;
                         .approve-button.selected.inside{
                             width: 7.5px;
                             height: 7.5px;
                             border-radius: 50%;
-                            background-color: #a1d47f;
+                            background-color: $approve-color;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
@@ -111,22 +116,22 @@
                     
                 }
                 .pending-container{
-                    color:#ffd300;
+                    color:$pending-color;
                     margin-right: 22px;
                     .pending-button{
                         border-radius: 50%;
                         width: 15.2px;
                         height: 15.2px;
-                        border: solid 1px #707070;
+                        border: solid 1px $border-grey;
                     }
                     .pending-button.selected{
-                        border:solid 1px #ffd300;
+                        border:solid 1px $pending-color;
                         position: relative;
                         .pending-button.selected.inside{
                             width: 7.5px;
                             height: 7.5px;
                             border-radius: 50%;
-                            background-color: #ffd300;
+                            background-color: $pending-color;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
@@ -195,13 +200,13 @@
                 }
             }
             .report-row-data.red{
-                background-color: #ffa1a1;
+                background-color: $disapprove-color;
             }
             .report-row-data.yellow{
-                background-color: #ffd300;
+                background-color: $pending-color;
             }
             .report-row-data.green{
-                background-color: #a1d47f;
+                background-color: $approve-color;
             }
 
         }
