@@ -136,8 +136,7 @@ const UserDetailsPage = (props) => {
             <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab onUpdateUser={setUserUpdated}/>},
                                 {header:"קורסים", view:<UserCourseTab/>},
                                 {header:"עובדים", view:<UserEmployeesTab userId={id} />},
-                                {header:"דיווח", view:<UserReportTab/>}]}/>
-            
+                                {header:"דיווח", view:<UserReportTab userProfile={userProfile} />}]}/>
             <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
         </div>
     );
