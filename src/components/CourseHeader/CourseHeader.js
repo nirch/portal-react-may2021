@@ -16,9 +16,9 @@ function CourseHeader({name, subName}) {
             <div className="top">
                 <h1>{subName}</h1>  
                 <div className="icons">
-                    <Button className="back-icon" variant="outline" onClick={() => history.goBack()}><img src={BackIcon}/></Button>
-                    <Button className="copy-icon" variant="outline"><img src={CopyIcon}/></Button>
-                    <Button className="save-icon" variant="outline"><img src={SaveIcon}/></Button>
+                    <Button variant="outline" onClick={() => history.goBack()}><img className="back-icon" src={BackIcon}/></Button>
+                    <Button variant="outline"><img className="copy-icon" src={CopyIcon}/></Button>
+                    <Button variant="outline"><img className="save-icon" src={SaveIcon}/></Button>
                 </div>
             </div>
 
