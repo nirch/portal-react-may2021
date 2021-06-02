@@ -17,8 +17,10 @@ export default function CoursePageDetailsTab({courseid}) {
     const [activeBudgetYear, setActiveBudgetYear] = useState([]);
     const [selectedProject, setSelectedProject] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
+    const [selectedYear, setSelectedYear] = useState("");
     const [tags,setTags] = useState([]);
     const [enrolmentProfile, setEnrolmentProfile] = useState("");
+
 
     useEffect(() => {
             const data = {courseid};
@@ -38,17 +40,20 @@ export default function CoursePageDetailsTab({courseid}) {
                     setProject(projects.data);
 
                     const selectd = projects.data.find(a => coursebyId.data.projectid === a.projectid);
-                    setSelectedProject( selectd.projectname);
+                    setSelectedProject( selectd.projectid);
                     setTags(selectd.projecttags);                   
 
                     const cities = responses[2]                    
                     setCity(cities.data);
                     const selectedCity = cities.data.find( city => coursebyId.data.cityid === city.cityid)
-                    setSelectedCity(selectedCity.cityid);
+                    setSelectedCity(selectedCity.name);
                     
                     const activeB = responses[3]
                     activeB.data.map(active =>  {active.value = active.year ; active.name = active.year});                    
                     setActiveBudgetYear(activeB.data);
+                    const selectedYear = activeB.data.find( active => coursebyId.data.yearbudgetid === active.yearbudgetid)
+                    setSelectedYear(selectedYear.year);
+                    
                     
                     const enrollment = responses[4]
                     setEnrolmentProfile(enrollment.data.enrolled[0]);                    
@@ -75,7 +80,7 @@ export default function CoursePageDetailsTab({courseid}) {
                 />              
             </div>
            
-            <PortalSelect title="פרויקט" options={project} optionsKey={selectedProject}/>
+            <PortalSelect title="פרויקט" options={project} value={selectedProject}/>
             {/* <PortalMultipleSelect title="תגיות" options={tags}/> */}
            
             <div className="c-line">
@@ -89,8 +94,8 @@ export default function CoursePageDetailsTab({courseid}) {
                 />
             </div>
             <div className="c-line">
-                <PortalSelect title="עיר" options={city}/>
-                <PortalSelect title="שנת תקציב" options={activeBudgetYear}/>
+                <PortalSelect title="עיר" options={city} value={selectedCity}/>
+                <PortalSelect title="שנת תקציב" options={activeBudgetYear} value={selectedYear}/>
             </div>    
             <div>
                  <PortalInput title="מדריך"                        
