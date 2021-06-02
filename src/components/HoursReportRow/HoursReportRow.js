@@ -22,10 +22,11 @@ useEffect(() => {
         <tr style={mystyle} className="c-hours-report-row">
             <td>{report.date}</td>
                 <td>{reportingPerimeter.projectName}</td>
-                {subject
+                <td>{subject? subject :""}</td>
+                {/* {subject
                 ? <td>{subject}</td>
                 : null
-                }
+                } */}
                 <td><span>{parseFloat(report.finishhour)-parseFloat(report.starthour)}</span></td>
                 <td className="icon-td"><BsThreeDotsVertical /></td>
         </tr>
