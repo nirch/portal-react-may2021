@@ -6,8 +6,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 
 import './UserDetailsTab.css'; 
+import PortalSelect from "../PortalSelect/PortalSelect";
 
-function UserDetailsTab(props) {
+function UserDetailsTab({onUpdateUser}) {
    
     const { id } = useParams();
 
@@ -27,36 +28,78 @@ function UserDetailsTab(props) {
                     setUserProfile(res.data.profile);
                 }
             }, err => {
-                console.error(err);
+                //console.error(err);
             })   ; 
-            
-            
+         }
+    }, [activeUser, id]);
+
+ 
+        
+    //get cities
+    useEffect(() => {
+        
+            console.log ("GetCities"); 
+
+            const data = {};
             server(activeUser, data, "GetCities").then(res => {
+
+                console.log ("GetCities got data"); 
+
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
                     setCities(res.data);
                 }
             }, err => {
-                console.error(err);
-            })    ; 
+                //console.error(err);
+            })   ; 
+        
+    }, [activeUser, id]);
+    
 
-           
 
-        }
-    }, []);
-
- 
    
     if (cities){
-        console.log (cities); 
+        //console.log (cities); 
     }
+
+
+
+    //define gender select
+    let titleGender = "מגדר"; 
+    let optionsKeyGender = "מגדר"; 
+    let optionsGender=[
+        {"value": "string:1", "name": "זכר"},
+        {"value": "string:2", "name": "נקבה"},
+    ]; 
+
+    function getPortalSelectedValue(selectedValue){
+        console.log(selectedValue); 
+    }
+    //
+
+
+     //define gender select
+     let titleMigzar = "מיגזר"; 
+     let optionsKeyMigzar = "מיגזר"; 
+     let optionsMigzar=[
+         {"value": "string:1", "name": "מוסלמי"},
+         {"value": "string:2", "name": "בדואי"},
+     ]; 
+ 
+     function getPortalSelectedValue(selectedValue){
+         console.log(selectedValue); 
+     }
+     //
 
 
 
     //handle changes in values 
     function fnameChanged(fname){
-        console.log(fname); 
+        //console.log(fname); 
+        userProfile.fname = fname; 
+        setUserProfile(userProfile); 
+        onUpdateUser(userProfile); 
     }
 
     function lnameChanged(lname){
@@ -257,6 +300,28 @@ function UserDetailsTab(props) {
                         placeholder="רחוב ומספר בית"
                         onHandleChange={addressChanged}
                     ></PortalInput>   
+                </div>
+            </div>
+
+
+            
+            {/* city & address */}
+            <div className="row">
+                <div className="col-6">
+                    <PortalInput 
+                        title="עיר"
+                        value={userCity}
+                        placeholder="שם העיר"
+                    
+                    ></PortalInput>
+                </div>
+                <div className="col-6">
+                    <PortalSelect
+                        title={titleGender}
+                        optionsKey={optionsKeyGender}
+                        options = {optionsGender}
+                        handleSelection= {getPortalSelectedValue}
+            ></PortalSelect>
                 </div>
             </div>
 
