@@ -14,13 +14,16 @@ function UserDetailsTab({onUpdateUser}) {
 
     const activeUser = useContext(ActiveUserContext);
     const [userProfile, setUserProfile] = useState(null);
-    const [cities, setCities] = useState("");
+  
 
     const [genders, setGenders] = useState([]);
     const [genderSelected, setGenderSelected] = useState("");
 
     const [migzas, setMigzars] = useState([]);
     const [migzarSelected, setMigzarSelected] =  useState("");
+
+    const [cities, setCities] = useState("");
+    const [citySelected, setCitySelected] =  useState("");
 
 
     //get user details from server by user id
@@ -117,7 +120,7 @@ function UserDetailsTab({onUpdateUser}) {
     let phoneBelongsTo = ""; 
     let birthday = ""; 
     let tznumber = ""; 
-    let userCity = ""; 
+    //let userCity = ""; 
     let address = ""; 
     let email = ""; 
     let managerId = ""; 
@@ -129,6 +132,7 @@ function UserDetailsTab({onUpdateUser}) {
 
         setGenderSelected(userProfile.genderid); 
         setMigzarSelected(userProfile.religionid); 
+        setCitySelected(userProfile.cityid); 
 
     }
     
@@ -150,38 +154,33 @@ if (userProfile){
     birthday = userProfile.birthday; 
     tznumber = userProfile.tznumber; 
 
-    let cityid = userProfile.cityid; 
-    if (cityid){
-        if (cities){
-            // cities.forEach(city => {
-            //     testArray.push({"value":city.cityid, "name":city.name});
-            // });
-            let resCity = cities.find(city => city.cityid === cityid );  
-            userCity =  resCity.name; 
-       }
-    }
+    //let cityid = userProfile.cityid; 
+    
+    //find city name 
+    // if (cityid){
+    //     if (cities){
+    //         let resCity = cities.find(city => city.cityid === cityid );  
+    //         userCity =  resCity.name; 
+    //    }
+    // }
 
     address = userProfile.address; 
 
     email = userProfile.email; 
 
-    managerId = userProfile.managerid; 
+    managerId = userProfile.superstaffname; 
 }
    
+
+    //define cities select 
+    let citiesArray = []; 
     if (cities){
-        //console.log (cities); 
+         cities.forEach(city => {
+            citiesArray.push({"value":city.cityid, "name":city.name});
+         });
     }
 
-
-
     //define gender select
-  
-    // if (genders){
-    //     const  optionsGenderArray =  genders.map((genObj) => ({"value": genObj.genderid , "name": genObj.name  }) ); 
-    
-    //     console.log(optionsGenderArray); 
-    // }    
-
     let optionsGenderArray = []; 
     if (genders){
         genders.forEach(objGen => {
@@ -189,9 +188,8 @@ if (userProfile){
         });
    
     }
-     
-
     
+    //define migzar select 
     let optionsMigzarArray = []; 
     if (migzas){
         migzas.forEach(objMig => {
@@ -219,15 +217,18 @@ if (userProfile){
 
     }
    
-
-    
-    function getMigzarValue(selectedValue){
+     function getMigzarValue(selectedValue){
         console.log(selectedValue); 
         //update state of select 
         setMigzarSelected(selectedValue); 
-
     }
 
+    function getCityValue(selectedValue){
+        console.log(selectedValue); 
+        //update state of select 
+        setCitySelected(selectedValue); 
+
+    }
 
 
      //define gender select
@@ -394,12 +395,12 @@ if (userProfile){
               {/* city & address */}
               <div className="row">
                 <div className="col-6">
-                    <PortalInput 
+                    <PortalSelect
                         title="עיר"
-                        value={userCity}
-                        placeholder="שם העיר"
-                    
-                    ></PortalInput>
+                        options = {citiesArray}
+                        onChange = {getCityValue}
+                        value = {citySelected}
+                    ></PortalSelect>
                 </div>
                 <div className="col-6">
                     <PortalInput 
