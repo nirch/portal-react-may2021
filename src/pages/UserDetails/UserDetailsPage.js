@@ -33,6 +33,7 @@ const UserDetailsPage = (props) => {
     const [alertType, setAlertType] = useState("");
     const [saveDisable, setSaveDisable] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
         if(id) {
@@ -82,15 +83,21 @@ const UserDetailsPage = (props) => {
         }
     }
 
-    function handleSaveUser() {     
+    function handleSaveUser() {   
         var data = {};
         data.user = userUpdated ? userUpdated : userProfile;
-        data.user.updatePassword = false;  // get checkbox value
         data.user.image = img;
+        if(password !== "") {
+            data.user.updatePassword = true;
+            data.user.password = password;
+        }
+        else {
+            data.user.updatePassword = false;
+        }
         server(activeUser, data, "UpdateUser").then(res => {
             if (res.data.error) {
                 console.log(res.data.error);
-                setAlertMessage("שגיאה בנתונים - הפעולה לא נשמרה");
+                setAlertMessage(res.data.error);
                 setAlertType("error");
                 setAlertVisibility("show");
             } else {
@@ -106,9 +113,12 @@ const UserDetailsPage = (props) => {
         })            
     }
 
-    function handleChangePassword() {
-
+    function handleChangePassword(value) {
+        setPassword(value);
+        setShowModal(false);
+        setSaveDisable(false);
     }
+
     return (
         <div className="p-user-details">
             <PortalNavbar handleLogout={handleLogout}/>
@@ -135,13 +145,20 @@ const UserDetailsPage = (props) => {
                     </div>
                 </div>
             </div>}
-            <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab onUpdateUser={setUserUpdated}/>},
-                                {header:"קורסים", view:<UserCourseTab/>},
-                                {header:"עובדים", view:<UserEmployeesTab/>},
-                                {header:"דיווח", view:<UserReportTab/>}]}/>
+            <PortalTabView 
+                tabs={[{header:"פרופיל", view:<UserDetailsTab onUpdateUser={setUserUpdated}/>},
+                    {header:"קורסים", view:<UserCourseTab/>},
+                    {header:"עובדים", view:<UserEmployeesTab/>},
+                    {header:"דיווח", view:<UserReportTab/>}]}/>
             
             <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
-            <ConfirmationModal show={showModal} onClose={() => setShowModal(false)} title="שינוי סיסמה" inputType="password" onSubmit={handleChangePassword}/>
+          
+            <ConfirmationModal
+                show={showModal}
+                title="שינוי סיסמה"
+                inputType="password" 
+                onClose={() => setShowModal(false)}
+                onSubmit={(value) => handleChangePassword(value)}/>
         </div>
     );
 }

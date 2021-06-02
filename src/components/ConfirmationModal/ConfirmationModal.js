@@ -16,7 +16,7 @@ function ConfirmationModal({show, onClose, onSubmit, title, inputType}) {
                     <h1 className="modal-title">{title}</h1>
 					{inputType && <input value={inputValue} type={inputType} onChange={e => setInputValue(e.target.value)}/>}
 					<div className="modal-footer">
-                        <div onClick={onSubmit}>אישור</div>
+                        <div onClick={() => onSubmit(inputValue)}>אישור</div>
 						<div onClick={onClose}>ביטול</div>
                     </div>
             </Modal>
