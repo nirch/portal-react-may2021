@@ -9,7 +9,6 @@ function UserReportTab({userProfile}) {
     const activeUser = useContext(ActiveUserContext);
     const [reportsSubject, setReportsSubject] = useState([]);
     const [projects, setProjects] = useState([])
-    const [data, setData] = useState([]);
     const [spinner, setSpinner] = useState(false);
     // get All initial data - projects and reports subject
     useEffect(() => {
@@ -20,16 +19,18 @@ function UserReportTab({userProfile}) {
             const response = await Promise.all(promises);
             setReportsSubject(response[0].data);
             setProjects(response[1].data)
+            setSpinner(false);       
         }
         if(activeUser){
             setSpinner(true);
             getData();
         }
     }, [])
+    
+    const tableData = [];   
 
-    useEffect(() => {         
-        if(userProfile.reportSubjects && userProfile.reportSubjects.length>0){
-            const tableData = [];
+    if(userProfile.reportSubjects && userProfile.reportSubjects.length>0 && 
+        reportsSubject && reportsSubject.length>0 && projects && projects.length>0){
             for(let i=0;i<userProfile.reportSubjects.length;i++){
                 const localReportSubject = userProfile.reportSubjects[i];
                 const projectName =  projects.find(x=> x.projectid===localReportSubject.projectid);
@@ -43,12 +44,8 @@ function UserReportTab({userProfile}) {
                     });
                 }
             }
-            if(tableData&& tableData.length>0){
-                setData(tableData);
-                setSpinner(false);
-            }
-        }
-    }, [userProfile, reportsSubject, projects])
+            
+    }
 
     const headers= [
         {key: "projectname", header: "פרויקט"}, 
@@ -63,9 +60,9 @@ function UserReportTab({userProfile}) {
     return (
         <div className = "c-user-report">
         {spinner? <Spinner animation="border" role="status"/> : null}
-        {data && data.length>0}
+        {tableData && tableData.length>0}
             <PortalTable headers={headers} 
-                        data={data} 
+                        data={tableData} 
                         onClick={onRowClick}/>
         </div>
     );
