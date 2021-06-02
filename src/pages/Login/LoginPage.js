@@ -31,7 +31,11 @@ const LoginPage = (props) => {
         server(null, data, "login").then(res => {
             console.log(res);
             if (res.data.error) {
-                setAlertMessage(res.data.error);
+                if (res.data.error === "incorrect credentials") {
+                    setAlertMessage("פרטי התחברות שגויים");
+                } else {
+                    setAlertMessage(res.data.error);
+                }
                 setAlertType("error");
                 setAlertVisibility("show")
             } else {//writing user's data
