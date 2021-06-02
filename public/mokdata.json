@@ -1,0 +1,208 @@
+[{
+
+    "approverid": null,
+    "userid": "914",
+    "firstname": "בילי",
+    "lastname": "כהן",
+    "managerid": "933",
+    "status": "1",
+    "approvers": [],
+    "reports": [],
+    "reportingPerimeter": {
+      "7": {
+        "projectid": "7",
+        "projectName": "מחלקת ניהול ידע",
+        "courseid": null,
+        "courseName": null,
+        "courses": [],
+        "subjects": [
+          {
+            "reportsubjectid": "54",
+            "subject": "חג "
+          },
+          {
+            "reportsubjectid": "52",
+            "subject": "חופשה "
+          },
+          {
+            "reportsubjectid": "66",
+            "subject": "מחלה "
+          },
+          {
+            "reportsubjectid": "67",
+            "subject": "מחלת הורה "
+          },
+          {
+            "reportsubjectid": "68",
+            "subject": "מחלת ילד "
+          },
+          {
+            "reportsubjectid": "49",
+            "subject": "ניהול "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "approverid": null,
+    "userid": "950",
+    "firstname": "יוליה",
+    "lastname": "זורין",
+    "managerid": "933",
+    "status": "1",
+    "approvers": [],
+    "reports": [
+      {
+        "userid": "950",
+        "reportid": "81762",
+        "date": "23/05/2021",
+        "courseid": null,
+        "projectid": "7",
+        "actionid": "49",
+        "starthour": "15:00",
+        "finishhour": "16:15",
+        "carkm": null,
+        "cost": null,
+        "comment": "",
+        "reportcopyid": "80994",
+        "automatic": "0",
+        "approval": "0",
+        "checkdate": null,
+        "missingreportsubject": "0",
+        "copyreport": {
+          "date": "23/05/2021",
+          "projectid": "7",
+          "actionid": "49",
+          "courseid": null,
+          "starthour": "15:00",
+          "finishhour": "16:15",
+          "cost": null,
+          "carkm": null,
+          "comment": ""
+        }
+      },
+      {
+        "userid": "950",
+        "reportid": "81761",
+        "date": "24/05/2021",
+        "courseid": "1079",
+        "projectid": "6",
+        "actionid": "1",
+        "starthour": "09:45",
+        "finishhour": "11:00",
+        "carkm": "15",
+        "cost": null,
+        "comment": "",
+        "reportcopyid": "80993",
+        "automatic": "0",
+        "approval": "1",
+        "checkdate": "2021-05-24 09:38:53",
+        "missingreportsubject": "0",
+        "copyreport": {
+          "date": "24/05/2021",
+          "projectid": "6",
+          "actionid": "1",
+          "courseid": "1079",
+          "starthour": "09:45",
+          "finishhour": "11:00",
+          "cost": null,
+          "carkm": "15",
+          "comment": ""
+        }
+      }
+    ],
+    "reportingPerimeter": {
+      "6": {
+        "projectid": "6",
+        "projectName": "פנימי",
+        "courses": [
+          {
+            "courseid": "398",
+            "courseName": "קורס ניסיון נטלי"
+          },
+          {
+            "courseid": "1079",
+            "courseName": "יום תכניות עבודה 2019"
+          }
+        ],
+        "subjects": [
+          {
+            "reportsubjectid": "1",
+            "subject": "הדרכה"
+          }
+        ]
+      },
+      "7": {
+        "projectid": "7",
+        "projectName": "מחלקת ניהול ידע",
+        "courseid": null,
+        "courseName": null,
+        "courses": [],
+        "subjects": [
+          {
+            "reportsubjectid": "49",
+            "subject": "ניהול "
+          },
+          {
+            "reportsubjectid": "52",
+            "subject": "חופשה "
+          },
+          {
+            "reportsubjectid": "54",
+            "subject": "חג "
+          },
+          {
+            "reportsubjectid": "66",
+            "subject": "מחלה "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "approverid": null,
+    "userid": "1005",
+    "firstname": "ענבר",
+    "lastname": "אדמון",
+    "managerid": "933",
+    "status": "1",
+    "approvers": [],
+    "reports": [],
+    "reportingPerimeter": {
+      "13": {
+        "projectid": "13",
+        "projectName": "מחלקת פיתוח עסקי\r\n",
+        "courseid": null,
+        "courseName": null,
+        "courses": [],
+        "subjects": [
+          {
+            "reportsubjectid": "54",
+            "subject": "חג "
+          },
+          {
+            "reportsubjectid": "52",
+            "subject": "חופשה "
+          },
+          {
+            "reportsubjectid": "66",
+            "subject": "מחלה "
+          },
+          {
+            "reportsubjectid": "67",
+            "subject": "מחלת הורה "
+          },
+          {
+            "reportsubjectid": "68",
+            "subject": "מחלת ילד "
+          },
+          {
+            "reportsubjectid": "49",
+            "subject": "ניהול "
+          }
+        ]
+      }
+    }
+  }
+]
