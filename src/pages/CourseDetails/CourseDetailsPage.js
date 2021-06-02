@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './CourseDetailsPage.css';
 import PortalNavbar from '../../components/navbar/PortalNavbar';
-
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect, useParams } from 'react-router-dom';
 import StudentsCoursePage from '../StudentsCoursePage/StudentsCoursePage';
 import CourseHeader from '../../components/CourseHeader/CourseHeader';
+import PortalTabView from '../../components/PortalTabView/PortalTabView';
 import server from '../../shared/server';
 
 
@@ -19,6 +19,25 @@ const CourseDetailsPage = ({handleLogout}) => {
 
     const { id } = useParams();
 
+    const courseTabs = [
+        {
+            "header": "קורס",
+            "view": <></>
+        },
+        {
+            "header": "סילבוס",
+            "view": <></>
+        },
+        {
+            "header": "סטודנטים",
+            "view": <></>
+        },
+        {
+            "header": "מדריכים",
+            "view": <></>
+        }
+    ];
+
     useEffect(() => {
         
         let payload = {
@@ -26,8 +45,6 @@ const CourseDetailsPage = ({handleLogout}) => {
             "page": 0,
             "roleid": 1,
             "search": "",
-            "token": activeUser.token,
-            "v": "2.3"
         }
         server(activeUser, payload, "GetCourseById").then(res => setCourseDetails(res.data));
 
@@ -49,6 +66,7 @@ const CourseDetailsPage = ({handleLogout}) => {
         <div className="p-course-details">
             <PortalNavbar handleLogout={handleLogout}/>
             <CourseHeader name={courseDetails.name} subName={courseDetails.subname}/>
+            <PortalTabView tabs={courseTabs}/>
         </div>
     );
 }
