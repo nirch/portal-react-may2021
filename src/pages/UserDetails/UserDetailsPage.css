@@ -70,11 +70,8 @@
     margin: 0;
 }
 
-.p-user-details > .user-header > div > .checkbox-wrapper {
-    margin: 29px 0 21px 0;
-}
-
-.p-user-details > .user-header > div > .checkbox-wrapper > input {
-    margin-left: 16px;
-    border-radius: 0;
+.p-user-details > .user-header > div > .change-pwd {
+    margin: 29px 0 18px 0;
+    /* font-family: 'Assistant-SemiBold';
+    text-decoration: underline; */
 }

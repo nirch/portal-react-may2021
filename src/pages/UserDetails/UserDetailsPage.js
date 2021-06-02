@@ -17,6 +17,7 @@ import UserEmployeesTab from '../../components/UserEmployeesTab/UserEmployeesTab
 import UserReportTab from '../../components/UserReportTab/UserReportTab';
 import PortalTabView from '../../components/PortalTabView/PortalTabView';
 import AlertComponent from '../../components/alert/Alert';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 
 const UserDetailsPage = (props) => {
     const { handleLogout } = props;
@@ -31,6 +32,7 @@ const UserDetailsPage = (props) => {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertType, setAlertType] = useState("");
     const [saveDisable, setSaveDisable] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         if(id) {
@@ -104,6 +106,9 @@ const UserDetailsPage = (props) => {
         })            
     }
 
+    function handleChangePassword() {
+
+    }
     return (
         <div className="p-user-details">
             <PortalNavbar handleLogout={handleLogout}/>
@@ -111,10 +116,7 @@ const UserDetailsPage = (props) => {
                 <div className="right-col">
                     <h1>{userProfile.firstname}</h1>
                     <h1>{userProfile.lastname}</h1>
-                    <div className="checkbox-wrapper">
-                        <input type="checkbox" id="change-pwd" name="change-pwd"/>
-                        <label>שינוי סיסמה</label>
-                    </div>
+                    <div className="change-pwd" onClick={() => setShowModal(true)}>שינוי סיסמה</div>
                     <p className="date-created">נרשם ב: <span>{userProfile.registerdate}</span></p>
                 </div>
 
@@ -139,6 +141,7 @@ const UserDetailsPage = (props) => {
                                 {header:"דיווח", view:<UserReportTab/>}]}/>
             
             <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
+            <ConfirmationModal show={showModal} onClose={() => setShowModal(false)} title="שינוי סיסמה" inputType="password" onSubmit={handleChangePassword}/>
         </div>
     );
 }

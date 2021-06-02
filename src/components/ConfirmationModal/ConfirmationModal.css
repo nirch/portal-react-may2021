@@ -1,0 +1,58 @@
+.ReactModalPortal {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Assistant-SemiBold";
+}
+
+.ReactModalPortal > .ReactModal__Overlay {
+    background-color: #00000085;
+}
+
+.ReactModalPortal .ReactModal__Content {
+    height: fit-content;
+    padding: 0 36px !important;
+
+}
+
+.ReactModalPortal .close-btn-wrapper {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.ReactModalPortal .close-btn {
+    font-size: 45px;
+}
+
+.ReactModalPortal .modal-title {
+    font-size: 35px;
+    margin: 10px 0;
+}
+
+.ReactModalPortal input {
+    color: #5d5d5d;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin: 70px 0 80px 0;
+    border-bottom: 1px #1b166e solid;
+}
+
+.ReactModalPortal input:focus {
+    outline: none;
+}
+
+.ReactModalPortal .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    margin-bottom: 41px;
+    padding: 0;
+}
+
+.ReactModalPortal input,
+.ReactModalPortal .modal-footer > div {
+    font-size: 23px;
+}
+
