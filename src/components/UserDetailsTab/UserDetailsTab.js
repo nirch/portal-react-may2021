@@ -17,8 +17,11 @@ function UserDetailsTab({onUpdateUser}) {
     const [cities, setCities] = useState("");
 
     const [genders, setGenders] = useState([]);
-
     const [genderSelected, setGenderSelected] = useState("");
+
+    const [migzas, setMigzars] = useState([]);
+    const [migzarSelected, setMigzarSelected] =  useState("");
+
 
     //get user details from server by user id
     useEffect(() => {
@@ -80,20 +83,44 @@ function UserDetailsTab({onUpdateUser}) {
             //console.error(err);
         })   ; 
     
+    }, [activeUser]);
+
+
+
+    //get MIGZAR
+    useEffect(() => {
+        const data = {};
+        server(activeUser, data, "GetReligions").then(res => {
+            if (res.data.error) {
+                alert(res.data.error);
+            } else {
+                setMigzars(res.data);
+            }
+
+        }, err => {
+            //console.error(err);
+        })   ; 
+    
 }, [activeUser]);
 
-    
-let firstname = ""; 
-let lastname = ""; 
-let ar_firstname = ""; 
-let  ar_lastname = ""; 
-let phone = ""; 
-let addPhoneNumber = ""; 
-let phoneBelongsTo = ""; 
-let birthday = ""; 
-let tznumber = ""; 
-let userCity = ""; 
-let address = ""; 
+
+
+
+
+        
+    let firstname = ""; 
+    let lastname = ""; 
+    let ar_firstname = ""; 
+    let  ar_lastname = ""; 
+    let phone = ""; 
+    let addPhoneNumber = ""; 
+    let phoneBelongsTo = ""; 
+    let birthday = ""; 
+    let tznumber = ""; 
+    let userCity = ""; 
+    let address = ""; 
+    let email = ""; 
+    let managerId = ""; 
 
      //set user details from data base 
      useEffect(() => {
@@ -101,6 +128,8 @@ let address = "";
         if (userProfile){
 
         setGenderSelected(userProfile.genderid); 
+        setMigzarSelected(userProfile.religionid); 
+
     }
     
 }, [userProfile]);
@@ -134,7 +163,9 @@ if (userProfile){
 
     address = userProfile.address; 
 
-   
+    email = userProfile.email; 
+
+    managerId = userProfile.managerid; 
 }
    
     if (cities){
@@ -156,9 +187,22 @@ if (userProfile){
         genders.forEach(objGen => {
             optionsGenderArray.push ({ "value":objGen.genderid,  "name":objGen.name }); 
         });
-        console.log (optionsGenderArray); 
+   
     }
      
+
+    
+    let optionsMigzarArray = []; 
+    if (migzas){
+        migzas.forEach(objMig => {
+            optionsMigzarArray.push ({ "value":objMig.religionid,  "name":objMig.name }); 
+        });
+       
+    }
+
+
+
+
 
     let titleGender = "מגדר"; 
     let optionsGender=[
@@ -176,14 +220,19 @@ if (userProfile){
     }
    
 
+    
+    function getMigzarValue(selectedValue){
+        console.log(selectedValue); 
+        //update state of select 
+        setMigzarSelected(selectedValue); 
+
+    }
+
+
 
      //define gender select
      let titleMigzar = "מיגזר"; 
-     let optionsKeyMigzar = "מיגזר"; 
-     let optionsMigzar=[
-         {"value": "1", "name": "מוסלמי"},
-         {"value": "2", "name": "בדואי"},
-     ]; 
+     
   
 
 
@@ -242,7 +291,7 @@ if (userProfile){
 
     return (
         <div>
-            <h1>TEST</h1>
+        
           
             {/* first name & last name - hebrew */}
             <div className="row">
@@ -364,25 +413,50 @@ if (userProfile){
 
 
             
-            {/* city & address */}
+            {/* gender & migzar  */}
             <div className="row">
-                <div className="col-6">
-                    <PortalInput 
-                        title="עיר"
-                        value={userCity}
-                        placeholder="שם העיר"
-                    
-                    ></PortalInput>
-                </div>
+                {/* GENDER */}
                 <div className="col-6">
                     <PortalSelect
                         title={titleGender}
                         options = {optionsGender}
                         onChange = {getGenderValue}
                         value = {genderSelected}
-            ></PortalSelect>
+                    ></PortalSelect>
+                </div>
+
+                {/* MIGZAR */}
+                <div className="col-6">
+                    <PortalSelect
+                        title={titleMigzar}
+                        options = {optionsMigzarArray}
+                        onChange = {getMigzarValue}
+                        value = {migzarSelected}
+                    ></PortalSelect>
                 </div>
             </div>
+
+
+              {/* email & direct manager */}
+              <div className="row">
+                <div className="col-6">
+                    <PortalInput 
+                        title="מנהל ישיר"
+                        value={managerId}
+                        placeholder="מנהל ישיר"
+                    
+                    ></PortalInput>
+                </div>
+                <div className="col-6">
+                    <PortalInput 
+                        title="אי מייל"
+                        value={email}
+                        placeholder="אי מייל"
+                    
+                    ></PortalInput>   
+                </div>
+            </div>
+
 
 
 
