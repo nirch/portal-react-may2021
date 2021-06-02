@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './EmployHoursApproveBody.scss';
 import diff from  './../../shared/utils';
 
-function EmployHoursApproveBody({ employee, employeeIndex, changeEmployees }) {
+function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReportsStatus, currentDate }) {
     const [selectAllReports, setSelectAllReports] =  useState(false);
-    const [checkedReports, setCheckedReports] = useState(employee.reports.map(report => false));
+    const [reportsToShow, setReportsToShow] = useState(employee.reports.filter(report => report.date.split('/')[1] === ((currentDate.getMonth()+1) < 10 ? "0" + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)) && report.date.split('/')[2] === currentDate.getFullYear()+""));
+    const [checkedReports, setCheckedReports] = useState(reportsToShow.map(report => false));
+        
+    useEffect(()=>{
+        setSelectAllReports(false);
+        setCheckedReports(reportsToShow.map(report => false));
+        setReportsToShow(employee.reports.filter(report => report.date.split('/')[1] === ((currentDate.getMonth()+1) < 10 ? "0" + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)) && report.date.split('/')[2] === currentDate.getFullYear()+""));
+    },[employee.reports, currentDate]);    
     const disapproveReport = (index) => {
-        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "-1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "-1"})
     };
     const pendingReport = (index) => {
-        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "0"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "0"})
     };
     const approveReport = (index) => {
-        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : [index], "approval" : "1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "1"})
     };
 
     const handleChange = (e) =>  {
@@ -27,7 +34,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployees }) {
             setCheckedReports(checkedReportsClone)
        }
     }
-    const reportsRows = employee.reports.map((report, index) =>{
+    const reportsRows = reportsToShow.length > 0 ? reportsToShow.map((report, index) =>{
         let curseName="-";
         if(report.courseid != null){
             curseName = employee.reportingPerimeter[report.projectid].courses.filter(course => course.courseid === report.courseid)[0].courseName;
@@ -87,37 +94,37 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployees }) {
              </div>
             </div>
         )
-    }) ;
+    }) : null ;
     const selectAll = () => {
-        const checkedReportsClone = employee.reports.map(report => !selectAllReports);
+        const checkedReportsClone = reportsToShow.map(report => !selectAllReports);
         setCheckedReports(checkedReportsClone);
         setSelectAllReports(!selectAllReports);
     };
 
     const approveSelected = () => {
-        const indexs = []
-        for(let i=0; i < employee.reports.length; i++){
+        const ids = [];
+        for(let i=0; i < reportsToShow.length; i++){
             if(checkedReports[i] === true){
-                indexs.push(i);
+                ids.push(reportsToShow[i].reportid);
             }
         }
-        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : indexs, "approval" : "1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "1"})
 
     };
 
     const disapproveSelectd = () => {
-        const indexs = []
-        for(let i=0; i < employee.reports.length; i++){
+        const ids = [];
+        for(let i=0; i < reportsToShow.length; i++){
             if(checkedReports[i] === true){
-                indexs.push(i);
+                ids.push(reportsToShow[i].reportid);
             }
         }
-        changeEmployees({"employeeIndex" : employeeIndex, "reportIndexs" : indexs, "approval" : "-1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "-1"})
     };
 
     return (
         <div className="employ-hours-approve-body">
-            {employee.reports.length > 0 ? 
+            {reportsRows && reportsRows.length > 0  ? 
             <div className="actions-buttons">
                 <div className="select-all-container">
                     <div className={selectAllReports ? "select-all-button checked":"select-all-button"} onClick={() => selectAll()} />
@@ -133,7 +140,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployees }) {
                 </div>
             </div>: null}
             <div className="data-rows">
-                {reportsRows ? reportsRows : null}
+                {reportsRows}
             </div> 
         </div>
     );

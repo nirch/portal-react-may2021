@@ -14,6 +14,7 @@ const HoursApprovePage = (props) => {
     const { handleLogout } = props;
     const [employees, setEmployees] = useState();
     const [activeKey, setActiveKey] = useState(0);
+    const [currentDate, setCurrentDate] = useState(new Date())
     const activeUser = useContext(ActiveUserContext);
 
 
@@ -26,16 +27,18 @@ const HoursApprovePage = (props) => {
         });
     }, []);
 
-    const changeEmployees = (params) =>{
+    const changeEmployeesReportsStatus = (params) =>{
         const cloneEmployees = [...employees];
-            for(const reportIndex of params.reportIndexs){
-                cloneEmployees[params.employeeIndex].reports[reportIndex].approval = params.approval;
+            for(const reportId of params.reportIds){
+                for(const report of cloneEmployees[params.employeeIndex].reports){
+                    if(report.reportid === reportId) report.approval = params.approval;
+                }
             }
         setEmployees(cloneEmployees);
     }
     
     const onDateSelection = (currentDate) => {
-
+        setCurrentDate(currentDate);
     }
      
 
@@ -50,7 +53,7 @@ const HoursApprovePage = (props) => {
                     <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
-                    <EmployHoursApproveBody employee={employee} changeEmployees={changeEmployees} employeeIndex={index}/>
+                    <EmployHoursApproveBody employee={employee} changeEmployeesReportsStatus={changeEmployeesReportsStatus} employeeIndex={index} currentDate={currentDate}/>
                 </Accordion.Collapse>
             </Card>
         )
