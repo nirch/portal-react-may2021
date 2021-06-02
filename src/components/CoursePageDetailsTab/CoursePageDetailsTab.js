@@ -3,69 +3,103 @@ import PortalInput from '../PortalInput/PortalInput'
 import './CoursePageDetailsTab.css' 
 import server from '../../shared/server'
 import ActiveUserContext from '../../shared/activeUserContext';
+import { useParams } from 'react-router';
+import PortalSelect from '../PortalSelect/PortalSelect';
+import PortalMultipleSelect from '../PortalMultipleSelect/PortalMultipleSelect';
 
 export default function CoursePageDetailsTab({courseid}) {
+
+    // const courseid = useParams("id");
     const activeUser = useContext(ActiveUserContext);
-    const [response,setResponse] = useState("");
+    const [course,setCourse] = useState("");
     const [project,setProject] = useState([]);
     const [city,setCity] = useState([]);
     const [activeBudgetYear, setActiveBudgetYear] = useState([]);
+    const [selectedProject, setSelectedProject] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
+    const [tags,setTags] = useState([]);
+    const [enrolmentProfile, setEnrolmentProfile] = useState("");
 
     useEffect(() => {
             const data = {courseid};
-            server(activeUser, data, "GetCourseById").then(res => {                
-                setResponse(res.data);
-                console.log(res.data);
-            })
-            server(activeUser, data, "GetProjects").then(res => {                
-                setProject(res.data);
-                console.log(res.data);
-            })
-            server(activeUser, data, "GetCities").then(res => {                
-                setCity(res.data);
-                console.log(res.data);
-            })
-            server(activeUser, data, "GetActiveYearsBudget").then(res => {                
-                setActiveBudgetYear(res.data);
-                console.log(res.data);
-            })   
+            const promise0 = server(activeUser, data, "GetCourseById");
+            const promise1 = server(activeUser, data, "GetProjects");
+            const promise2 = server(activeUser, data, "GetCities");
+            const promise3 =server(activeUser, data, "GetActiveYearsBudget");
+            const data1 ={roleid:2 ,courseid:courseid , page:0 , search:""}
+            const promise4 = server(activeUser, data1, "GetCourseEnrollmentProfiles");
+
+            Promise.all([promise0,promise1,promise2,promise3,promise4]).then(
+                responses =>{
+                    const coursebyId = responses[0];
+                    setCourse(coursebyId.data);
+                    const projects = responses[1];
+                    projects.data.map(project =>  {project.value = project.projectid ; project.name = project.projectname});
+                    setProject(projects.data);
+
+                    const selectd = projects.data.find(a => coursebyId.data.projectid === a.projectid);
+                    setSelectedProject( selectd.projectname);
+                    setTags(selectd.projecttags);                   
+
+                    const cities = responses[2]                    
+                    setCity(cities.data);
+                    const selectedCity = cities.data.find( city => coursebyId.data.cityid === city.cityid)
+                    setSelectedCity(selectedCity.cityid);
+                    
+                    const activeB = responses[3]
+                    activeB.data.map(active =>  {active.value = active.year ; active.name = active.year});                    
+                    setActiveBudgetYear(activeB.data);
+                    
+                    const enrollment = responses[4]
+                    setEnrolmentProfile(enrollment.data.enrolled[0]);                    
+                }
+            )
       },[]);
     
+     
    
-   
-    return (
+    return (  
         <div className="c-page-details">
             <PortalInput title="שם קורס מלא"                        
                         placeholder="שם קורס מלא"
-                        value={response.name}
+                        value={course.name}
                        />
             <div className="c-line">               
                 <PortalInput title="שם קורס מקוצר בעברית"                        
                     placeholder="שם קורס מקוצר בעברית"
-                    value={response.subname}
+                    value={course.subname}
                 />                        
                 <PortalInput title="שם קורס מקוצר בערבית"                        
                     placeholder="שם קורס מקוצר בערבית"
-                    value={response.subnameinarabic}
+                    value={course.subnameinarabic}
                 />              
             </div>
+           
+            <PortalSelect title="פרויקט" options={project} optionsKey={selectedProject}/>
+            {/* <PortalMultipleSelect title="תגיות" options={tags}/> */}
+           
             <div className="c-line">
                 <PortalInput title="תאריך לידה"                        
                     placeholder="00/00/0000"
-                    // value={}
+                    value={enrolmentProfile.birthday}
                 />
                 <PortalInput title="מספר תעודת זהות"                        
                     placeholder="000000000"
-                    value={response.primaryTeacherId}
+                    value={enrolmentProfile.tznumber}
                 />
             </div>
+            <div className="c-line">
+                <PortalSelect title="עיר" options={city}/>
+                <PortalSelect title="שנת תקציב" options={activeBudgetYear}/>
+            </div>    
             <div>
                  <PortalInput title="מדריך"                        
                         placeholder="מדריך"
-                        value={response.primaryTeacherName}
+                        value={course.primaryTeacherName}
                        />
             </div>
                       
         </div>
+       
     )
 }
