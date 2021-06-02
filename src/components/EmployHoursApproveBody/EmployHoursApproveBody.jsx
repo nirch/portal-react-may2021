@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './EmployHoursApproveBody.scss';
+import diff from  './../../shared/utils';
 
-function EmployHoursApproveBody({ employee, employeeIndex, diff, changeEmployees }) {
+function EmployHoursApproveBody({ employee, employeeIndex, changeEmployees }) {
     const [selectAllReports, setSelectAllReports] =  useState(false);
     const [checkedReports, setCheckedReports] = useState(employee.reports.map(report => false));
     const disapproveReport = (index) => {
