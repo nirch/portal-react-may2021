@@ -44,7 +44,7 @@ const App = () => {
         <Route path="/users/:id">
           <UserDetailsPage handleLogout={handleLogout}/>
         </Route>
-        <Route path="/hours-report">
+        <Route path="/report">
           <HoursReportPage handleLogout={handleLogout}/>
         </Route>
         <Route path="/hours-crud">

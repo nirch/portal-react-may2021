@@ -9,7 +9,7 @@
 
 .p-hours-crud .bottom-header{
     height: 122px;
-    background-color: green;
+    background-color: #ffd300;
 }
 
 .p-hours-crud .flex-box{
@@ -26,9 +26,7 @@
     font-weight: 600;
 }
 
-
 .p-hours-crud select{
 
     padding-right: 15px !important;
 } 
-

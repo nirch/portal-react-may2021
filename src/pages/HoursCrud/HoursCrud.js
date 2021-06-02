@@ -3,8 +3,13 @@ import './HoursCrud.css'
 import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter'
 import PortalInput from '../../components/PortalInput/PortalInput'
 import PortalSelect from '../../components/PortalSelect/PortalSelect'
+import server from '../../shared/server'
+import ActiveUserContext from '../../shared/activeUserContext'
+
 
 const HoursCrud = (props) => {
+    const [courses, setCourses] = useState({ "value": 0, "name": "מס/שם קורס" });
+    const [subjects, setSubjects] = useState();
     const [project, setProject] = useState();
     const [course, setCourse] = useState();
     const [subject, setSubject] = useState();
@@ -15,10 +20,7 @@ const HoursCrud = (props) => {
     const [transportation, setTransportation] = useState();
     const [comment, setComment] = useState();
 
-
-
-    const [courses, setCourses] = useState({ "value": 0, "name": "נושא פעילות" });
-    const [subjects, setSubjects] = useState();
+    const activeUser = useContext(ActiveUserContext);
 
 
     const handleProjectSelection = (e) => {
@@ -28,7 +30,6 @@ const HoursCrud = (props) => {
                 { "value": 0, "name": "מס/שם קורס" },
                 { "value": 1, "name": "הדרכה" },
             ])
-
             setSubjects([
                 { "value": 0, "name": "נושא פעילות" },
                 { "value": 1, "name": "ניהול" },
@@ -52,6 +53,17 @@ const HoursCrud = (props) => {
             setCourses([{ "value": 0, "name": "נושא פעילות" }])
         }
     }
+
+
+    async function saveReport() {
+        try {
+            const reportrData = { month: 5, year: 2021 };
+            const reports = await server(activeUser, reportrData, "GetReports");
+        } catch {
+            console.error("No Reports")
+        }
+    }
+
 
     return (
         <div className="p-hours-crud">
@@ -82,15 +94,15 @@ const HoursCrud = (props) => {
                     <div className="layout-input">
                         <PortalInput
                             placeholder="שעת התחלה"
-                            onHandleChange={(e)=>setStart(e)}
+                            onHandleChange={(e) => setStart(e)}
                             value={start}
-                            
+
                         />
                     </div>
                     <div className="layout-input">
                         <PortalInput
                             placeholder="שעת סיום"
-                            onHandleChange={(e)=>setEnd(e)}
+                            onHandleChange={(e) => setEnd(e)}
                             value={end}
                         />
                     </div>
@@ -99,28 +111,29 @@ const HoursCrud = (props) => {
                     <div className="layout-input">
                         <PortalInput
                             placeholder='רכב פרטי (ק"מ)'
-                            onHandleChange={(e)=>setKm(e)}
+                            onHandleChange={(e) => setKm(e)}
                             value={km}
                         />
                     </div>
                     <div className="layout-input">
                         <PortalInput
                             placeholder='תחבורה ציבורית (ש"ח)'
-                            onHandleChange={(e)=>setTransportation(e)}
+                            onHandleChange={(e) => setTransportation(e)}
                             value={transportation}
                         />
                     </div>
                 </div>
                 <PortalInput
                     placeholder='הערות'
-                    onHandleChange={(e)=>setComment(e)}
+                    onHandleChange={(e) => setComment(e)}
                     value={comment}
                 />
             </form>
             <HoursReportFooter
-                save={false}
+                save={true}
+                onSave={saveReport}
                 copy={true}
-                add={true}
+                add={false}
                 del={true}
                 back={true}
             />
