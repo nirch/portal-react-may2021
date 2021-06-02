@@ -14,7 +14,17 @@ function UserDetailsTab({onUpdateUser}) {
 
     const activeUser = useContext(ActiveUserContext);
     const [userProfile, setUserProfile] = useState(null);
+  
+
+    const [genders, setGenders] = useState([]);
+    const [genderSelected, setGenderSelected] = useState("");
+
+    const [migzas, setMigzars] = useState([]);
+    const [migzarSelected, setMigzarSelected] =  useState("");
+
     const [cities, setCities] = useState("");
+    const [citySelected, setCitySelected] =  useState("");
+
 
     //get user details from server by user id
     useEffect(() => {
@@ -25,6 +35,9 @@ function UserDetailsTab({onUpdateUser}) {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
+
+                    console.log (" setUserProfile 32"); 
+
                     setUserProfile(res.data.profile);
                 }
             }, err => {
@@ -54,43 +67,174 @@ function UserDetailsTab({onUpdateUser}) {
                 //console.error(err);
             })   ; 
         
-    }, [activeUser, id]);
+    }, []);
     
 
 
-   
-    if (cities){
-        //console.log (cities); 
+      
+    //get genders
+    useEffect(() => {
+        const data = {};
+        server(activeUser, data, "GetGenders").then(res => {
+            if (res.data.error) {
+                alert(res.data.error);
+            } else {
+                setGenders(res.data);
+            }
+
+        }, err => {
+            //console.error(err);
+        })   ; 
+    
+    }, [activeUser]);
+
+
+
+    //get MIGZAR
+    useEffect(() => {
+        const data = {};
+        server(activeUser, data, "GetReligions").then(res => {
+            if (res.data.error) {
+                alert(res.data.error);
+            } else {
+                setMigzars(res.data);
+            }
+
+        }, err => {
+            //console.error(err);
+        })   ; 
+    
+}, [activeUser]);
+
+
+
+
+
+        
+    let firstname = ""; 
+    let lastname = ""; 
+    let ar_firstname = ""; 
+    let  ar_lastname = ""; 
+    let phone = ""; 
+    let addPhoneNumber = ""; 
+    let phoneBelongsTo = ""; 
+    let birthday = ""; 
+    let tznumber = ""; 
+    //let userCity = ""; 
+    let address = ""; 
+    let email = ""; 
+    let managerId = ""; 
+
+     //set user details from data base 
+     useEffect(() => {
+
+        if (userProfile){
+
+        setGenderSelected(userProfile.genderid); 
+        setMigzarSelected(userProfile.religionid); 
+        setCitySelected(userProfile.cityid); 
+
     }
+    
+}, [userProfile]);
 
 
+if (userProfile){
+
+    firstname  = userProfile.firstname; 
+    lastname = userProfile.lastname; 
+
+    ar_firstname =   userProfile.firstnameinarabic; 
+    ar_lastname  =   userProfile.lastnameinarabic; 
+
+    phone = userProfile.phone; 
+    addPhoneNumber = userProfile.phone2; 
+    phoneBelongsTo = userProfile.phone2owner; 
+
+    birthday = userProfile.birthday; 
+    tznumber = userProfile.tznumber; 
+
+    //let cityid = userProfile.cityid; 
+    
+    //find city name 
+    // if (cityid){
+    //     if (cities){
+    //         let resCity = cities.find(city => city.cityid === cityid );  
+    //         userCity =  resCity.name; 
+    //    }
+    // }
+
+    address = userProfile.address; 
+
+    email = userProfile.email; 
+
+    managerId = userProfile.superstaffname; 
+}
+   
+
+    //define cities select 
+    let citiesArray = []; 
+    if (cities){
+         cities.forEach(city => {
+            citiesArray.push({"value":city.cityid, "name":city.name});
+         });
+    }
 
     //define gender select
+    let optionsGenderArray = []; 
+    if (genders){
+        genders.forEach(objGen => {
+            optionsGenderArray.push ({ "value":objGen.genderid,  "name":objGen.name }); 
+        });
+   
+    }
+    
+    //define migzar select 
+    let optionsMigzarArray = []; 
+    if (migzas){
+        migzas.forEach(objMig => {
+            optionsMigzarArray.push ({ "value":objMig.religionid,  "name":objMig.name }); 
+        });
+       
+    }
+
+
+
+
+
     let titleGender = "מגדר"; 
-    let optionsKeyGender = "מגדר"; 
     let optionsGender=[
-        {"value": "string:1", "name": "זכר"},
-        {"value": "string:2", "name": "נקבה"},
+        {"value": "1", "name": "זכר"},
+        {"value": "2", "name": "נקבה"},
     ]; 
 
-    function getPortalSelectedValue(selectedValue){
+
+
+    function getGenderValue(selectedValue){
         console.log(selectedValue); 
+        //update state of select 
+        setGenderSelected(selectedValue); 
+
     }
-    //
+   
+     function getMigzarValue(selectedValue){
+        console.log(selectedValue); 
+        //update state of select 
+        setMigzarSelected(selectedValue); 
+    }
+
+    function getCityValue(selectedValue){
+        console.log(selectedValue); 
+        //update state of select 
+        setCitySelected(selectedValue); 
+
+    }
 
 
      //define gender select
      let titleMigzar = "מיגזר"; 
-     let optionsKeyMigzar = "מיגזר"; 
-     let optionsMigzar=[
-         {"value": "string:1", "name": "מוסלמי"},
-         {"value": "string:2", "name": "בדואי"},
-     ]; 
- 
-     function getPortalSelectedValue(selectedValue){
-         console.log(selectedValue); 
-     }
-     //
+     
+  
 
 
 
@@ -104,6 +248,9 @@ function UserDetailsTab({onUpdateUser}) {
 
     function lnameChanged(lname){
         console.log(lname); 
+        userProfile.lname = lname; 
+        setUserProfile(userProfile); 
+        onUpdateUser(userProfile); 
     }
  
     function ar_fnameChanged(){
@@ -140,50 +287,12 @@ function UserDetailsTab({onUpdateUser}) {
     }
 
 
-    let firstname = ""; 
-    let lastname = ""; 
-    let ar_firstname = ""; 
-    let  ar_lastname = ""; 
-    let phone = ""; 
-    let addPhoneNumber = ""; 
-    let phoneBelongsTo = ""; 
-    let birthday = ""; 
-    let tznumber = ""; 
-    let userCity = ""; 
-    let address = ""; 
-
-    if (userProfile){
-        firstname  = userProfile.firstname; 
-        lastname = userProfile.lastname; 
-
-        ar_firstname =   userProfile.firstnameinarabic; 
-        ar_lastname  =   userProfile.lastnameinarabic; 
-
-        phone = userProfile.phone; 
-        addPhoneNumber = userProfile.phone2; 
-        phoneBelongsTo = userProfile.phone2owner; 
-
-        birthday = userProfile.birthday; 
-        tznumber = userProfile.tznumber; 
-
-        let cityid = userProfile.cityid; 
-        if (cityid){
-            if (cities){
-                // cities.forEach(city => {
-                //     testArray.push({"value":city.cityid, "name":city.name});
-                // });
-                let resCity = cities.find(city => city.cityid === cityid );  
-                userCity =  resCity.name; 
-           }
-        }
-
-        address = userProfile.address; 
-    }
-     
+    
+ 
 
     return (
         <div>
-            <h1>TEST</h1>
+        
           
             {/* first name & last name - hebrew */}
             <div className="row">
@@ -230,15 +339,13 @@ function UserDetailsTab({onUpdateUser}) {
             </div>
              
            {/* phone number   */}
-           <div className="row">
-                <div className="col-6">
-                    <PortalInput 
-                        title="מס' טלפון"
-                        value={phone}
-                        placeholder="מס' טלפון"
-                        onHandleChange={phoneChanged}
-                    ></PortalInput>
-                </div>
+           <div>
+                <PortalInput 
+                    title="מס' טלפון"
+                    value={phone}
+                    placeholder="מס' טלפון"
+                    onHandleChange={phoneChanged}
+                ></PortalInput>
            </div>
 
            {/* additional phone number & belongs to  */}
@@ -286,12 +393,12 @@ function UserDetailsTab({onUpdateUser}) {
               {/* city & address */}
               <div className="row">
                 <div className="col-6">
-                    <PortalInput 
+                    <PortalSelect
                         title="עיר"
-                        value={userCity}
-                        placeholder="שם העיר"
-                    
-                    ></PortalInput>
+                        options = {citiesArray}
+                        onChange = {getCityValue}
+                        value = {citySelected}
+                    ></PortalSelect>
                 </div>
                 <div className="col-6">
                     <PortalInput 
@@ -305,28 +412,47 @@ function UserDetailsTab({onUpdateUser}) {
 
 
             
-            {/* city & address */}
+            {/* gender & migzar  */}
             <div className="row">
-                <div className="col-6">
-                    <PortalInput 
-                        title="עיר"
-                        value={userCity}
-                        placeholder="שם העיר"
-                    
-                    ></PortalInput>
-                </div>
+                {/* GENDER */}
                 <div className="col-6">
                     <PortalSelect
                         title={titleGender}
-                        optionsKey={optionsKeyGender}
                         options = {optionsGender}
-                        handleSelection= {getPortalSelectedValue}
-            ></PortalSelect>
+                        onChange = {getGenderValue}
+                        value = {genderSelected}
+                    ></PortalSelect>
+                </div>
+
+                {/* MIGZAR */}
+                <div className="col-6">
+                    <PortalSelect
+                        title={titleMigzar}
+                        options = {optionsMigzarArray}
+                        onChange = {getMigzarValue}
+                        value = {migzarSelected}
+                    ></PortalSelect>
                 </div>
             </div>
 
 
+              {/* email & direct manager */}
+              <div>
+                    <PortalInput 
+                        title="אי מייל"
+                        value={email}
+                        placeholder="אי מייל"
+                    ></PortalInput>   
+               </div>
 
+               <div> 
+                    <PortalInput 
+                        title="מנהל ישיר"
+                        value={managerId}
+                        placeholder="מנהל ישיר"
+                    ></PortalInput>
+                </div>
+    
         </div>
     )
 
