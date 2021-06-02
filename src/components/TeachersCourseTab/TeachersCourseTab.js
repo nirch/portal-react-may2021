@@ -1,8 +1,7 @@
 import React from 'react';
-import PortalSearchPage from '../../components/SearchPager/PortalSearchPage';
-import PortalTable from '../../components/PortalTable/PortalTable';
-import { Button } from 'react-bootstrap';
-import './TeachersCoursePage.css';
+import PortalSearchPage from '../SearchPager/PortalSearchPage';
+import PortalTable from '../PortalTable/PortalTable';
+import './TeachersCourseTab.css';
 
 function StudentsCoursePage({teachers}) {
 

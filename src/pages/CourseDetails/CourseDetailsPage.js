@@ -3,11 +3,13 @@ import './CourseDetailsPage.css';
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect, useParams } from 'react-router-dom';
-import StudentsCoursePage from '../StudentsCoursePage/StudentsCoursePage';
+import SylabusCoursePage from '../../components/SylabusCourseTab/SylabusCourseTab';
+import StudentsCourseTab from '../../components/StudentsCourseTab/StudentsCourseTab';
+import TeachersCourseTab from '../../components/TeachersCourseTab/TeachersCourseTab';
 import CourseHeader from '../../components/CourseHeader/CourseHeader';
 import PortalTabView from '../../components/PortalTabView/PortalTabView';
 import server from '../../shared/server';
-
+import CoursePageDetailsTab from '../../components/CoursePageDetailsTab/CoursePageDetailsTab';
 
 const CourseDetailsPage = ({handleLogout}) => {
 
@@ -22,19 +24,19 @@ const CourseDetailsPage = ({handleLogout}) => {
     const courseTabs = [
         {
             "header": "קורס",
-            "view": <></>
+            "view": <CoursePageDetailsTab courseid={id}/>
         },
         {
             "header": "סילבוס",
-            "view": <></>
+            "view": <SylabusCoursePage courseName={courseDetails.name} subjects={courseDetails.subjects}/>
         },
         {
             "header": "סטודנטים",
-            "view": <></>
+            "view": <StudentsCourseTab students={students}/>
         },
         {
             "header": "מדריכים",
-            "view": <></>
+            "view": <TeachersCourseTab teachers={teachers}/>
         }
     ];
 
