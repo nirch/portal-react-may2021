@@ -24,6 +24,10 @@
     margin-bottom: 28px;
 }
 
+.p-user-details > .user-header .actions-wrapper > .save-icon.icon-disable {
+    opacity: 0.5;
+}
+
 .p-user-details > .user-header .actions-wrapper > img:not(:first-child) {
     margin-right: 33px;
 }
