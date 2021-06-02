@@ -50,7 +50,7 @@ const HoursApprovePage = (props) => {
         return (
             <Card className="employee-card" key={employee.userid}>
                 <Card.Header>
-                    <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey}/>
+                    <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey} currentDate={currentDate}/>
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
                     <EmployHoursApproveBody employee={employee} changeEmployeesReportsStatus={changeEmployeesReportsStatus} employeeIndex={index} currentDate={currentDate}/>

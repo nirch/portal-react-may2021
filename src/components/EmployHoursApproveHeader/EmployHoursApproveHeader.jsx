@@ -3,13 +3,13 @@ import './EmployHoursApproveHeader.scss';
 import arrowDown from './../../assets/images/arrow_down.svg';
 import arrowUp from './../../assets/images/arrow_up.svg'
 import diff from './../../shared/utils';
-function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey}) {
+function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey, currentDate}) {
   let totalHours = 0;
   let approvalHours = 0;
   let disapprovalHours = 0;
   let pendingHours = 0;
 
-  for (const report of employee.reports) {
+  for (const report of employee.reports.filter(report => report.date.split('/')[1] === ((currentDate.getMonth()+1) < 10 ? "0" + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)) && report.date.split('/')[2] === currentDate.getFullYear()+"")) {
     const hours = diff(report.starthour, report.finishhour);
     totalHours += hours;
     report.approval === "1" ? approvalHours += hours
