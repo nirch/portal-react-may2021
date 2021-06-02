@@ -65,6 +65,7 @@
 .c-alert .alert-icon {
     width: 39px;
     margin-left: 33px;
+    align-self: center;
 }
 
 .c-alert > .msg-wrapper {
