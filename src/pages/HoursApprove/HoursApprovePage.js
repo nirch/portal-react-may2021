@@ -72,8 +72,8 @@ const HoursApprovePage = (props) => {
     if (!activeUser) {
         return <Redirect to='/' />
     }
-    // const employeesFilterd = inputTextForSearch !== "" ? employees.filter(employee => (employee.firstname + " " + employee.lastname).includes(inputTextForSearch)) : employees;
-    const cards = employees ? employees.map((employee, index) => {
+    const employeesFilterd = inputTextForSearch !== "" ? employees.filter(employee => (employee.firstname + " " + employee.lastname).includes(inputTextForSearch)) : employees;
+    const cards = employeesFilterd.length > 0 ? employeesFilterd.map((employee, index) => {
         return (
             <Card className="employee-card" key={employee.userid}>
                 <Card.Header>
