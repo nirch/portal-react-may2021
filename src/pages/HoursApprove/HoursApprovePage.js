@@ -52,8 +52,8 @@ const HoursApprovePage = (props) => {
 
     return (
         <div className="p-hours-approve">
-            <PortalNavbar handleLogout={handleLogout} />
-            <h1>אישור שעות</h1>
+            
+            <PortalNavbar handleLogout={handleLogout} title="אישור שעות"/>
             <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={e => setActiveKey(e)}>
                 {cards ? cards : null}
             </Accordion>
