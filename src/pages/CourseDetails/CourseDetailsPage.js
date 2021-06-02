@@ -56,7 +56,7 @@ const CourseDetailsPage = ({handleLogout}) => {
 
         server(activeUser, payload, "GetCourseEnrollmentProfiles").then(res => setTeachers(res.data.enrolled));
 
-    }, []);
+    }, [id]);
     
 
     

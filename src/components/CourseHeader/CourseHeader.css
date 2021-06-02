@@ -7,7 +7,6 @@
 
 .c-course-header .top {
     display: flex;
-    justify-content: space-between;
     padding-top: 17px;
 }
 
@@ -16,6 +15,7 @@
     padding-bottom: 36px;
     padding-right: 18px;
     width: 93px;
+    padding-left: 200px;
 }
 
 .c-course-header h6 {
@@ -28,6 +28,17 @@
     padding: 0 5px;
 }
 
-.top > .icons > img {
-    padding: 0 15px;
+.icons .back-icon {
+    width: 22px;
+    height: 16px;
+}
+
+.icons .copy-icon {
+    width: 19px;
+    height: 20px;
+}
+
+.icons .save-icon {
+    width: 19px;
+    height: 20px;
 }
