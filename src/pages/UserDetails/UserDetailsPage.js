@@ -102,7 +102,7 @@ const UserDetailsPage = (props) => {
             </div>}
             <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab/>},
                                 {header:"קורסים", view:<UserCourseTab/>},
-                                {header:"עובדים", view:<UserEmployeesTab/>},
+                                {header:"עובדים", view:<UserEmployeesTab userId={id} />},
                                 {header:"דיווח", view:<UserReportTab/>}]}/>
         </div>
     );

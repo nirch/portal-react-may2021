@@ -78,7 +78,7 @@ const PortalNavbar = (props) => {
                             <div className="cross" ><span onClick={() => setMenuOpen(false)} >&times;</span></div>
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
-                        <div className="profile-preview" onClick={() => setChangePage(`#/users/${userid}`)}>
+                        <div className="profile-preview" onClick={() => setChangePage(`/users/${userid}`)}>
                             <img className="profile-image"  alt='profile' src={image ? imgsDomain + image : imgProfile}></img>
                             <div className="name-wrap">
                                 <span className="user-name">
@@ -95,7 +95,7 @@ const PortalNavbar = (props) => {
                             <MenuItem image={imgCourses} text="קורסים" page="#/courses" func={setChangePage} />
                             <MenuItem image={imgReport} text="דיווח שעות" page="#/hours-report" func={setChangePage} />
                             <MenuItem image={imgTime} text="אישור שעות" page="#/hours-approve" func={setChangePage} />
-                            <MenuItem image={imgOff} text="התנתקות" page="#logout" func={handleLogout} />
+                            <MenuItem image={imgOff} text="התנתקות" func={handleLogout} />
                         </div>
                     </div>
                 </div>
