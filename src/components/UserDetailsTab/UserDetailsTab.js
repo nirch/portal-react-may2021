@@ -339,15 +339,13 @@ if (userProfile){
             </div>
              
            {/* phone number   */}
-           <div className="row">
-                <div className="col-6">
-                    <PortalInput 
-                        title="מס' טלפון"
-                        value={phone}
-                        placeholder="מס' טלפון"
-                        onHandleChange={phoneChanged}
-                    ></PortalInput>
-                </div>
+           <div>
+                <PortalInput 
+                    title="מס' טלפון"
+                    value={phone}
+                    placeholder="מס' טלפון"
+                    onHandleChange={phoneChanged}
+                ></PortalInput>
            </div>
 
            {/* additional phone number & belongs to  */}
@@ -439,28 +437,22 @@ if (userProfile){
 
 
               {/* email & direct manager */}
-              <div className="row">
-                <div className="col-6">
-                    <PortalInput 
-                        title="מנהל ישיר"
-                        value={managerId}
-                        placeholder="מנהל ישיר"
-                    
-                    ></PortalInput>
-                </div>
-                <div className="col-6">
+              <div>
                     <PortalInput 
                         title="אי מייל"
                         value={email}
                         placeholder="אי מייל"
-                    
                     ></PortalInput>   
+               </div>
+
+               <div> 
+                    <PortalInput 
+                        title="מנהל ישיר"
+                        value={managerId}
+                        placeholder="מנהל ישיר"
+                    ></PortalInput>
                 </div>
-            </div>
-
-
-
-
+    
         </div>
     )
 
