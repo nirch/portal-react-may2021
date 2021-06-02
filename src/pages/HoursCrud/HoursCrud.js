@@ -128,11 +128,11 @@ const HoursCrud = (props) => {
         setCourse(e)
     }
 
-
     return (
         <div className="p-hours-crud">
             <PortalNavbar
                 funcBack={()=>goBack()}
+                title="דיווח שעות" 
             />
             <div className="date-header">
                     <PortalDatePicker
@@ -148,17 +148,17 @@ const HoursCrud = (props) => {
                         { "value": 2, "name": "מחלקת ניהול ידע" }
                     ]}
                     value={project}
-                    handleSelection={(e) => handleProjectSelection(e)}
+                    onChange={(e) => handleProjectSelection(e)}
                 />
                 <PortalSelect
                     options={courses}
                     // handleSelection={(e) => setCourse(e)}
-                    handleSelection={handleSetCourse}
+                    onChange={handleSetCourse}
                     value={course}
                 />
                 <PortalSelect
                     options={subjects}
-                    handleSelection={(e) => setSubject(e)}
+                    onChange={(e) => setSubject(e)}
                     value={subject}
                 />
 

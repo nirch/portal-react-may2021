@@ -21,10 +21,10 @@
           text-align: end;
     }
     .p-hours-report table thead tr{
-      display: flex;
+      /* display: flex; */
     }
 
-    .p-hours-report table thead, .p-hours-report table thead tbody { display: block; }
+    /* .p-hours-report table thead, .p-hours-report table thead tbody { display: block; } */
 
     .p-hours-report table  tbody {
         height: 400px;       /* Just for the demo          */
