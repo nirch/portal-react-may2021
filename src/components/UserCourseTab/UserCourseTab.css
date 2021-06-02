@@ -1,3 +1,8 @@
 .c-user-course-tab{
     margin-top: 28.5px;
 }
+.c-user-course-tab .spinner-border{
+    position: fixed;
+    right: 45%;
+    top: 70%;
+}
