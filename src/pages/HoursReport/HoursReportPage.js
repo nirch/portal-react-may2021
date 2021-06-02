@@ -7,6 +7,7 @@ import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFoo
 import PortalDatePicker from '../../components/PortalDatePicker/PortalDatePicker'
 import { Redirect } from 'react-router-dom'
 import server from '../../shared/server'
+import { Spinner } from 'react-bootstrap';
 
 
 const HoursReportPage = (props) => {
@@ -52,7 +53,6 @@ const HoursReportPage = (props) => {
         }
     }, [activeUser])
 
-
     if (!activeUser) {
         return <Redirect to='/' />
     }
@@ -80,7 +80,7 @@ const HoursReportPage = (props) => {
                             <th>סה"כ שעות</th>
                         </tr>
                     </thead>
-                    {reports.length != 0 && reportingPerimeter
+                    {reports && reports.length != 0 && reportingPerimeter
                         ? <tbody>{reports.map((report) =>
                             <HoursReportRow
                                 key={report.reportid}
@@ -88,10 +88,13 @@ const HoursReportPage = (props) => {
                                 reportingPerimeter={reportingPerimeter[report.projectid]}
                             />)}
                         </tbody>
-                        : null
+                        : <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
                     }
                 </table>
             </div>
+
             <HoursReportFooter
                 save={false}
                 copy={true}
