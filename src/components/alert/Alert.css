@@ -1,6 +1,7 @@
 .c-alert {
+    box-shadow: 0 3px 6px 6px #29000022;
     background-color: #fff;
-    padding: 32px 25px;
+    padding: 0px 25px 32px 25px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -53,11 +54,13 @@
     color: #8398e9;
 }
 
-.c-alert > .close-btn {
+.c-alert > .close-btn-wrapper {
+    text-align: left;
+}
+
+.c-alert > .close-btn-wrapper > .close-btn {
     color: #5d5d5d;
-    position: absolute;
-    top: 0;
-    left: 24px;
+    line-height: 50px;
     font-size: 45px;
     font-family: "Assistant-SemiBold";
 }
