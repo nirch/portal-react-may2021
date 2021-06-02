@@ -4,6 +4,7 @@ import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
 import HoursReportRow from '../../components/HoursReportRow/HoursReportRow'
 import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter'
+import PortalDatePicker from '../../components/PortalDatePicker/PortalDatePicker'
 import { Redirect } from 'react-router-dom'
 import server from '../../shared/server'
 
@@ -12,25 +13,27 @@ const HoursReportPage = (props) => {
     const { handleLogout } = props;
     const activeUser = useContext(ActiveUserContext);
     const [reports, setReports] = useState([]);
-    const [reportingPerimeter, setReportingPerimeter] = useState()
+    const [reportingPerimeter, setReportingPerimeter] = useState();
+    const today= new Date();
+    const [month, setMonth] = useState(today.getMonth()+1);
 
     // Get Report Data
     useEffect(() => {
         async function fetchReportrData() {
             try {
-                const reportrData = { month: 5, year: 2021 };
+                const reportrData = { month: month, year: 2021 };
                 const reports = await server(activeUser, reportrData, "GetReports");
                 setReports(reports.data);
             } catch {
                 console.error("No Reports")
             }
         }
-
         // fetchPerimeterData();
         if (activeUser) {
             fetchReportrData();
         }
-    }, [activeUser])
+    }, [month])
+
 
     // Get Perimeter Data
     useEffect(() => {
@@ -54,10 +57,20 @@ const HoursReportPage = (props) => {
         return <Redirect to='/' />
     }
 
+    const getMonth = (date) => {
+        setMonth(date.getMonth()+1)
+    }
+
     return (
         <div>
-            <PortalNavbar handleLogout={handleLogout} />
             <div className="p-hours-report">
+                <PortalNavbar handleLogout={handleLogout} />
+                <div className="date-header">
+                    <PortalDatePicker
+                        type={"Month"}
+                        onDateSelection={getMonth}
+                    />
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -67,19 +80,19 @@ const HoursReportPage = (props) => {
                             <th>סה"כ שעות</th>
                         </tr>
                     </thead>
-                        {reports.length != 0 && reportingPerimeter 
-                            ? <tbody>{reports.map((report) =>
-                                <HoursReportRow
-                                    key={report.reportid}
-                                    report={report}
-                                    reportingPerimeter={reportingPerimeter[report.projectid]}
-                                />)}
-                              </tbody>
-                            : null
-                        }
+                    {reports.length != 0 && reportingPerimeter
+                        ? <tbody>{reports.map((report) =>
+                            <HoursReportRow
+                                key={report.reportid}
+                                report={report}
+                                reportingPerimeter={reportingPerimeter[report.projectid]}
+                            />)}
+                        </tbody>
+                        : null
+                    }
                 </table>
             </div>
-            <HoursReportFooter 
+            <HoursReportFooter
                 save={false}
                 copy={true}
                 add={true}

@@ -3,8 +3,11 @@ import './HoursCrud.css'
 import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter'
 import PortalInput from '../../components/PortalInput/PortalInput'
 import PortalSelect from '../../components/PortalSelect/PortalSelect'
+import PortalDatePicker from '../../components/PortalDatePicker/PortalDatePicker'
+
 import server from '../../shared/server'
 import ActiveUserContext from '../../shared/activeUserContext'
+import { useHistory } from 'react-router-dom';
 
 
 const HoursCrud = (props) => {
@@ -20,7 +23,13 @@ const HoursCrud = (props) => {
     const [transportation, setTransportation] = useState();
     const [comment, setComment] = useState();
 
+    // Current date on init
+    const today= new Date();
+    const [day, setDay] = useState(today.getDay());
+    console.log(day)
+
     const activeUser = useContext(ActiveUserContext);
+    const history = useHistory();
 
 
     const handleProjectSelection = (e) => {
@@ -55,20 +64,61 @@ const HoursCrud = (props) => {
     }
 
 
-    async function saveReport() {
-        try {
-            const reportrData = { month: 5, year: 2021 };
-            const reports = await server(activeUser, reportrData, "GetReports");
-        } catch {
-            console.error("No Reports")
+    async function saveReport(start, end) {
+
+        const newReport = {reports: [{
+            "reportid": "-1",
+            "coursename": "כללי",
+            // "copyreport": {
+            //   "date": "03/06/2021",
+            //   "projectid": "7",
+            //   "actionid": "56",
+            //   "finishhour": "12:15",
+            //   "hours": "00:15",
+            //   "starthour": "12:00",
+            //   "carkm": 3,
+            //   "cost": 3,
+            //   "comment": "3"
+            // },
+            "status": "",
+            "automatic": 0,
+            "date": "03/06/2021",
+            "projectid": "7",
+            // "actionid": "60",
+            "starthour": String(start),
+            "finishhour": String(end),
+            "hours": "00:15",
+            "carkm": 3,
+            "cost": 3,
+            "comment": "3",
+            "hoursvalid": true,
+            "finishhourvalid": true,
+            "starthourvalid": true,
+            "noInterstion": true,
+            "isSetProject": true,
+            "isSetSubject": true
+          }],
+           token: activeUser.token, v: 2.3 
         }
+           const reports = await server(activeUser, newReport, "SaveReports");
+           history.push('/hours-report')
+    }
+
+    const getDay = (day) => {
+        console.log(day)
+
     }
 
 
     return (
         <div className="p-hours-crud">
             <div className="top-header"></div>
-            <div className="bottom-header"></div>
+            <div className="date-header">
+                    <PortalDatePicker
+                        type={"Day"}
+                        onDateSelection={getDay}
+                    />
+                </div>
             <form action="">
                 <PortalSelect
                     options={[
@@ -131,7 +181,7 @@ const HoursCrud = (props) => {
             </form>
             <HoursReportFooter
                 save={true}
-                onSave={saveReport}
+                onSave={()=>saveReport(start,end)}
                 copy={true}
                 add={false}
                 del={true}

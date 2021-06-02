@@ -9,6 +9,7 @@
 
     .p-hours-report table {
         width: 100%;
+        margin-top: 23px;
     }
 
     .p-hours-report table th{
@@ -29,6 +30,15 @@
         height: 400px;       /* Just for the demo          */
         overflow-y: auto;    /* Trigger vertical scroll    */
         overflow-x: hidden;  /* Hide the horizontal scroll */
+    }
+
+    
+
+    .p-hours-report .date-header{
+        height: 122px;
+
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
+        
     }
 
 
