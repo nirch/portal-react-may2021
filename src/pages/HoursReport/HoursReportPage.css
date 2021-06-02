@@ -1,4 +1,4 @@
-    .p-hours-report table th,td{
+    .p-hours-report table th, .p-hours-report table td{
         font-size: 12px;
         color: #5d5d5d;
         text-align: center;
@@ -23,7 +23,7 @@
       display: flex;
     }
 
-    .p-hours-report table thead, tbody { display: block; }
+    .p-hours-report table thead, .p-hours-report table thead tbody { display: block; }
 
     .p-hours-report table  tbody {
         height: 400px;       /* Just for the demo          */

@@ -3,9 +3,13 @@ import './CourseDetailsPage.css';
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import ActiveUserContext from '../../shared/activeUserContext'
 import { Redirect, useParams } from 'react-router-dom';
+import SylabusCoursePage from '../../components/SylabusCourseTab/SylabusCourseTab';
+import StudentsCourseTab from '../../components/StudentsCourseTab/StudentsCourseTab';
+import TeachersCourseTab from '../../components/TeachersCourseTab/TeachersCourseTab';
 import CourseHeader from '../../components/CourseHeader/CourseHeader';
+import PortalTabView from '../../components/PortalTabView/PortalTabView';
 import server from '../../shared/server';
-
+import CoursePageDetailsTab from '../../components/CoursePageDetailsTab/CoursePageDetailsTab';
 
 const CourseDetailsPage = ({handleLogout}) => {
 
@@ -17,6 +21,25 @@ const CourseDetailsPage = ({handleLogout}) => {
 
     const { id } = useParams();
 
+    const courseTabs = [
+        {
+            "header": "קורס",
+            "view": <CoursePageDetailsTab courseid={id}/>
+        },
+        {
+            "header": "סילבוס",
+            "view": <SylabusCoursePage courseName={courseDetails.name} subjects={courseDetails.subjects}/>
+        },
+        {
+            "header": "סטודנטים",
+            "view": <StudentsCourseTab students={students}/>
+        },
+        {
+            "header": "מדריכים",
+            "view": <TeachersCourseTab teachers={teachers}/>
+        }
+    ];
+
     useEffect(() => {
         
         let payload = {
@@ -24,8 +47,6 @@ const CourseDetailsPage = ({handleLogout}) => {
             "page": 0,
             "roleid": 1,
             "search": "",
-            "token": activeUser.token,
-            "v": "2.3"
         }
         server(activeUser, payload, "GetCourseById").then(res => setCourseDetails(res.data));
 
@@ -47,6 +68,7 @@ const CourseDetailsPage = ({handleLogout}) => {
         <div className="p-course-details">
             <PortalNavbar handleLogout={handleLogout}/>
             <CourseHeader name={courseDetails.name} subName={courseDetails.subname}/>
+            <PortalTabView tabs={courseTabs}/>
         </div>
     );
 }
