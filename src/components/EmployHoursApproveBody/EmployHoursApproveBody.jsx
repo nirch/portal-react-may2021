@@ -2,24 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './EmployHoursApproveBody.scss';
 import diff from  './../../shared/utils';
 
-function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReportsStatus, currentDate }) {
-    const [selectAllReports, setSelectAllReports] =  useState(false);
-    const [reportsToShow, setReportsToShow] = useState(employee.reports.filter(report => report.date.split('/')[1] === ((currentDate.getMonth()+1) < 10 ? "0" + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)) && report.date.split('/')[2] === currentDate.getFullYear()+""));
-    const [checkedReports, setCheckedReports] = useState(reportsToShow.map(report => false));
-        
-    useEffect(()=>{
-        setSelectAllReports(false);
-        setCheckedReports(reportsToShow.map(report => false));
-        setReportsToShow(employee.reports.filter(report => report.date.split('/')[1] === ((currentDate.getMonth()+1) < 10 ? "0" + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)) && report.date.split('/')[2] === currentDate.getFullYear()+""));
-    },[employee.reports, currentDate]);    
+function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReportsStatus, selectAllReports, setSelectAllReports}) {
+    // const [selectAllReports, setSelectAllReports] =  useState(false);
+    const [checkedReports, setCheckedReports] = useState(employee.reports.map(report => false));
+   
     const disapproveReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "-1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "-1"})
     };
     const pendingReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "0"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "0"})
     };
     const approveReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [reportsToShow[index].reportid], "approval" : "1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "1"})
     };
 
     const handleChange = (e) =>  {
@@ -34,14 +28,16 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
             setCheckedReports(checkedReportsClone)
        }
     }
-    const reportsRows = reportsToShow.length > 0 ? reportsToShow.map((report, index) =>{
-        let curseName="-";
-        if(report.courseid != null){
-            curseName = employee.reportingPerimeter[report.projectid].courses.filter(course => course.courseid === report.courseid)[0].courseName;
+    const reportsRows = employee.reports.length > 0 ? employee.reports.map((report, index) =>{
+        let curseName = "-";
+        if(report.courseid){
+            let findRelevantCourses = employee.reportingPerimeter[report.projectid].courses.filter(course => course.courseid === report.courseid);
+            curseName = findRelevantCourses.length > 0 && findRelevantCourses[0].courseName !== undefined ? findRelevantCourses[0].courseName : "-";
         }
-        let subjectName="-";
-        if(report.actionid != null){
-            subjectName = employee.reportingPerimeter[report.projectid].subjects.filter(subject => subject.reportsubjectid === report.actionid)[0].subject;
+        let subjectName = "-";
+        if(report.actionid){
+            let findRelevantSubjects = employee.reportingPerimeter[report.projectid].subjects.filter(subject => subject.reportsubjectid === report.actionid);
+            subjectName = findRelevantSubjects.length > 0 && findRelevantSubjects[0].subject !== undefined ? findRelevantSubjects[0].subject : "-";
         }
         const projectName = employee.reportingPerimeter[report.projectid].projectName;
         return(
@@ -96,16 +92,16 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
         )
     }) : null ;
     const selectAll = () => {
-        const checkedReportsClone = reportsToShow.map(report => !selectAllReports);
+        const checkedReportsClone = employee.reports.map(report => !selectAllReports);
         setCheckedReports(checkedReportsClone);
         setSelectAllReports(!selectAllReports);
     };
 
     const approveSelected = () => {
         const ids = [];
-        for(let i=0; i < reportsToShow.length; i++){
+        for(let i=0; i < employee.reports.length; i++){
             if(checkedReports[i] === true){
-                ids.push(reportsToShow[i].reportid);
+                ids.push(employee.reports[i].reportid);
             }
         }
         changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "1"})
@@ -114,9 +110,9 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
 
     const disapproveSelectd = () => {
         const ids = [];
-        for(let i=0; i < reportsToShow.length; i++){
+        for(let i=0; i < employee.reports.length; i++){
             if(checkedReports[i] === true){
-                ids.push(reportsToShow[i].reportid);
+                ids.push(employee.reports[i].reportid);
             }
         }
         changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "-1"})
