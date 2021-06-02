@@ -22,7 +22,7 @@ const HoursReportPage = (props) => {
                 const reports = await server(activeUser, reportrData, "GetReports");
                 setReports(reports.data);
             } catch {
-                console.error("No reports")
+                console.error("No Reports")
             }
         }
 
