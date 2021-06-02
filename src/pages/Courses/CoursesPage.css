@@ -25,3 +25,8 @@
 .p-courses .c-alert{
     z-index: 10;
 }
+
+.p-courses .portaltable-tr :first-child {
+    width: 40%;
+}
+

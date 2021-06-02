@@ -39,7 +39,6 @@ tbody .portaltable-tr{
 }
  .portaltable-tr :first-child{
     padding-right: 14px;
-    width: 33%;
 } 
 
 .portaltable-tr :last-child{
