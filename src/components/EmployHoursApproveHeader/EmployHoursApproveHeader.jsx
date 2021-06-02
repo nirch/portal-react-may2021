@@ -2,8 +2,8 @@ import React from 'react';
 import './EmployHoursApproveHeader.scss';
 import arrowDown from './../../assets/images/arrow_down.svg';
 import arrowUp from './../../assets/images/arrow_up.svg'
-
-function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey, diff}) {
+import diff from './../../shared/utils';
+function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey}) {
   let totalHours = 0;
   let approvalHours = 0;
   let disapprovalHours = 0;

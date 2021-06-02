@@ -1,50 +1,86 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './HoursApprovePage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
-import ActiveUserContext from '../../shared/activeUserContext'
-import { Redirect } from 'react-router-dom'
+import PortalDatePicker from './../../components/PortalDatePicker/PortalDatePicker';
+import ActiveUserContext from '../../shared/activeUserContext';
+import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { Accordion, Card } from 'react-bootstrap';
 import EmployHoursApproveHeader from '../../components/EmployHoursApproveHeader/EmployHoursApproveHeader';
 import EmployHoursApproveBody from '../../components/EmployHoursApproveBody/EmployHoursApproveBody';
+import PortalSearchPager from '../../components/SearchPager/PortalSearchPage';
+import server from '../../shared/server';
 
 const HoursApprovePage = (props) => {
     const { handleLogout } = props;
     const [employees, setEmployees] = useState();
+    const [inputTextForSearch, setInputTextForSearch] = useState("");
     const [activeKey, setActiveKey] = useState(0);
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectAllReports, setSelectAllReports] =  useState(false);
     const activeUser = useContext(ActiveUserContext);
 
 
-    useEffect(() => {
-        const pathPre = process.env.PUBLIC_URL;
-        axios.get(pathPre.concat("/mokdata.json")).then( response => {
-            setEmployees(response.data);
-        }).catch(error => {
-            console.error(error);
-        });
-    }, []);
+    // useEffect(() => {
+    //     const pathPre = process.env.PUBLIC_URL;
+    //     axios.get(pathPre.concat("/mokdata.json")).then( response => {
+    //         setEmployees(response.data);
+    //     }).catch(error => {
+    //         console.error(error);
+    //     });
+    // }, []);
 
-    const ChangeEmployees = (params) =>{
+     // Get AllReporter Data
+     useEffect(() => {
+        async function fetchAllReporterData() {
+            try {
+                const reportrData = { month: currentDate.getMonth()+1, year: currentDate.getFullYear() };
+                const reporters = await server(activeUser, reportrData, "GetAllReporters");
+                setEmployees(reporters.data);
+                setSelectAllReports(false);
+            } catch {
+                console.error("No reports")
+            }
+        }
+
+        // fetchPerimeterData();
+        if (activeUser) {
+            fetchAllReporterData();
+        }
+    }, [activeUser, currentDate]);
+
+    const changeEmployeesReportsStatus = (params) =>{
         const cloneEmployees = [...employees];
-            for(const reportIndex of params.reportIndexs){
-                cloneEmployees[params.employeeIndex].reports[reportIndex].approval = params.approval;
+            for(const reportId of params.reportIds){
+                for(const report of cloneEmployees[params.employeeIndex].reports){
+                    if(report.reportid === reportId) report.approval = params.approval;
+                }
             }
         setEmployees(cloneEmployees);
     }
+    
+    const onDateSelection = (currentDate) => {
+        setCurrentDate(currentDate);
+    }
 
+    const onSearch = (input) => {
+       setInputTextForSearch(input);
+    }
+     
 
     if (!activeUser) {
         return <Redirect to='/' />
     }
-
-    const cards = employees ?  employees.map((employee, index) => {
+    // const employeesFilterd = inputTextForSearch !== "" ? employees.filter(employee => (employee.firstname + " " + employee.lastname).includes(inputTextForSearch)) : employees;
+    const cards = employees ? employees.map((employee, index) => {
         return (
             <Card className="employee-card" key={employee.userid}>
                 <Card.Header>
-                    <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey} diff={diff}/>
+                    <EmployHoursApproveHeader employee={employee} index={index+1} openRow={index+1 === activeKey} setActiveKey={setActiveKey} input={inputTextForSearch} />
                 </Card.Header>
                 <Accordion.Collapse eventKey={index+1} >
-                    <EmployHoursApproveBody employee={employee} diff={diff} changeEmployees={ChangeEmployees} employeeIndex={index}/>
+                    <EmployHoursApproveBody employee={employee} changeEmployeesReportsStatus={changeEmployeesReportsStatus} employeeIndex={index} selectAllReports={selectAllReports} setSelectAllReports={setSelectAllReports} />
                 </Accordion.Collapse>
             </Card>
         )
@@ -52,32 +88,19 @@ const HoursApprovePage = (props) => {
 
     return (
         <div className="p-hours-approve">
-            <PortalNavbar handleLogout={handleLogout} />
-            <h1>אישור שעות</h1>
+            <PortalNavbar handleLogout={handleLogout} title="אישור שעות"/>
+            <PortalDatePicker type={'Month'} onDateSelection={onDateSelection}/>
+            <PortalSearchPager placeholder="חיפוש עובד" onSearch={onSearch}/>
             <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={e => setActiveKey(e)}>
                 {cards ? cards : null}
             </Accordion>
+            <HoursReportFooter save={true}
+                copy={false}
+                add={true}
+                del={false}
+                back={true}/>
         </div>
     );
 }
 
-//this function copied from stackoverflow
-function diff(start, end) {
-    start = start.split(":");
-    end = end.split(":");
-    var startDate = new Date(0, 0, 0, start[0], start[1], 0);
-    var endDate = new Date(0, 0, 0, end[0], end[1], 0);
-    var diff = endDate.getTime() - startDate.getTime();
-    var hours = Math.floor(diff / 1000 / 60 / 60);
-    diff -= hours * 1000 * 60 * 60;
-    var minutes = Math.floor(diff / 1000 / 60);
-  
-    // If using time pickers with 24 hours format, add the below line get exact hours
-    if (hours < 0)
-      hours = hours + 24;
-  
-    // return (hours <= 9 ? "0" : "") + hours + ":" + (minutes <= 9 ? "0" : "") + minutes;
-    let temp = hours + (minutes / 60);
-    return temp;
-  }
 export default HoursApprovePage;
