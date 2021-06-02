@@ -16,14 +16,21 @@ import UserCourseTab from '../../components/UserCourseTab/UserCourseTab';
 import UserEmployeesTab from '../../components/UserEmployeesTab/UserEmployeesTab';
 import UserReportTab from '../../components/UserReportTab/UserReportTab';
 import PortalTabView from '../../components/PortalTabView/PortalTabView';
+import AlertComponent from '../../components/alert/Alert';
 
 const UserDetailsPage = (props) => {
     const { handleLogout } = props;
     const { id } = useParams();
     const activeUser = useContext(ActiveUserContext);
     const [userProfile, setUserProfile] = useState(null);
+    const [userUpdated, setUserUpdated] = useState(null);
     const [img, setImg] = useState(null);
     const hiddenFileInput = React.useRef(null);
+    const imgsDomain = 'https://pil1.appleseeds.org.il/dcnir/';
+    const [alertVisibility, setAlertVisibility] = useState(null);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertType, setAlertType] = useState("");
+    const [saveDisable, setSaveDisable] = useState(true);
 
     useEffect(() => {
         if(id) {
@@ -52,13 +59,14 @@ const UserDetailsPage = (props) => {
 
     function handleFileChange(e) {
         if (e.target.files.length === 1) {
+
             console.log(e.target.files[0])
             const data = {imagefile: e.target.files[0], type: "post"};
             upload(activeUser, data, "uploadDoc").then(res => {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
-                    
+                    setImg(res.data.fileUrl)
                     console.log(res.data);
                 }
             }, err => {
@@ -66,9 +74,34 @@ const UserDetailsPage = (props) => {
               
             })
             setImg(URL.createObjectURL(e.target.files[0]));
+            setSaveDisable(false);
         } else {
             setImg("");
         }
+    }
+
+    function handleSaveUser() {     
+        var data = {};
+        data.user = userUpdated ? userUpdated : userProfile;
+        data.user.updatePassword = false;  // get checkbox value
+        data.user.image = img;
+        server(activeUser, data, "UpdateUser").then(res => {
+            if (res.data.error) {
+                console.log(res.data.error);
+                setAlertMessage("שגיאה בנתונים - הפעולה לא נשמרה");
+                setAlertType("error");
+                setAlertVisibility("show");
+            } else {
+                console.log(res.data);
+                setAlertMessage("נשמר בהצלחה");
+                setAlertType("info");
+                setAlertVisibility("show");
+                setSaveDisable(true);
+                // setUserProfile(data.user);    
+            }
+        }, err => {
+            console.error(err);
+        })            
     }
 
     return (
@@ -87,12 +120,12 @@ const UserDetailsPage = (props) => {
 
                 <div className="left-col">
                     <div className="actions-wrapper">
-                        <img src={back_arrow} alt=""/>
-                        <img src={copy_icon} alt=""/>
-                        <img src={save_icon} alt=""/>
+                        <img className="back-icon" src={back_arrow} alt=""/>
+                        <img className="copy-icon" src={copy_icon} alt=""/>
+                        <img className={`save-icon ${saveDisable ? 'icon-disable' : ''}`} src={save_icon} alt="" onClick={saveDisable ? ()=>{} : handleSaveUser}/>
                     </div>
                     <div className="image-wrapper">
-                        <img className={`user-image ${img ? 'img' : ''}`} src={img ? img : profile_icon} alt=""/>
+                        <img className={`user-image ${img ? 'img' : ''}`} src={img ? imgsDomain + img : profile_icon} alt=""/>
                         <div className="edit-wrapper">
                             <input type="file" accept="image/*" ref={hiddenFileInput} onChange={handleFileChange}/>
                             <img className="edit-icon" src={edit_icon} alt="" onClick={openFileUploader}/>
@@ -100,10 +133,11 @@ const UserDetailsPage = (props) => {
                     </div>
                 </div>
             </div>}
-            <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab/>},
+            <PortalTabView tabs={[{header:"פרופיל", view:<UserDetailsTab onUpdateUser={setUserUpdated}/>},
                                 {header:"קורסים", view:<UserCourseTab/>},
                                 {header:"עובדים", view:<UserEmployeesTab userId={id} />},
                                 {header:"דיווח", view:<UserReportTab userProfile={userProfile} />}]}/>
+            <AlertComponent visibility={alertVisibility} text={alertMessage} type={alertType} onClose={() => setAlertVisibility("hide")}/>
         </div>
     );
 }

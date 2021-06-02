@@ -3,13 +3,23 @@ import './HoursCrud.css'
 import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter'
 import PortalInput from '../../components/PortalInput/PortalInput'
 import PortalSelect from '../../components/PortalSelect/PortalSelect'
+import PortalDatePicker from '../../components/PortalDatePicker/PortalDatePicker'
+import PortalNavbar from '../../components/navbar/PortalNavbar';
+
 import server from '../../shared/server'
 import ActiveUserContext from '../../shared/activeUserContext'
+import { useHistory, Route } from 'react-router-dom';
 
 
 const HoursCrud = (props) => {
     const [courses, setCourses] = useState({ "value": 0, "name": "מס/שם קורס" });
     const [subjects, setSubjects] = useState();
+    const [projects, setProjects] = useState([ 
+        { "value": 0, "name": "פרויקט" },
+        { "value": 6, "name": "פנימי" },
+        { "value": 7, "name": "מחלקת ניהול ידע" }]
+        );
+
     const [project, setProject] = useState();
     const [course, setCourse] = useState();
     const [subject, setSubject] = useState();
@@ -20,7 +30,13 @@ const HoursCrud = (props) => {
     const [transportation, setTransportation] = useState();
     const [comment, setComment] = useState();
 
+    // Current date on init
+    const today= new Date();
+    const [day, setDay] = useState(today.getDay());
+    console.log(day)
+
     const activeUser = useContext(ActiveUserContext);
+    const history = useHistory();
 
 
     const handleProjectSelection = (e) => {
@@ -52,23 +68,78 @@ const HoursCrud = (props) => {
         } else {
             setCourses([{ "value": 0, "name": "נושא פעילות" }])
         }
+
+        setProject(projects[e])
     }
 
 
-    async function saveReport() {
-        try {
-            const reportrData = { month: 5, year: 2021 };
-            const reports = await server(activeUser, reportrData, "GetReports");
-        } catch {
-            console.error("No Reports")
+    async function saveReport(start, end, project, course, subject,transportation, km) {
+        console.log(project)
+
+        const newReport = {reports: [{
+            "reportid": "-1",
+            "coursename": "כללי",
+            // "copyreport": {
+            //   "date": "03/06/2021",
+            //   "projectid": "7",
+            //   "actionid": "56",
+            //   "finishhour": "12:15",
+            //   "hours": "00:15",
+            //   "starthour": "12:00",
+            //   "carkm": 3,
+            //   "cost": 3,
+            //   "comment": "3"
+            // },
+            "status": "",
+            "automatic": 0,
+            "date": "03/06/2021",
+            "projectid": project.value,
+            // "projectid": project.value,
+            "actionid": "60",
+            "starthour": String(start),
+            "finishhour": String(end),
+            "hours": "00:15",
+            "carkm": km,
+            "cost": transportation,
+            "comment": "3",
+            "hoursvalid": true,
+            "finishhourvalid": true,
+            "starthourvalid": true,
+            "noInterstion": true,
+            "isSetProject": true,
+            "isSetSubject": true
+          }],
+           token: activeUser.token, v: 2.3 
         }
+           const reports = await server(activeUser, newReport, "SaveReports");
+           history.push('/hours-report')
+    }
+
+    const getDay = (day) => {
+        console.log(day)
+
+    }
+
+    const goBack = () => {
+        history.push('/hours-report')
+    }
+
+    const handleSetCourse = (e) => {
+        setCourse(e)
     }
 
 
     return (
         <div className="p-hours-crud">
-            <div className="top-header"></div>
-            <div className="bottom-header"></div>
+            <PortalNavbar
+                funcBack={()=>goBack()}
+            />
+            <div className="date-header">
+                    <PortalDatePicker
+                        type={"Day"}
+                        onDateSelection={getDay}
+                    />
+                </div>
             <form action="">
                 <PortalSelect
                     options={[
@@ -81,7 +152,8 @@ const HoursCrud = (props) => {
                 />
                 <PortalSelect
                     options={courses}
-                    handleSelection={(e) => setCourse(e)}
+                    // handleSelection={(e) => setCourse(e)}
+                    handleSelection={handleSetCourse}
                     value={course}
                 />
                 <PortalSelect
@@ -96,7 +168,6 @@ const HoursCrud = (props) => {
                             placeholder="שעת התחלה"
                             onHandleChange={(e) => setStart(e)}
                             value={start}
-
                         />
                     </div>
                     <div className="layout-input">
@@ -131,7 +202,7 @@ const HoursCrud = (props) => {
             </form>
             <HoursReportFooter
                 save={true}
-                onSave={saveReport}
+                onSave={()=>saveReport(start,end, project, course, subject,transportation, km)}
                 copy={true}
                 add={false}
                 del={true}
