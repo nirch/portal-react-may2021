@@ -1,4 +1,4 @@
-import './SylabusCoursePage.css';
+import './SylabusCourseTab.css';
 
 function SylabusCoursePage({courseName, subjects}) {
 
