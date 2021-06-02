@@ -78,7 +78,8 @@ const PortalNavbar = (props) => {
                             <div className="cross" ><span onClick={() => setMenuOpen(false)} >&times;</span></div>
                             <img className="appleseeds-logo" src={logo} alt='logo'></img>
                         </div>
-                        <div className="profile-preview" onClick={() => setChangePage(`/users/${userid}`)}>
+                        <a href={`#/users/${userid}`}>
+                        <div className="profile-preview">
                             <img className="profile-image"  alt='profile' src={image ? imgsDomain + image : imgProfile}></img>
                             <div className="name-wrap">
                                 <span className="user-name">
@@ -86,6 +87,7 @@ const PortalNavbar = (props) => {
                                 </span>
                             </div>
                         </div>
+                        </a>
                         <div className="sidebar-options">
                             <MenuItem image={imgUsers} text="משתמשים" isWithSubmenu>
                                 <MenuItem text="עובדים" page="#/users&type=employee" func={setChangePage} isSubMenu />
