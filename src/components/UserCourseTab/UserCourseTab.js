@@ -10,19 +10,29 @@ function UserCourseTab() {
     const activeUser = useContext(ActiveUserContext);
     const [courses, setCourses] = useState([]);
     const [searchText, setSearchText] = useState("")
+    const [roles, setRoles] = useState([]);
     const [enrolledAsTeacher, setEnrolledAsTeacher] = useState([]) ;
     const [enrolledAsStudent, setEnrolledAsStudent] = useState([]) ;  
     const [pages, setPages] = useState(0);
     const [path, setPath] = useState("");
     const [currentPage, setCurrentPage] = useState(0);
     const { id } = useParams();
-    const roles= [1,2];
+
+    useEffect(() => {
+        async function getEnrollmentRoles(){
+            const tempRoles = await server(activeUser,{},"GetEnrollmentRoles");
+            setRoles(tempRoles.data.map(x=>x.enrollmentroleid));
+        }    
+        if (activeUser){
+            getEnrollmentRoles();
+        }
+    }, [])
 
     useEffect(() => {       
         if(activeUser && id){
             getAllCourses();   
         }
-    }, [activeUser,id, searchText, currentPage]);
+    }, [activeUser,id, searchText, currentPage, roles]);
     
     if (!activeUser) {
         return <Redirect to='/' />
