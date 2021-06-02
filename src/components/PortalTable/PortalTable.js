@@ -10,7 +10,7 @@ function PortalTableRow ({ row, keys, onClickRow}) {
     let td = [];
     let i=0;
     
-    for(let i=0; i<=keys.length; i++){
+    for(let i=0; i<keys.length; i++){
         td.push(<td  className="portaltable-td" key={i}>{row[keys[i]] }</td> )
     }
 

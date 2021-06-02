@@ -1,0 +1,32 @@
+.p-courses .c-button-set{ 
+    position: fixed;
+    bottom: 0;
+}
+
+
+.p-courses{
+    position: relative;
+}
+
+ .p-courses .portaltable{
+    margin-bottom: 77px;
+} 
+
+.p-courses .spinner-border{
+    position: fixed;
+    right: calc(50% - 14px);
+    top: 50%;
+}
+
+
+.p-courses .c-navbar{
+    margin-bottom: 25px;
+}
+.p-courses .c-alert{
+    z-index: 10;
+}
+
+.p-courses .portaltable-tr :first-child {
+    width: 40%;
+}
+
