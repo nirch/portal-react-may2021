@@ -36,7 +36,7 @@ function UserEmployeesTab({userId}) {
 
     return (
         <div className='user-employees-tab'>
-            <h1>עובדים</h1>
+            {/* <h1>עובדים</h1> */}
             <PortalTable headers={header} data={data} onClick={setCurrentUser} />
             {spinner
              ? <Spinner animation="border" role="status" />
