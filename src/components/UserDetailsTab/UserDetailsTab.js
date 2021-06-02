@@ -16,6 +16,10 @@ function UserDetailsTab({onUpdateUser}) {
     const [userProfile, setUserProfile] = useState(null);
     const [cities, setCities] = useState("");
 
+    const [genders, setGenders] = useState([]);
+
+    const [genderSelected, setGenderSelected] = useState("");
+
     //get user details from server by user id
     useEffect(() => {
         if(id) {
@@ -25,6 +29,9 @@ function UserDetailsTab({onUpdateUser}) {
                 if (res.data.error) {
                     alert(res.data.error);
                 } else {
+
+                    console.log (" setUserProfile 32"); 
+
                     setUserProfile(res.data.profile);
                 }
             }, err => {
@@ -54,10 +61,81 @@ function UserDetailsTab({onUpdateUser}) {
                 //console.error(err);
             })   ; 
         
-    }, [activeUser, id]);
+    }, []);
     
 
 
+      
+    //get genders
+    useEffect(() => {
+        const data = {};
+        server(activeUser, data, "GetGenders").then(res => {
+            if (res.data.error) {
+                alert(res.data.error);
+            } else {
+                setGenders(res.data);
+            }
+
+        }, err => {
+            //console.error(err);
+        })   ; 
+    
+}, [activeUser]);
+
+    
+let firstname = ""; 
+let lastname = ""; 
+let ar_firstname = ""; 
+let  ar_lastname = ""; 
+let phone = ""; 
+let addPhoneNumber = ""; 
+let phoneBelongsTo = ""; 
+let birthday = ""; 
+let tznumber = ""; 
+let userCity = ""; 
+let address = ""; 
+
+     //set user details from data base 
+     useEffect(() => {
+
+        if (userProfile){
+
+        setGenderSelected(userProfile.genderid); 
+    }
+    
+}, [userProfile]);
+
+
+if (userProfile){
+
+    firstname  = userProfile.firstname; 
+    lastname = userProfile.lastname; 
+
+    ar_firstname =   userProfile.firstnameinarabic; 
+    ar_lastname  =   userProfile.lastnameinarabic; 
+
+    phone = userProfile.phone; 
+    addPhoneNumber = userProfile.phone2; 
+    phoneBelongsTo = userProfile.phone2owner; 
+
+    birthday = userProfile.birthday; 
+    tznumber = userProfile.tznumber; 
+
+    let cityid = userProfile.cityid; 
+    if (cityid){
+        if (cities){
+            // cities.forEach(city => {
+            //     testArray.push({"value":city.cityid, "name":city.name});
+            // });
+            let resCity = cities.find(city => city.cityid === cityid );  
+            userCity =  resCity.name; 
+       }
+    }
+
+    address = userProfile.address; 
+
+   
+}
    
     if (cities){
         //console.log (cities); 
@@ -66,31 +144,47 @@ function UserDetailsTab({onUpdateUser}) {
 
 
     //define gender select
+  
+    // if (genders){
+    //     const  optionsGenderArray =  genders.map((genObj) => ({"value": genObj.genderid , "name": genObj.name  }) ); 
+    
+    //     console.log(optionsGenderArray); 
+    // }    
+
+    let optionsGenderArray = []; 
+    if (genders){
+        genders.forEach(objGen => {
+            optionsGenderArray.push ({ "value":objGen.genderid,  "name":objGen.name }); 
+        });
+        console.log (optionsGenderArray); 
+    }
+     
+
     let titleGender = "מגדר"; 
-    let optionsKeyGender = "מגדר"; 
     let optionsGender=[
-        {"value": "string:1", "name": "זכר"},
-        {"value": "string:2", "name": "נקבה"},
+        {"value": "1", "name": "זכר"},
+        {"value": "2", "name": "נקבה"},
     ]; 
 
-    function getPortalSelectedValue(selectedValue){
+
+
+    function getGenderValue(selectedValue){
         console.log(selectedValue); 
+        //update state of select 
+        setGenderSelected(selectedValue); 
+
     }
-    //
+   
 
 
      //define gender select
      let titleMigzar = "מיגזר"; 
      let optionsKeyMigzar = "מיגזר"; 
      let optionsMigzar=[
-         {"value": "string:1", "name": "מוסלמי"},
-         {"value": "string:2", "name": "בדואי"},
+         {"value": "1", "name": "מוסלמי"},
+         {"value": "2", "name": "בדואי"},
      ]; 
- 
-     function getPortalSelectedValue(selectedValue){
-         console.log(selectedValue); 
-     }
-     //
+  
 
 
 
@@ -104,6 +198,9 @@ function UserDetailsTab({onUpdateUser}) {
 
     function lnameChanged(lname){
         console.log(lname); 
+        userProfile.lname = lname; 
+        setUserProfile(userProfile); 
+        onUpdateUser(userProfile); 
     }
  
     function ar_fnameChanged(){
@@ -140,46 +237,8 @@ function UserDetailsTab({onUpdateUser}) {
     }
 
 
-    let firstname = ""; 
-    let lastname = ""; 
-    let ar_firstname = ""; 
-    let  ar_lastname = ""; 
-    let phone = ""; 
-    let addPhoneNumber = ""; 
-    let phoneBelongsTo = ""; 
-    let birthday = ""; 
-    let tznumber = ""; 
-    let userCity = ""; 
-    let address = ""; 
-
-    if (userProfile){
-        firstname  = userProfile.firstname; 
-        lastname = userProfile.lastname; 
-
-        ar_firstname =   userProfile.firstnameinarabic; 
-        ar_lastname  =   userProfile.lastnameinarabic; 
-
-        phone = userProfile.phone; 
-        addPhoneNumber = userProfile.phone2; 
-        phoneBelongsTo = userProfile.phone2owner; 
-
-        birthday = userProfile.birthday; 
-        tznumber = userProfile.tznumber; 
-
-        let cityid = userProfile.cityid; 
-        if (cityid){
-            if (cities){
-                // cities.forEach(city => {
-                //     testArray.push({"value":city.cityid, "name":city.name});
-                // });
-                let resCity = cities.find(city => city.cityid === cityid );  
-                userCity =  resCity.name; 
-           }
-        }
-
-        address = userProfile.address; 
-    }
-     
+    
+ 
 
     return (
         <div>
@@ -318,9 +377,9 @@ function UserDetailsTab({onUpdateUser}) {
                 <div className="col-6">
                     <PortalSelect
                         title={titleGender}
-                        optionsKey={optionsKeyGender}
                         options = {optionsGender}
-                        handleSelection= {getPortalSelectedValue}
+                        onChange = {getGenderValue}
+                        value = {genderSelected}
             ></PortalSelect>
                 </div>
             </div>
