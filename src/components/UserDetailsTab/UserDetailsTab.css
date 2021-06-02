@@ -1,0 +1,9 @@
+.row{
+    display: flex;
+    flex-direction: row;
+    width:100%; 
+}
+.col-6{
+    flex-direction: column;
+    width:50%; 
+}

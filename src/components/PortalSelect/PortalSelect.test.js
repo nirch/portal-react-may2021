@@ -5,23 +5,25 @@ import PortalSelect from './PortalSelect';
 it('check title', () => {
 
     let title = "בדיקה"; 
-    let optionsKey = "שם העיר"; 
+   
     let options=[
-        {"value": "TelAviv", "name": "תל אביב"},
-        {"value": "RamatGan", "name":"רמת גן"},
-        {"value": "Jerusalem", "name":"ירושלים"}
+        {"value": "1", "name": "תל אביב"},
+        {"value": "2", "name":"רמת גן"},
+        {"value": "3", "name":"ירושלים"}
     ]; 
+   
+    let selectedValue = 2;  //the value that the user chose or an existing  data base value
 
-    function getPortalSelectedValue(selectedValue){
+    function getSelectedValue(selectedValue){ //state handles the change of the value
         console.log(selectedValue); 
     }
 
     
      render(   <PortalSelect 
         title={title}
-        optionsKey={optionsKey}
         options = {options}
-        handleSelection= {getPortalSelectedValue}
+        onChange= {getSelectedValue}
+        value = {selectedValue}
     ></PortalSelect>); 
 
     const tTitle = screen.getByText(/בדיקה/); 

@@ -1,7 +1,5 @@
 import './HoursReportFooter.css'
-// import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { BsPlusCircleFill } from 'react-icons/bs';
-// import { HiPlusCircle } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom';
 import saveIcon from '../../assets/images/save.png';
 import unsaveIcon from '../../assets/images/noun_save_2429243.png';
@@ -14,14 +12,13 @@ import unbackIcon from '../../assets/images/noun_back_arrow_2690272.png';
 import React from 'react';
 
 
-const HoursReportFooter = ({ save, copy, add, del, back }) => {
-
+const HoursReportFooter = ({ save, copy, add, del, back, onSave }) => {
     const myStyle = {
         color: add ? '' : '#EEEEEE'
     }
 
-    // const history = useHistory();
-    // const handleOnClick = () => history.push('/hours-crud');
+    const history = useHistory();
+    const handleOnClick = () => history.push('/hours-crud');
 
     return (
         
@@ -30,12 +27,11 @@ const HoursReportFooter = ({ save, copy, add, del, back }) => {
                 {save
                     ? <img id='save-img' src={saveIcon} width="24" height="24.8"></img>
                     : <img id='save-img' src={unsaveIcon} width="24" height="24.8"></img>}
-
                 {copy
                     ? <img id='copy-img' src={copyIcon} width="22.8" height="24.9"></img>
                     : <img id='copy-img' src={uncopyIcon} width="22.8" height="24.9"></img>
                 }
-                <BsPlusCircleFill style={myStyle} />
+                <BsPlusCircleFill style={myStyle} onClick={handleOnClick}/>
                 {del
                     ? <img id='delete-img' src={deleteIcon} width="26.4" height="24.6"></img>
                     : <img id='delete-img' src={undeleteIcon} width="26.4" height="24.6"></img>
