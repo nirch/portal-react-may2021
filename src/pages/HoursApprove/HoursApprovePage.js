@@ -3,6 +3,7 @@ import './HoursApprovePage.css'
 import PortalNavbar from '../../components/navbar/PortalNavbar';
 import PortalDatePicker from './../../components/PortalDatePicker/PortalDatePicker';
 import ActiveUserContext from '../../shared/activeUserContext';
+import HoursReportFooter from '../../components/HoursReportFooter/HoursReportFooter';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { Accordion, Card } from 'react-bootstrap';
@@ -57,12 +58,16 @@ const HoursApprovePage = (props) => {
 
     return (
         <div className="p-hours-approve">
-            
             <PortalNavbar handleLogout={handleLogout} title="אישור שעות"/>
             <PortalDatePicker type={'Month'} onDateSelection={onDateSelection}/>
             <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={e => setActiveKey(e)}>
                 {cards ? cards : null}
             </Accordion>
+            <HoursReportFooter save={true}
+                copy={false}
+                add={true}
+                del={false}
+                back={true}/>
         </div>
     );
 }
