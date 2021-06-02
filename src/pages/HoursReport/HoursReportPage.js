@@ -64,7 +64,10 @@ const HoursReportPage = (props) => {
     return (
         <div>
             <div className="p-hours-report">
-                <PortalNavbar handleLogout={handleLogout} />
+                <PortalNavbar 
+                    handleLogout={handleLogout}
+                    title="דיווח שעות" 
+                    />
                 <div className="date-header">
                     <PortalDatePicker
                         type={"Month"}
