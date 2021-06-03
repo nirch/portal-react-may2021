@@ -5,7 +5,6 @@ import arrowUp from './../../assets/images/arrow_up.svg'
 import diff from './../../shared/utils';
 function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey}) {
   const employeeReportsSorted = employee.reports.sort((a,b)=> a.reportid - b.reportid);
-  console.log(employeeReportsSorted);
   let totalHours = 0;
   let approvalHours = 0;
   let disapprovalHours = 0;
@@ -28,19 +27,19 @@ function EmployHoursApproveHeader({ employee, index, openRow, setActiveKey}) {
         <div className="disapproval-hours">{disapprovalHours.toFixed(2)}</div>
         <div className="total-hours">{totalHours.toFixed(2)}</div>
       </div>
-      <CustomToggle className="arrow-container" eventKey={index} openRow={openRow}  setActiveKey={setActiveKey}/>
+      <CustomToggle className="arrow-container" eventKey={index} openRow={openRow}  setActiveKey={setActiveKey} disable={!employeeReportsSorted.length >0}/>
     </div>
   );
 }
 export default EmployHoursApproveHeader;
-function CustomToggle({ eventKey, openRow, setActiveKey }) {
+function CustomToggle({ eventKey, openRow, setActiveKey, disable }) {
  
   return (
     <>
-      {!openRow ?
-        <img className="arrow-approval-row" src={arrowDown} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
-        </img> :
-        <img className="arrow-approval-row" src={arrowUp} type="button" onClick={()=>setActiveKey("0")} alt="">
+      { !openRow ?
+        <img className={"arrow-approval-row " + disable } src={arrowDown} type="button" onClick={()=>setActiveKey(eventKey)} alt="">
+        </img> 
+        :<img className={"arrow-approval-row " + disable} src={arrowUp} type="button" onClick={()=>setActiveKey("0")} alt="">
         </img>}
     </>
 
