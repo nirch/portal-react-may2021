@@ -42,8 +42,14 @@
     .arrow-container{
         width: 15%;
     }
-    .arrow-approval-row{
+    .arrow-approval-row.false{
         padding-left: 13px;
         padding-right: 34.9px;
+    }
+    .arrow-approval-row.true{
+        padding-left: 13px;
+        padding-right: 34.9px;
+        pointer-events: none;
+        filter: blur(1px);
     }
 }
