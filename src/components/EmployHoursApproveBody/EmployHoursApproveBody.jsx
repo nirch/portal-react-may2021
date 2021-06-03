@@ -5,15 +5,15 @@ import diff from  './../../shared/utils';
 function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReportsStatus, selectAllReports, setSelectAllReports}) {
     // const [selectAllReports, setSelectAllReports] =  useState(false);
     const [checkedReports, setCheckedReports] = useState(employee.reports.map(report => false));
-   
+    const employeeReportsSorted = employee.reports.sort((a,b)=> a.reportid - b.reportid);
     const disapproveReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "-1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employeeReportsSorted[index].reportid], "approval" : "-1"})
     };
     const pendingReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "0"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employeeReportsSorted[index].reportid], "approval" : "0"})
     };
     const approveReport = (index) => {
-        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employee.reports[index].reportid], "approval" : "1"})
+        changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : [employeeReportsSorted[index].reportid], "approval" : "1"})
     };
 
     const handleChange = (e) =>  {
@@ -28,7 +28,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
             setCheckedReports(checkedReportsClone)
        }
     }
-    const reportsRows = employee.reports.length > 0 ? employee.reports.map((report, index) =>{
+    const reportsRows = employeeReportsSorted.length > 0 ? employeeReportsSorted.map((report, index) =>{
         let curseName = "-";
         if(report.courseid){
             let findRelevantCourses = employee.reportingPerimeter[report.projectid].courses.filter(course => course.courseid === report.courseid);
@@ -71,7 +71,7 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
                         <input type="checkbox" onChange={handleChange} value={index} className="checkbox-report" checked={checkedReports[index]}></input>
                     </div>
                     <div className="date-of-report">תאריך: {report.date}</div>
-                    <div className="sum-hours-report">סה"כ שעות: {diff(report.starthour,report.finishhour)}</div>
+                    <div className="sum-hours-report">סה"כ שעות: {diff(report.starthour,report.finishhour).toFixed(2)}</div>
                 </div>
                 <div className="down-row-report-data">
                     <div className="project-name-container">
@@ -92,16 +92,16 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
         )
     }) : null ;
     const selectAll = () => {
-        const checkedReportsClone = employee.reports.map(report => !selectAllReports);
+        const checkedReportsClone = employeeReportsSorted.map(report => !selectAllReports);
         setCheckedReports(checkedReportsClone);
         setSelectAllReports(!selectAllReports);
     };
 
     const approveSelected = () => {
         const ids = [];
-        for(let i=0; i < employee.reports.length; i++){
+        for(let i=0; i < employeeReportsSorted.length; i++){
             if(checkedReports[i] === true){
-                ids.push(employee.reports[i].reportid);
+                ids.push(employeeReportsSorted[i].reportid);
             }
         }
         changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "1"})
@@ -110,9 +110,9 @@ function EmployHoursApproveBody({ employee, employeeIndex, changeEmployeesReport
 
     const disapproveSelectd = () => {
         const ids = [];
-        for(let i=0; i < employee.reports.length; i++){
+        for(let i=0; i < employeeReportsSorted.length; i++){
             if(checkedReports[i] === true){
-                ids.push(employee.reports[i].reportid);
+                ids.push(employeeReportsSorted[i].reportid);
             }
         }
         changeEmployeesReportsStatus({"employeeIndex" : employeeIndex, "reportIds" : ids, "approval" : "-1"})

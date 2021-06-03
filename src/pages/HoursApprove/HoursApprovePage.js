@@ -19,17 +19,8 @@ const HoursApprovePage = (props) => {
     const [activeKey, setActiveKey] = useState(0);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectAllReports, setSelectAllReports] =  useState(false);
+    const [reload, setReload] = useState(true);
     const activeUser = useContext(ActiveUserContext);
-
-
-    // useEffect(() => {
-    //     const pathPre = process.env.PUBLIC_URL;
-    //     axios.get(pathPre.concat("/mokdata.json")).then( response => {
-    //         setEmployees(response.data);
-    //     }).catch(error => {
-    //         console.error(error);
-    //     });
-    // }, []);
 
      // Get AllReporter Data
      useEffect(() => {
@@ -38,7 +29,7 @@ const HoursApprovePage = (props) => {
                 const reportrData = { month: currentDate.getMonth()+1, year: currentDate.getFullYear() };
                 const reporters = await server(activeUser, reportrData, "GetAllReporters");
                 setEmployees(reporters.data);
-                setSelectAllReports(false);
+                setReload(false);
             } catch {
                 console.error("No reports")
             }
@@ -48,19 +39,16 @@ const HoursApprovePage = (props) => {
         if (activeUser) {
             fetchAllReporterData();
         }
-    }, [activeUser, currentDate]);
+    }, [activeUser, currentDate, reload]);
 
-    const changeEmployeesReportsStatus = (params) =>{
-        const cloneEmployees = [...employees];
-            for(const reportId of params.reportIds){
-                for(const report of cloneEmployees[params.employeeIndex].reports){
-                    if(report.reportid === reportId) report.approval = params.approval;
-                }
-            }
-        setEmployees(cloneEmployees);
+
+    async function changeEmployeesReportsStatus(params){
+        const ans = await server(activeUser,{status: params.approval,checkdate2: true,reportids :params.reportIds},"SetReportApproval");
+        setReload(true);
     }
-    
+
     const onDateSelection = (currentDate) => {
+        setSelectAllReports(false);
         setCurrentDate(currentDate);
     }
 
@@ -73,7 +61,7 @@ const HoursApprovePage = (props) => {
         return <Redirect to='/' />
     }
     const employeesFilterd = inputTextForSearch !== "" ? employees.filter(employee => (employee.firstname + " " + employee.lastname).includes(inputTextForSearch)) : employees;
-    const cards = employeesFilterd.length > 0 ? employeesFilterd.map((employee, index) => {
+    const cards = employeesFilterd && employeesFilterd.length > 0 ? employeesFilterd.map((employee, index) => {
         return (
             <Card className="employee-card" key={employee.userid}>
                 <Card.Header>
